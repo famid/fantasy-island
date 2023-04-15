@@ -1,0 +1,23 @@
+name: FTP Deploy
+
+on:
+  push:
+    branches:
+      - production # the branch you want to deploy to FTP
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: Debug FTP_SERVER secret
+        run: echo "The value of FTP_SERVER is ${{ secrets.FTP_SERVER }}"c
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FANTASY_FTP_SERVER }}
+          username: ${{ secrets.FANTASY_FTP_USERNAME }}
+          password: ${{ secrets.FANTASY_FTP_PASSWORD }}
