@@ -1,9 +1,16 @@
 
 import * as React from 'react'
 import { createRoot } from 'react-dom/client';
+import Home from './pages/Home';
+import Game from './pages/Game';
 
+window.React = React
 function App() {
-    return <div>wellcome to react seciton</div>;
+    return(
+        <>
+            <Home/>
+        </>
+    )
 }
 
 

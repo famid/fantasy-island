@@ -26,6 +26,8 @@ use Spatie\ArrayToXml\ArrayToXml;
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/game', [App\Http\Controllers\GameController::class, 'index'])->name('game');
+
 
 Route::middleware('auth')->prefix('/product')->as('product.')->group(function () {
     Route::get('/list', [ProductController::class, 'getList'])->name('list');
