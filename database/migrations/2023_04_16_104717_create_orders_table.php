@@ -19,7 +19,7 @@ return new class extends Migration
             $table->dateTime('purchase_date');
             $table->decimal('amount', 8, 2);
             $table->string('payment_type')->nullable();
-            $table->integer('game_plays_total');
+            $table->integer('remaining_game');
             $table->integer('quantity');
             $table->tinyInteger('payment_status')->default(PENDING_STATUS);
             $table->timestamps();
