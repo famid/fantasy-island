@@ -29,6 +29,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/game', [App\Http\Controllers\GameController::class, 'index'])->name('game');
 Route::get('/signup', [App\Http\Controllers\SignupController::class, 'index'])->name('signup');
 Route::get('/order', [App\Http\Controllers\OrderController::class, 'index'])->name('order');
+Route::get('/purchase-success', [App\Http\Controllers\PurchaseSuccessController::class, 'index'])->name('purchase-success');
 
 
 Route::middleware('auth')->prefix('/product')->as('product.')->group(function () {

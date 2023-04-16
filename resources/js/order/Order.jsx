@@ -6,6 +6,7 @@ import { useClickOutside } from "@mantine/hooks";
 import { BsCalendarDate } from "react-icons/bs";
 
 import { Select } from '@mantine/core';
+import notify from "./components/notify";
 
 
 const months = {
@@ -52,9 +53,15 @@ function Order() {
     const onSubmitOrder = (e) =>{
         e.preventDefault();
 
-        if(!date || noOfTickets < 1) return
+        if(!date || noOfTickets < 1){
+            notify('Please select date and tickets!')
+            return
+        }
+        notify('You are being redirected to purchase page!')
+        setTimeout(()=>{
+            setPurchasePage(true)
+        },2000)
 
-        setPurchasePage(true)
     }
 
     return (
