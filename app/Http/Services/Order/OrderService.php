@@ -94,7 +94,7 @@ class OrderService extends BaseService {
 
             return !$order->decrement('remaining_game') ?
                 $this->response()->error("remaining game is not updated") :
-                $this->response()->success("Remaining game is updated successfully");
+                $this->response($order)->success("Remaining game is updated successfully");
         } catch (Exception $e) {
             return $this->response()->error($e->getMessage());
         }

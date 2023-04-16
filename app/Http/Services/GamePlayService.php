@@ -45,7 +45,7 @@ class GamePlayService extends BaseService {
             if(!$updateRemainingGame['success']) throw new Exception($storeResponse['message']);
 
             DB::commit();
-            return $this->response()->success("Game statistics is saved successfully");
+            return $this->response($updateRemainingGame['data'])->success("Game statistics is saved successfully");
         } catch (Exception $e) {
 
             DB::rollBack();
