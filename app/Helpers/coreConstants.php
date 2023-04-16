@@ -19,3 +19,6 @@ const DEFAULT_SUBSCRIPTION_TIME = 12;
 
 const GAME_FAILED_STATUS = False;
 const GAME_SUCCESS_STATUS = True;
+
+const USER_ACTIVE = 1;
+const USER_INACTIVE = 0;

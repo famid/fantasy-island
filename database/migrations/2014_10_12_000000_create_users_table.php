@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone',25)->nullable();
             $table->integer('phone_verification_code')->nullable();
+            $table->timestamp('phone_verification_expiry')->nullable();
             $table->tinyInteger('is_phone_verified')->default(PENDING_STATUS);
-            $table->tinyInteger('status')->default(ACTIVE_STATUS);
+            $table->tinyInteger('status')->default(USER_INACTIVE);
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
