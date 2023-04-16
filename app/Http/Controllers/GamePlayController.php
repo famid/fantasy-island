@@ -20,6 +20,10 @@ class GamePlayController extends Controller
         $this->gamePlayService = $gamePlayService;
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function store(Request $request): JsonResponse {
         return response()->json($this->gamePlayService->gameStoreOperation($request));
     }

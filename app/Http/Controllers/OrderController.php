@@ -20,6 +20,10 @@ class OrderController extends Controller {
         $this->orderService = $orderService;
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function store(Request $request): JsonResponse {
         return response()->json($this->orderService->createOrder($request));
     }
