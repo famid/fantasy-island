@@ -5,6 +5,9 @@ import { DatePicker } from "@mantine/dates";
 import { useClickOutside } from "@mantine/hooks";
 import { BsCalendarDate } from "react-icons/bs";
 
+import { Select } from '@mantine/core';
+
+
 const months = {
     1: "January",
     2: "February",
@@ -21,14 +24,14 @@ const months = {
 };
 
 function Order() {
-    const [value, setValue] = useState(null);
     const [datePickerToggle, setDatePickerToggle] = useState(false);
     const ref = useClickOutside(() => setDatePickerToggle(false));
     const [noOfTickets, setNoOfTickets] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
     const [perTicketPrice, setPerTicketPrice] = useState(200);
     const [selectedDate, setSelectedDate] = useState(null);
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState(null);
+    const [purchasePage, setPurchasePage] = useState(false)
 
     useEffect(() => {
         setTotalPrice(() => {
@@ -46,14 +49,25 @@ function Order() {
         }
     }, [selectedDate]);
 
+    const onSubmitOrder = (e) =>{
+        e.preventDefault();
+
+        if(!date || noOfTickets < 1) return
+
+        setPurchasePage(true)
+    }
+
     return (
         <div className="container h-screen mx-auto py-8 px-6">
             <div className="max-w-md mx-auto h-full flex justify-center items-center flex-col  rounded-lg ">
                 <header className="mb-8 text-2xl md:text-3xl font-semibold text-center">
                     <h1 className="">Buy Tickets</h1>
                 </header>
-                <div className="py-4 px-6 bg-[#A5D7E8] rounded-lg md:w-[600px] w-[300px]">
-                    <form>
+
+                <div className="py-8 px-6 bg-[#A5D7E8] rounded-lg md:w-[600px] w-[300px]">
+                {
+                    !purchasePage && (
+                        <form>
                         <div className="mb-8 flex justify-center flex-col items-center">
                             <label
                                 htmlFor="name"
@@ -149,7 +163,7 @@ function Order() {
                                     >
                                         Total Price:
                                     </label>
-                                    <span className="block mb-2 text-xl font-semibold text-gray-900">
+                                    <span className="block mb-2 ml-1 text-xl font-semibold text-gray-900">
                                         {totalPrice} TK
                                     </span>
                                 </div>
@@ -158,6 +172,7 @@ function Order() {
 
                         <div className="mb-4">
                             <button
+                                onClick={onSubmitOrder}
                                 type="submit"
                                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none "
                             >
@@ -165,7 +180,42 @@ function Order() {
                             </button>
                         </div>
                     </form>
+                    )
+                }
+
+                    {
+                    purchasePage && (
+                        <div className="max-w-[400px] mx-auto">
+                            <div className="flex flex-col mt-4 mb-8" >
+                                <h2 className="my-3 text-2xl font-semibold">
+                                    You are purchasing  { noOfTickets} {noOfTickets < 2 ? 'ticket': 'tickets'} at the price of {totalPrice}
+                                </h2>
+
+                                <div>
+
+                                <Select
+                                    label="Please Select A Payment Method"
+                                    placeholder="Pick one"
+                                    data={[
+                                        { value: 'Nagad', label: 'Nagad' },
+                                        { value: 'Bikash', label: 'Bikash' },
+                                        { value: 'Rocket', label: 'Rocket' },
+                                    ]}
+                                    />
+                                </div>
+                            </div>
+                            <button
+                                type="submit"
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none "
+                            >
+                                Purchase
+                            </button>
+                        </div>
+                    )
+                }
                 </div>
+
+
             </div>
         </div>
     );
