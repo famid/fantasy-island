@@ -1,0 +1,180 @@
+<?php
+
+namespace {{ namespace }};
+
+
+use App\Http\Repositories\RepositoryClassName;
+use App\Http\Services\Boilerplate\BaseService;
+use Illuminate\Database\QueryException;
+use Yajra\DataTables\DataTables;
+use Exception;
+
+class {{ class }} extends BaseService {
+
+     /**
+     * @var RepositoryClassName
+     */
+    private $repositoryName;
+
+     /**
+     * {{ class }} constructor.
+     * @param RepositoryClassName $repositoryName
+     */
+    public function __construct(RepositoryClassName $repositoryName) {
+        $this->repositoryName = $repositoryName;
+    }
+    //=========================Template=================================//
+
+    public function functionName(): array {
+        try {
+            //Write code here
+
+            return $this->response()->error();
+        } catch (Exception $e) {
+
+            return $this->response()->error();
+        }
+    }
+    //=========================Template=================================//
+    /**
+     * @param $request
+     * @return array
+     */
+    public function createFeatureName($request): array {
+        try {
+            $createFeatureNameResponse = $this->repositoryName->create(
+                $this->preparedCreateFeatureNameData($request)
+            );
+
+            return !$createFeatureNameResponse ?
+                $this->response()->error() :
+                $this->response()->success('FeatureName is created successfully');
+        } catch(QueryException $e) {
+
+            return $this->response()->error();
+        }
+    }
+
+    /**
+     * @param object $request
+     * @return array
+     */
+    private function preparedCreateFeatureNameData(object $request): array {
+        return [
+            'test' => $request->test,
+            'test' => $request->test,
+            'test' => $request->test,
+            'test' => $request->test,
+            'test' => $request->test,
+            'test' => $request->test,
+            'test' => $request->test,
+            'test' => isset($request->test) ?? $request->test,
+        ];
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public function updateFeatureName($request): array {
+        try {
+            $updateFeatureNameResponse = $this->repositoryName->updateWhere(
+                ['id' => $request->featureName_id],
+                $this->preparedUpdateFeatureNameData($request)
+            );
+
+            return !$updateFeatureNameResponse ?
+                $this->response()->error() :
+                $this->response()->success('FeatureName is updated successfully');
+        } catch(QueryException $e) {
+
+            return $this->response()->error();
+        }
+    }
+
+    /**
+     * @param object $request
+     * @return array
+     */
+    private function preparedUpdateFeatureNameData (object $request): array {
+        return [
+            'test' => $request->test,
+            'test' => $request->test,
+            'test' => $request->test,
+            'test' => $request->test,
+            'test' => $request->test,
+            'test' => $request->test,
+            'test' => $request->test,
+            'test' => isset($request->test) ?? $request->test,
+        ];
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function deleteFeatureNameById($id): array {
+        try{
+            $deleteFeatureNameResponse = $this->repositoryName->deleteWhere(
+                ['id' => $id]
+            );
+
+            return $deleteFeatureNameResponse <= 0 ?
+                $this->response()->error() :
+                $this->response()->success('FeatureName is deleted successfully');
+        } catch(QueryException $e) {
+
+            return $this->response()->error();
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function getFeatureNameById (int $id): array {
+        try {
+            $featureName = $this->repositoryName->find($id);
+
+            return !isset($featureName) ?
+                $this->response()->error('No FeatureName is founded') :
+                $this->response($featureName)->success();
+        } catch (QueryException $e) {
+
+            return $this->response()->error();
+        }
+    }
+
+    /**
+     * @param int $testId
+     * @return array
+     */
+    public function getFeatureNamesByTestId (int $testId): array {
+        try {
+            $featureNames = $this->repositoryName->getData(['area_id' => $testId]);
+
+            return $featureNames->isEmpty() ?
+                $this->response()->error('No FeatureName is founded') :
+                $this->response($featureNames)->success();
+        } catch (QueryException $e) {
+
+            return $this->response()->error();
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllFeatureNames (): array {
+        try {
+            $allFeatureName = $this->repositoryName->getData();
+
+            return $allFeatureName->isEmpty() ?
+                $this->response()->error('No FeatureName is founded') :
+                $this->response($allFeatureName)->success();
+        } catch (QueryException $e) {
+
+            return $this->response()->error();
+        }
+    }
+}
