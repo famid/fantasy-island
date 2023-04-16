@@ -17,7 +17,7 @@ class Order extends Model
         'purchase_date',
         'amount',
         'payment_type',
-        'game_plays_total',
+        'remaining_game',
         'quantity',
         'payment_status',
     ];
