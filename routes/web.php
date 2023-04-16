@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GamePlayController;
 use App\Http\Controllers\NagadPaymentController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\WarehouseController;
@@ -30,6 +32,24 @@ Route::get('/game', [App\Http\Controllers\GameController::class, 'index'])->name
 Route::get('/signup', [App\Http\Controllers\SignupController::class, 'index'])->name('signup');
 Route::get('/order', [App\Http\Controllers\OrderController::class, 'index'])->name('order');
 Route::get('/purchase-success', [App\Http\Controllers\PurchaseSuccessController::class, 'index'])->name('purchase-success');
+
+
+//====================Start Fantasy Island ========================//
+use App\Http\Controllers\UserController;
+
+// Auth Route
+Route::post('register', [UserController::class, 'registration'])->name('user.register');
+Route::post('resend-otp', [UserController::class, 'resendOtp'])->name('user.resend_otp');
+Route::post('verify-otp', [UserController::class, 'verifyOtp'])->name('user.verify_otp');
+Route::post('login', [UserController::class, 'login'])->name('user.login');
+
+// Order Route
+Route::post('orders/create', [OrderController::class, 'store'])->name('orders.store');
+
+// Game Play Route
+Route::post('gameplays/create', [GamePlayController::class, 'store'])->name('gameplays.store');
+
+//========================End Fantasy Island==========================//
 
 
 Route::middleware('auth')->prefix('/product')->as('product.')->group(function () {

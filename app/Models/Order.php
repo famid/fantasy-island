@@ -5,17 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Warehouse extends Model
+class Order extends Model
 {
     use HasFactory;
 
     /**
-     * @var string[]
+     * @var array
      */
     protected $fillable = [
-        'name',
-        'code',
-        'status',
-        'owner'
+        'user_id',
+        'purchase_date',
+        'amount',
+        'payment_type',
+        'remaining_game',
+        'quantity',
+        'payment_status',
     ];
 }

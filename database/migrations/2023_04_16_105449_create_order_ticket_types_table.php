@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('warehouses', function (Blueprint $table) {
+        Schema::create('order_ticket_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('code');
-            $table->unsignedInteger('owner');
-            $table->boolean('status')->nullable();
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('ticket_type_id');
+            $table->integer('quantity');
             $table->timestamps();
+            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('ticket_type_id')->references('id')->on('ticket_types');
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('warehouses');
+        Schema::dropIfExists('order_ticket_types');
     }
 };
