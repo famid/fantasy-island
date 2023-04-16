@@ -4,6 +4,7 @@ import {GameContext} from "../../store/GameContext";
 import {useWindowSize} from "@react-hook/window-size";
 import BoardAction from "./BoardAction";
 import {BsPauseBtn, BsPlayCircle} from "react-icons/bs";
+import GameControls from "../controls/GameControls";
 
 /**
  * Renders the puzzle board containing all the puzzle pieces
@@ -47,15 +48,21 @@ const GameBoard = () => {
         // calculate the optimal cellSize for the individual puzzle pieces
         const maxCellX = Math.floor(maxBoardX / (size?.x || 1));
         const maxCellY = Math.floor(maxBoardY / (size?.y || 1));
-        setCellSize(Math.min(maxCellX, maxCellY));
+        if(!isSmScreen) {
+            setCellSize(Math.min(maxCellX - 100, maxCellY - 100));
+        } else {
+            setCellSize(Math.min(maxCellX, maxCellY));
+
+        }
     }, [size, windowWidth, windowHeight])
 
     if ((!size) || (!board)) return null;
 
     return (
         <div
-            className="flex items-center justify-center p-0 bg-[#ccc5] rounded"
+            className="flex items-center  flex-col  p-0 rounded"
         >
+
             <div
                 className="relative bg-[#ddd6] overflow-hidden"
                 style={{

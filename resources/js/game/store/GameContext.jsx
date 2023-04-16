@@ -40,7 +40,7 @@ export const GameContext = createContext(/** @type {GameContextType} */ {
 export const GameContextProvider = ({children}) => {
     const [size, setSize] = useState(
         /** @type {{x: number, y: number}} - Number of columns and rows of the puzzle*/
-        {x: 4, y: 5}
+        {x: 3, y: 3}
     );
 
     const [imagePicked, setImagePicked] = useState(

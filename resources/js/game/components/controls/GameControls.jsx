@@ -17,7 +17,7 @@ const GameControls = () => {
     /**
      * @type {import('../../store/GameContext').GameContextType}
      */
-    const {game, start, togglePause, pickNewImage} = useContext(GameContext);
+    const {game, start, togglePause, pickNewImage,puzzleImage} = useContext(GameContext);
 
     /**
      * @type {NavigateFunction} navigate instance to go to the "change size" screen
@@ -25,7 +25,7 @@ const GameControls = () => {
     // const navigate = useNavigate();
 
     return (
-        <div className="flex flex-col justify-between gap-2">
+        <div className="flex flex-col justify-center  items-center gap-2">
             <div className="flex flex-row md:flex-col gap-4 justify-between">
                 <GameInfo label="Moves" icon={<TbClick />}>{game?.moves?.length ?? 0}</GameInfo>
                 <GameClock />
@@ -34,19 +34,22 @@ const GameControls = () => {
                 )}
             </div>
             <div className="flex flex-row md:flex-col gap-2">
-                {(!game?.startTime) && [
+            <div className="max-w-[200px] ">
+                    <img className="max-w-[200px]  height-[200px] mt-4" src={puzzleImage} alt="" />
+                </div>
+                {/* {(!game?.startTime) && [
                     <ControlButton onClick={start} key="startGame">Start Game</ControlButton>,
                     <ControlButton onClick={pickNewImage} key="changeImage">Change Image</ControlButton>
-                ]}
-                {(!!game?.startTime) && (!game?.gameWon) && (
+                ]} */}
+                {/* {(!!game?.startTime) && (!game?.gameWon) && (
                     <ControlButton onClick={togglePause}>
                         {game.pauseTime ? 'Resume' : 'Pause'}
                     </ControlButton>
-                )}
-                {(!!game?.startTime) && (
+                )} */}
+                {/* {(!!game?.startTime) && (
                     <ControlButton onClick={pickNewImage}>New Game</ControlButton>
-                )}
-                <ControlButton>Select Size</ControlButton>
+                )} */}
+                {/* <ControlButton>Select Size</ControlButton> */}
             </div>
         </div>
     );

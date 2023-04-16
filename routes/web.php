@@ -27,6 +27,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/game', [App\Http\Controllers\GameController::class, 'index'])->name('game');
+Route::get('/signup', [App\Http\Controllers\SignupController::class, 'index'])->name('signup');
+Route::get('/order', [App\Http\Controllers\OrderController::class, 'index'])->name('order');
 
 
 Route::middleware('auth')->prefix('/product')->as('product.')->group(function () {

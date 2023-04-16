@@ -18,7 +18,7 @@ const PORTRAIT = 'portrait';
  * @type {{sizeOption: string, name: string}[]}
  */
 const sizeList = [
-    {name: 'Easy', sizeOption: '3x4'},
+    {name: 'Easy', sizeOption: '3x3'},
     {name: 'Moderate', sizeOption: '4x5'},
     {name: 'Intermediate', sizeOption: '5x7'},
     {name: 'Advanced', sizeOption: '7x9'},
