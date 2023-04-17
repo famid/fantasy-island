@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('ticket_type_id')->references('id')->on('ticket_types')->onDelete('cascade');
+//            $table->foreign('ticket_type_id')->references('id')->on('ticket_types')->onDelete('cascade');
         });
     }
 
