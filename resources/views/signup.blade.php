@@ -3,7 +3,7 @@
 @section('content')
 <div class="container h-screen mx-auto py-8 px-6">
   {{-- @dd(Auth::user())) --}}
-  <div id='signup' data-authUser="{{json_encode(Auth::user())}}" data-csrf_token="{{ csrf_token() }}">
+  <div id='signup' data-authUser="{{Auth::user()}}" data-csrf_token="{{ csrf_token() }}">
   </div>
 </div>
 

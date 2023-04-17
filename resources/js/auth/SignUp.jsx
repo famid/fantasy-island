@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import notify from './components/notify';
+import {redirect } from "react-router-dom";
 
 function SignUp({csrf}) {
     const [name, setName] = useState("");
@@ -8,6 +10,12 @@ function SignUp({csrf}) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [buttonValue, setButtonValue] = useState("SEND OTP");
+    const [isOtpSent, setIsOtpSentState] = useState(false)
+
+
+    useEffect(()=>{
+        if(isOtpSent) setButtonValue('RESEND OTP')
+    },[isOtpSent])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -28,9 +36,13 @@ function SignUp({csrf}) {
             console.log(response);
 
             if (response.ok) {
+                setIsOtpSentState(true);
+
                 // setButtonValue('OTP SENT')
                 // Handle successful signup
+                notify('OTP sent to your phone')
             } else {
+                setIsOtpSentState(false)
                 // setButtonValue('OTP WASN"T SENT')
                 const data = await response.json();
                 setError(data.message);
@@ -59,6 +71,11 @@ function SignUp({csrf}) {
             console.log(response);
 
             if (response.ok) {
+                notify('Phone verification successful')
+                setTimeout(()=>{
+                    window.location.href='http://127.0.0.1:8000/order'
+                },1500)
+
                 // setButtonValue('OTP SENT')
                 // Handle successful signup
             } else {
@@ -165,10 +182,11 @@ function SignUp({csrf}) {
                     <div className="mb-4">
                         <button
                             onClick={verifyOtp}
+                            disabled={!isOtpSent}
                             type="submit"
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none "
                         >
-                            Submit
+                            Verify OTP
                         </button>
                     </div>
                 </form>
