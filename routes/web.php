@@ -48,6 +48,9 @@ Route::post('login', [UserController::class, 'login'])->name('user.login');
 
 // Order Route
 Route::post('orders/create', [OrderController::class, 'store'])->name('orders.store');
+Route::get('/orders/{order_id}/make-payment', [PaymentController::class, 'makePayment'])->name('orders.make_payment');
+
+
 
 // Game Play Route
 Route::post('gameplays/create', [GamePlayController::class, 'store'])->name('gameplays.store');
@@ -85,11 +88,10 @@ Route::middleware('auth')->prefix('/warehouse')->as('warehouse.')->group(functio
 
 //Route::post('sslcommerz/success','PaymentController@success')->name('payment.success');
 //Route::post('sslcommerz/success','PaymentController@success')->name('payment.success');
-Route::post('sslcommerz/failure','PaymentController@failure')->name('payment.failure');
-Route::post('sslcommerz/cancel','PaymentController@cancel')->name('sslc.cancel');
-Route::post('sslcommerz/ipn','PaymentController@ipn')->name('payment.ipn');
-
 Route::post('sslcommerz/success', [PaymentController::class, 'success'])->name('payment.success');
+Route::post('sslcommerz/failure', [PaymentController::class, 'failure'])->name('payment.failure');
+Route::post('sslcommerz/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+Route::post('sslcommerz/ipn', [PaymentController::class, 'ipn'])->name('payment.ipn');
 
 Route::get('/nagad/pay', [NagadPaymentController::class, 'pay'])->name('nagad.pay');
 Route::get('nagad/callback', [NagadPaymentController::class, 'callback'])->name('nagad.callback');
