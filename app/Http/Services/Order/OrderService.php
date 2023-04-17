@@ -25,7 +25,7 @@ class OrderService extends BaseService {
     }
 
     /**
-     * @param $request
+     * @param object $request
      * @return array
      */
     public function createOrder(object $request) :array {
@@ -36,7 +36,7 @@ class OrderService extends BaseService {
 
             return !$createOrderResponse ?
                 $this->response()->error() :
-                $this->response()->success('Order is created successfully');
+                $this->response($createOrderResponse)->success('Order is created successfully');
         } catch(QueryException $e) {
 
             return $this->response()->error($e->getMessage());

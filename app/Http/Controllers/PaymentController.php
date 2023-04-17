@@ -2,43 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use DGvai\SSLCommerz\SSLCommerz;
+use App\Http\Services\PaymentService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    public function order()
-    {
+    /**
+     * @var PaymentService
+     */
+    private PaymentService $paymentService;
 
-        //  DO YOU ORDER SAVING PROCESS TO DB OR ANYTHING
-
-
-        $sslc = new SSLCommerz();
-        $sslc->amount(20)
-            ->trxid('DEMOTRX123')
-            ->product('Demo Product Name')
-            ->customer('Customer Name','custemail@email.com');
-        return $sslc->make_payment(true);
-
-        /**
-         *
-         *  USE:  $sslc->make_payment(true) FOR CHECKOUT INTEGRATION
-         *
-         * */
+    /**
+     * @param PaymentService $paymentService
+     */
+    public function __construct(PaymentService $paymentService) {
+        $this->paymentService = $paymentService;
     }
 
-    public function success(Request $request): void
-    {
-        dd($request->all());
-        $validate = SSLCommerz::validate_payment($request);
-        if($validate)
-        {
-            $bankID = $request->bank_tran_id;   //  KEEP THIS bank_tran_id FOR REFUNDING ISSUE
+    /**
+     * @param $order_id
+     * @return JsonResponse
+     */
+    public function makePayment($order_id): JsonResponse {
+        return response()->json($this->paymentService->makePayment($order_id));
+    }
 
-            //  Do the rest database saving works
-            //  take a look at dd($request->all()) to see what you need
+    /**
+     * @param Request $request
+     * @return Application|View|Factory
+     */
+    public function success(Request $request): Application|View|Factory {
+        $orderPaymentSuccessResponse = $this->paymentService->success($request);
 
+        if($orderPaymentSuccessResponse['success']) {
+            return view('purchase-success');
         }
+
+        return view('purchase-failed');
     }
 
     public function failure(Request $request)
