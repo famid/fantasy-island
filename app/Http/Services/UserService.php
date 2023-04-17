@@ -77,7 +77,7 @@ class UserService extends BaseService {
             return $this->response()->success("Otp is send successfully");
         } catch (Exception $e) {
             Log::error("Failed to send OTP to {$user->phone}: " . $e->getMessage());
-
+            dd($e->getMessage());
             return $this->response()->error();
         }
     }
@@ -105,7 +105,7 @@ class UserService extends BaseService {
 
             return !$createUserResponse ?
                 $this->response()->error() :
-                $this->response()->success('User is created successfully');
+                $this->response($createUserResponse)->success('User is created successfully');
         } catch(QueryException $e) {
 
             return $this->response()->error();
@@ -197,6 +197,6 @@ class UserService extends BaseService {
      * @return bool
      */
     private function verifyOtpCode($otp, $otpCode): bool {
-        return $otp === $otpCode;
+        return $otp == $otpCode;
     }
 }
