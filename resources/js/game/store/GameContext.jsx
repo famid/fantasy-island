@@ -88,6 +88,7 @@ export const GameContextProvider = ({children}) => {
     const start = useCallback(() => {
         if (!game) return;
         game.start();
+        console.log('game started')
         setBoard(game.getBoard());
     }, [game]);
 
