@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('game_plays', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('order_id')->nullable();
             $table->boolean('is_finished')->default(GAME_FAILED_STATUS);
             $table->integer('playtime')->default(-1);
             $table->timestamps();

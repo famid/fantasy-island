@@ -79,7 +79,7 @@ class GamePlayService extends BaseService {
     private function preparedCreateGamePlayData(object $request): array {
         return [
             'user_id' => $request->user_id,
-            'order_id' => $request->order_id,
+//            'order_id' => $request->order_id,
             'is_finished' => $request->is_finished,
             'playtime' => $request->playtime,
         ];
