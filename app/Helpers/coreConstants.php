@@ -22,3 +22,4 @@ const GAME_SUCCESS_STATUS = True;
 
 const USER_ACTIVE = 1;
 const USER_INACTIVE = 0;
+const SMS_SENDER_ID = "BulkSms";

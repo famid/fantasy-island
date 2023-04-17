@@ -45,7 +45,7 @@ class UserService extends BaseService {
 
             $otp = rand(1000, 9999);
 
-            return $this->sendOtp($user, $otp);
+            return $this->sendOtp($user->phone, $otp);
         } catch (Exception $e) {
 
             return $this->response()->error($e->getMessage());
@@ -71,14 +71,15 @@ class UserService extends BaseService {
             if(!$updateOtpStoreResponse) return $this->response()->error("Otp does not updated successfully");
 
             //Send Opt via any service
+            $otpResponse = sendOTP($user->phone, $otp, SMS_SENDER_ID);
 
-            Log::info("OTP sent to {$user->phone} (SID: {})");
+            Log::info("OTP sent to {$user->phone} (SID: {$otpResponse})");
 
             return $this->response()->success("Otp is send successfully");
         } catch (Exception $e) {
+
             Log::error("Failed to send OTP to {$user->phone}: " . $e->getMessage());
-            dd($e->getMessage());
-            return $this->response()->error();
+            return $this->response()->error($e->getMessage());
         }
     }
 
