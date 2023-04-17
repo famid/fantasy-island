@@ -1,7 +1,8 @@
-import {useContext, useEffect, useState} from "react";
-import {GameContext} from "../../store/GameContext";
-import {IoMdTime} from "react-icons/io";
+import { useContext, useEffect, useState } from "react";
+import { GameContext } from "../../store/GameContext";
+import { IoMdTime } from "react-icons/io";
 import GameInfo from "./GameInfo";
+import Countdown from "react-countdown";
 
 /**
  * Renders a clock showing the time elapsed
@@ -12,45 +13,51 @@ const GameClock = () => {
     /**
      * @type {import('../../store/GameContext').GameContextType}
      */
-    const {game} = useContext(GameContext);
+    const { game } = useContext(GameContext);
 
     /**
      * clock is the time elapsed in minutes:seconds
      */
-    const [clock, setClock] = useState(/** @type {string} */ '00:00');
+    const [clock, setClock] = useState(/** @type {string} */ "00:00");
 
-    useEffect(() => {
-        /**
-         * read the elapsed time from the game object and update the clock state value
-         * @returns {null}
-         */
-        const updateClock = () => {
-            if ((!game) || (!game.startTime)) {
-                setClock('00:00');
-                return null;
-            }
-            const elapsed = game.getElapsedTime();
-            // convert from seconds to "mm:ss" string
-            setClock(
-                Math.floor(elapsed/60).toString().padStart(2, '0')
-                + ':' +
-                (elapsed % 60).toString().padStart(2, '0')
+
+
+    const Completionist = () => <span>Time finished!</span>;
+
+    // Renderer callback with condition
+    const renderer = ({ hours, minutes, seconds, milliseconds, completed }) => {
+        if (completed) {
+            // Render a completed state
+            return <Completionist />;
+        } else {
+            // Render a countdown
+            return (
+                <span>
+                    {minutes}:{seconds}
+                </span>
             );
         }
-        // if the game is not being played, only update the clock once
-        if ((!game) || (!game?.startTime) || game.pauseTime || game.gameWon) {
-            updateClock();
-            return;
-        }
+    };
 
-        // while the game is played, update the clock each second
-        let interval = setInterval(updateClock, 1000);
-        return () => clearInterval(interval);
-    }, [game, game?.startTime, game?.pauseTime, game?.gameWon]);
+    const countDownStartHandler = () => {
+        console.log('started')
+    }
 
+    const countDownCompleteHandler = () => {
+        console.log('finished')
+    }
     return (
-        <GameInfo label="Time" icon={<IoMdTime />}>{clock}</GameInfo>
+        <GameInfo label="Time" icon={<IoMdTime />}>
+            <Countdown
+                intervalDelay={100}
+                precision={3}
+                onStart={countDownStartHandler}
+                onComplete={countDownCompleteHandler}
+                date={Date.now() + 5 *60* 1000}
+                renderer={renderer}
+            />
+        </GameInfo>
     );
-}
+};
 
 export default GameClock;
