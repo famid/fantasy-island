@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GamePlayController;
 use App\Http\Controllers\NagadPaymentController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\WarehouseController;
@@ -44,6 +45,11 @@ Route::post('orders/create', [OrderController::class, 'store'])->name('orders.st
 // Game Play Route
 Route::post('gameplays/create', [GamePlayController::class, 'store'])->name('gameplays.store');
 
+Route::get('test', function (\App\Http\Controllers\PaymentController $payment) {
+    $data = $payment->order();
+    dd((json_decode($data, True)));
+});
+
 //========================End Fantasy Island==========================//
 
 
@@ -69,6 +75,14 @@ Route::middleware('auth')->prefix('/warehouse')->as('warehouse.')->group(functio
     Route::get('/create', [WarehouseController::class, 'create'])->name('create');
     Route::post('/store', [WarehouseController::class, 'store'])->name('store');
 });
+
+//Route::post('sslcommerz/success','PaymentController@success')->name('payment.success');
+//Route::post('sslcommerz/success','PaymentController@success')->name('payment.success');
+Route::post('sslcommerz/failure','PaymentController@failure')->name('payment.failure');
+Route::post('sslcommerz/cancel','PaymentController@cancel')->name('sslc.cancel');
+Route::post('sslcommerz/ipn','PaymentController@ipn')->name('payment.ipn');
+
+Route::post('sslcommerz/success', [PaymentController::class, 'success'])->name('payment.success');
 
 Route::get('/nagad/pay', [NagadPaymentController::class, 'pay'])->name('nagad.pay');
 Route::get('nagad/callback', [NagadPaymentController::class, 'callback'])->name('nagad.callback');
