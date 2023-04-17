@@ -91,10 +91,10 @@ class PaymentService extends BaseService {
             DB::beginTransaction();
             $updateOrderStatus = $this->orderService->updatePaymentStatus($request->value_a);
 
-            if(!$updateOrderStatus) throw new Exception("Order payment status is not updated");
+            if(!$updateOrderStatus['success']) throw new Exception("Order payment status is not updated");
 
-            $createTicketResponse = $this->ticketService->insertTickets($request->value_a);
-            if(!$createTicketResponse['success']) throw new Exception("Order payment status is not updated");
+            $createTicketResponse = $this->ticketService->insertTickets($updateOrderStatus['data']);
+            if(!$createTicketResponse['success']) throw new Exception($createTicketResponse['message']);
 
             DB::commit();
             return $this->response()->success("Tickets are saved successfully");

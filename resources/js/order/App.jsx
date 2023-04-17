@@ -4,8 +4,14 @@ import Order from "./Order";
 window.React = React
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { redirect } from "react-router-dom";
+
 function Main({authUser, csrfToken}) {
-    console.log(authUser, csrfToken)
+
+    if(!authUser){
+      window.location.href='http://127.0.0.1:8000/signup'
+      return
+    }
     return <> <Order data={{authUser, csrfToken}}/><ToastContainer /></>
 }
 
