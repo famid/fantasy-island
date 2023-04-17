@@ -18,7 +18,7 @@ export default function Hero({
 
           {/* Buttons */}
           <div className="mt-12 flex flex-wrap justify-center items-center gap-6 md:mt-20 md:gap-6">
-            <a href="#"               className="rounded-full bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-900">
+            <a href="/order"               className="rounded-full bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-900">
                 Buy Ticket
             </a>
             <a

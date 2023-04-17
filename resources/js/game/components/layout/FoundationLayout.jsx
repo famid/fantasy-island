@@ -7,7 +7,7 @@
  */
 const FoundationLayout = ({children}) => {
     return (
-        <div className=" bg-cover bg-[#E5E5CB] bg-center">
+        <div className=" bg-cover bg-[#fff] bg-center">
             <div
                 className="  min-h-screen flex items-center justify-center"
             >

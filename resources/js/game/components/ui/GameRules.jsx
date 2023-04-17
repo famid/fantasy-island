@@ -2,7 +2,7 @@ import React from "react";
 
 function GameRules() {
     return (
-        <article className="w-full flex items-center">
+        <article className="max-w-[300px] flex items-center">
             <div>
             <h1 className="text-2xl font-bold tracking-wide leading-[60px] text-indigo-900 ">Rules Of The Game!</h1>
             <ul class="mb-8 space-y-4 text-left text-indigo-800 dark:text-gray-400">
