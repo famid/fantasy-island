@@ -53,7 +53,8 @@ class TicketService extends BaseService {
             $unique_code = $this->generateUniqueCode();
             $payload[] = [
                 'order_id' => $order->id,
-                'unique_code' => $unique_code
+                'unique_code' => $unique_code,
+                'user_id' => $order->user_id
             ];
         }
 

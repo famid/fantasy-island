@@ -54,7 +54,7 @@ class OrderService extends BaseService {
             'amount' => $request->amount,
             'remaining_game' => $request->quantity,
             'quantity' => $request->quantity,
-            'payment_status' => ACTIVE_STATUS,
+            // 'payment_status' => ACTIVE_STATUS,
         ];
     }
 
@@ -76,7 +76,7 @@ class OrderService extends BaseService {
 
             return !$updatePaymentStatus ?
                 $this->response()->error("Order payment status is not updated") :
-                $this->response()->success("Order payment status is updated successfully");
+                $this->response($order)->success("Order payment status is updated successfully");
         } catch (Exception $e) {
 
             return $this->response()->error($e->getMessage());
