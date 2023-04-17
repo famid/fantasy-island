@@ -44,8 +44,7 @@ class UserService extends BaseService {
             if($this->userIsAlreadyVerified($user)) return $this->response()->error("User is already verified");
 
             $otp = rand(1000, 9999);
-
-            return $this->sendOtp($user->phone, $otp);
+            return $this->sendOtp($user, $otp);
         } catch (Exception $e) {
 
             return $this->response()->error($e->getMessage());
@@ -71,9 +70,9 @@ class UserService extends BaseService {
             if(!$updateOtpStoreResponse) return $this->response()->error("Otp does not updated successfully");
 
             //Send Opt via any service
-            $otpResponse = sendOTP($user->phone, $otp, SMS_SENDER_ID);
+            $otpResponse = sendOTP ($user->phone, $otp, SMS_SENDER_ID);
 
-            Log::info("OTP sent to {$user->phone} (SID: {$otpResponse})");
+            Log::info("OTP sent to {$user->phone} (SID: {})");
 
             return $this->response()->success("Otp is send successfully");
         } catch (Exception $e) {

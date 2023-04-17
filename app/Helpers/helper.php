@@ -43,10 +43,11 @@ function sendSms(string $numbers, string $messageBody, string $senderId): array 
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         $response = curl_exec($ch);
         $decodedValue = json_decode($response, true);
-        dd($response, json_decode($response, true));
+
         if (array_key_exists('dlrRef', $decodedValue)) {
             return ['success' => True, 'data' => null, 'message' => "Message is sent successfully!!"];
         }
+
         return ['success' => False, 'data' => null, 'message' => "Message is sent successfully!!"];
     } catch (Exception $e) {
 
