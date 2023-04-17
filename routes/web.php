@@ -22,13 +22,20 @@ use Spatie\ArrayToXml\ArrayToXml;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+// Route::get('/', function () {
+//     return redirect()->route('login');
+// });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/game', [App\Http\Controllers\GameController::class, 'index'])->name('game');
+Route::get('/signup', [App\Http\Controllers\SignupController::class, 'index'])->name('signup');
+Route::get('/order', function () {
+    return view('order');
+});
+Route::get('/purchase-success', [App\Http\Controllers\PurchaseSuccessController::class, 'index'])->name('purchase-success');
+
 
 //====================Start Fantasy Island ========================//
 use App\Http\Controllers\UserController;

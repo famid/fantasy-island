@@ -6,9 +6,13 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/sass/app.scss',
-                'resources/js/app.js',
+                'resources/js/application/App.js',
+                'resources/js/order/App.js',
             ],
             refresh: true,
-        }),
+        })
     ],
 });
+
+
+
