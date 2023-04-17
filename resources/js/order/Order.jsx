@@ -72,6 +72,8 @@ function Order({ data }) {
 
                 const result = await response.json();
                 setOrder(result.data);
+                localStorage.setItem('ticket_purchase_order_id', result.data.id);
+
                 setTimeout(() => {
                     setPurchasePage(true);
                 }, 500);

@@ -9,7 +9,7 @@ import { redirect } from "react-router-dom";
 function Main({authUser, csrfToken}) {
 
     if(!authUser){
-      window.location.href='http://127.0.0.1:8000/signup'
+      window.location.href='http://127.0.0.1:8000/signin'
       return
     }
     return <> <Order data={{authUser, csrfToken}}/><ToastContainer /></>

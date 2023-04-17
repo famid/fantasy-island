@@ -1,15 +1,25 @@
 import React from "react";
-import SignUp from "./SignUp";
+
 import { createRoot } from "react-dom/client";
 window.React = React
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-function Main({csrf,authUser}) {
+import SignIn from "./SignIn";
+import SignUp from './SignUp';
+
+function Main({csrf,authUser, page}) {
 
     return (
       <>
       <ToastContainer/>
-      <SignUp csrf={csrf}/>
+      {
+        page === 'signin' && <SignIn  csrf={csrf}/>
+      }
+       {
+        page === 'signup' && <SignUp csrf={csrf}/>
+      }
+
+
       </>
 
     );
@@ -17,10 +27,11 @@ function Main({csrf,authUser}) {
 
 export default Main;
 
-if (document.getElementById("signup")) {
-  const element = document.getElementById("signup")
+if (document.getElementById("auth")) {
+  const element = document.getElementById("auth")
   const root = createRoot(element);
   let csrfToken =  element.dataset.csrf_token;
   let authUser =  element.dataset.authuser;
-  root.render(<Main csrf={csrfToken} authUser={authUser}/>);
+  let page =  element.dataset.page;
+  root.render(<Main page={page} csrf={csrfToken} authUser={authUser}/>);
 }
