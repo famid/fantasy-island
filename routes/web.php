@@ -90,7 +90,7 @@ Route::middleware('auth')->prefix('/warehouse')->as('warehouse.')->group(functio
 //Route::post('sslcommerz/success','PaymentController@success')->name('payment.success');
 Route::post('sslcommerz/success', [PaymentController::class, 'success'])->name('payment.success');
 Route::post('sslcommerz/failure', [PaymentController::class, 'failure'])->name('payment.failure');
-Route::post('sslcommerz/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
+Route::post('sslcommerz/cancel', [PaymentController::class, 'cancel'])->name('sslc.cancel');
 Route::post('sslcommerz/ipn', [PaymentController::class, 'ipn'])->name('payment.ipn');
 
 Route::get('/nagad/pay', [NagadPaymentController::class, 'pay'])->name('nagad.pay');

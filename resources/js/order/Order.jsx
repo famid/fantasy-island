@@ -74,7 +74,7 @@ function Order({ data }) {
                 setOrder(result.data);
                 setTimeout(() => {
                     setPurchasePage(true);
-                }, 2000);
+                }, 500);
 
                 // notify('OTP sent to your phone')
             } else {
@@ -89,7 +89,10 @@ function Order({ data }) {
     const purchaseHandler = async (e) => {
         try {
             const response = await fetch(`/orders/${order?.id}/make-payment`);
-            console.log(response);
+            const result  = await response.json();
+
+            window.location.href  = result.data.data
+
             if (response.ok) {
             } else {
             }
