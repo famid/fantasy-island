@@ -7,6 +7,7 @@ use App\Http\Repositories\OrderRepository;
 use App\Http\Services\Boilerplate\BaseService;
 use Exception;
 use Illuminate\Database\QueryException;
+use Carbon\Carbon;
 
 class OrderService extends BaseService {
 
@@ -29,7 +30,7 @@ class OrderService extends BaseService {
      */
     public function createOrder(object $request) :array {
         try {
-            $createOrderResponse = $this->repository->create(
+            $createOrderResponse = $this->orderRepository->create(
                 $this->preparedCreateOrderData($request)
             );
 
@@ -49,9 +50,9 @@ class OrderService extends BaseService {
     private function preparedCreateOrderData (object $request) :array {
         return [
             'user_id' => $request->user_id,
-            'purchase_date' => $request->purchase_date,
+            'purchase_date' => Carbon::parse($request->purchase_date),
             'amount' => $request->amount,
-            'game_plays_total' => $request->quantity,
+            'remaining_game' => $request->quantity,
             'quantity' => $request->quantity,
             'payment_status' => ACTIVE_STATUS,
         ];

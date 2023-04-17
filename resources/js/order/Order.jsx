@@ -24,7 +24,7 @@ const months = {
     12: "December",
 };
 
-function Order() {
+function Order({data}) {
     const [datePickerToggle, setDatePickerToggle] = useState(false);
     const ref = useClickOutside(() => setDatePickerToggle(false));
     const [noOfTickets, setNoOfTickets] = useState(0);
@@ -33,6 +33,56 @@ function Order() {
     const [selectedDate, setSelectedDate] = useState(null);
     const [date, setDate] = useState(null);
     const [purchasePage, setPurchasePage] = useState(false)
+    const [loading, setLoading] = useState()
+
+    const {authUser, csrfToken} = data
+    const user = JSON.parse(authUser)
+
+    const handleOrderSubmit = async (event) => {
+        event.preventDefault();
+
+        setLoading(true);
+
+        if(!date || noOfTickets < 1){
+            notify('Please select date and tickets!')
+            return
+        }
+
+
+        try {
+            console.log(user.id)
+            const response = await fetch("/orders/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                body: JSON.stringify({ quantity:noOfTickets, amount:totalPrice, purchase_date: selectedDate, user_id:user.id}),
+            });
+
+            console.log(response);
+
+            if (response.ok) {
+
+                // notify('You are being redirected to purchase page!')
+                setTimeout(()=>{
+                    setPurchasePage(true)
+                },2000)
+
+
+               // notify('OTP sent to your phone')
+            } else {
+                setIsOtpSentState(false)
+                // setButtonValue('OTP WASN"T SENT')
+                // const data = await response.json();
+                // setError(data.message);
+            }
+        } catch (error) {
+            setError("Something went wrong. Please try again later.");
+        }
+
+        setLoading(false);
+    };
 
     useEffect(() => {
         setTotalPrice(() => {
@@ -51,16 +101,7 @@ function Order() {
     }, [selectedDate]);
 
     const onSubmitOrder = (e) =>{
-        e.preventDefault();
 
-        if(!date || noOfTickets < 1){
-            notify('Please select date and tickets!')
-            return
-        }
-        notify('You are being redirected to purchase page!')
-        setTimeout(()=>{
-            setPurchasePage(true)
-        },2000)
 
     }
 
@@ -179,7 +220,7 @@ function Order() {
 
                         <div className="mb-4">
                             <button
-                                onClick={onSubmitOrder}
+                                onClick={handleOrderSubmit}
                                 type="submit"
                                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none "
                             >

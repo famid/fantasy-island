@@ -18,8 +18,9 @@ function Main({csrf,authUser}) {
 export default Main;
 
 if (document.getElementById("signup")) {
-  const root = createRoot(document.getElementById("signup"));
-  let csrfToken =  document.getElementById("signup").dataset.csrf_token;
-  let authUser =  document.getElementById("signup").dataset.authuser;
+  const element = document.getElementById("signup")
+  const root = createRoot(element);
+  let csrfToken =  element.dataset.csrf_token;
+  let authUser =  element.dataset.authuser;
   root.render(<Main csrf={csrfToken} authUser={authUser}/>);
 }

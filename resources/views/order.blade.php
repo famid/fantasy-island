@@ -2,7 +2,7 @@
 
 
 @section('content')
-   <div id='order'>
+   <div id='order'  data-authUser="{{Auth::user()}}" data-csrf_token="{{ csrf_token() }}">
 
    </div>
        @viteReactRefresh
