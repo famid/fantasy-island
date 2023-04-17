@@ -48,7 +48,7 @@ class PaymentService extends BaseService {
 
             return $getPaymentUrlResponse;
         } catch (Exception $e){
-            return $this->response()->error();
+            return $this->response()->error($e->getMessage());
         }
     }
 
@@ -62,7 +62,8 @@ class PaymentService extends BaseService {
             $sslc->amount($order->amount)
                 ->trxid('DEMOTRX123')
                 ->product('Demo Product Name')
-                ->customer('Customer Name','custemail@email.com');
+                ->customer('Customer Name','custemail@email.com')
+                ->setExtras($order->id);
             $sslPaymentResponse = $sslc->make_payment(true);
             $sslPaymentDecodeResponse = json_decode($sslPaymentResponse, true);
 
@@ -81,22 +82,24 @@ class PaymentService extends BaseService {
         return False;
     }
 
-    public function success($request): array {
+    public function paymentSuccess($request): array {
 //        dd($request->all());
         try {
             $validate = SSLCommerz::validate_payment($request);
             if(!$validate) return $this->response()->error("Orders payment is failed");
+
             DB::beginTransaction();
-            $updateOrderStatus = $this->orderService->updatePaymentStatus($request->order_id);
+            $updateOrderStatus = $this->orderService->updatePaymentStatus($request->value_a);
 
             if(!$updateOrderStatus) throw new Exception("Order payment status is not updated");
 
-            $createTicketResponse = $this->ticketService->createTicket($order->id);
+            $createTicketResponse = $this->ticketService->insertTickets($request->value_a);
             if(!$createTicketResponse['success']) throw new Exception("Order payment status is not updated");
+
             DB::commit();
             return $this->response()->success("Tickets are saved successfully");
-
         } catch (Exception $e) {
+
             DB::rollBack();
             return $this->response()->error($e->getMessage());
         }

@@ -36,7 +36,7 @@ class PaymentController extends Controller
      * @return Application|View|Factory
      */
     public function success(Request $request): Application|View|Factory {
-        $orderPaymentSuccessResponse = $this->paymentService->success($request);
+        $orderPaymentSuccessResponse = $this->paymentService->paymentSuccess($request);
 
         if($orderPaymentSuccessResponse['success']) {
             return view('purchase-success');
