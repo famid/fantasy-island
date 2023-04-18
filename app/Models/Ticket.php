@@ -18,5 +18,6 @@ class Ticket extends Model
         'unique_code',
         'available_date',
         'ticket_type_id',
+        'ticket_used_status',
     ];
 }

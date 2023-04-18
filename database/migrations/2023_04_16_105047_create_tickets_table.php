@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('unique_code')->unique();
             $table->dateTime('available_date')->nullable();
             $table->unsignedBigInteger('ticket_type_id')->default(0);
+            $table->tinyInteger('ticket_used_status')->default(TICKET_UNUSED_STATUS);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
