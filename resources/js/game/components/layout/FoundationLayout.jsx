@@ -7,9 +7,9 @@
  */
 const FoundationLayout = ({children}) => {
     return (
-        <div className=" bg-cover bg-[#fff] bg-center">
+        <div className="bg-cover bg-[#fff] bg-center object-cover" style={{background:'url("/assets/game-wallpaper.jpg")',backgroundRepeat:'no-repeat',backgroundPosition:'center'}}>
             <div
-                className="  min-h-screen flex items-center justify-center"
+                className="min-h-screen flex items-center mx-auto justify-between max-w-7xl"
             >
                 <div className="flex flex-col md:flex-row gap-6 p-4 ">
                     {children}

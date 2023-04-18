@@ -1,11 +1,11 @@
 import GameInfo from "./GameInfo";
 import {TbClick} from "react-icons/tb";
-import ControlButton from "./ControlButton";
 import {useContext} from "react";
 import {GameContext} from "../../store/GameContext";
-import {useNavigate} from "react-router-dom";
 import {FaFlagCheckered} from "react-icons/fa";
 import GameClock from "./GameClock";
+import * as React from 'react'
+import { ClockContext } from "../../store/clockContext";
 
 /**
  * Renders the game controls, either on the right or on the bottom of the puzzle board
@@ -17,42 +17,40 @@ const GameControls = () => {
     /**
      * @type {import('../../store/GameContext').GameContextType}
      */
-    const {game, start, togglePause, pickNewImage,puzzleImage} = useContext(GameContext);
+    // const {game, start, togglePause, pickNewImage,puzzleImage} = useContext(GameContext);
+
+    const { won, moves,finishingTime} = useContext(ClockContext);
+
 
     /**
      * @type {NavigateFunction} navigate instance to go to the "change size" screen
      */
     // const navigate = useNavigate();
 
+
+
     return (
         <div className="flex flex-col justify-center  items-center gap-2">
             <div className="flex flex-row md:flex-col gap-4 justify-between">
-                <GameInfo label="Moves" icon={<TbClick />}>{game?.moves?.length ?? 0}</GameInfo>
-                <GameClock />
-                {game?.gameWon && (
-                    <GameInfo icon={<FaFlagCheckered />}>Congratulations</GameInfo>
+                <GameInfo label="Moves" icon={<TbClick />}>{moves}</GameInfo>
+
+                {
+                    !won &&    <GameClock />
+                }
+
+
+                {won && (
+                    <GameInfo icon={<FaFlagCheckered />}>Congratulations You have finished the puzzle in {finishingTime} !</GameInfo>
                 )}
+
             </div>
             <div className="flex flex-row md:flex-col gap-2">
             <div className="max-w-[200px] ">
-                    <img className="max-w-[200px]  height-[200px] mt-4" src={puzzleImage} alt="" />
+                    {/* <img className="w-[200px] object-cover  height-[200px] mt-4" src={puzzleImage} alt="" /> */}
                 </div>
-                {/* {(!game?.startTime) && [
-                    <ControlButton onClick={start} key="startGame">Start Game</ControlButton>,
-                    <ControlButton onClick={pickNewImage} key="changeImage">Change Image</ControlButton>
-                ]} */}
-                {/* {(!!game?.startTime) && (!game?.gameWon) && (
-                    <ControlButton onClick={togglePause}>
-                        {game.pauseTime ? 'Resume' : 'Pause'}
-                    </ControlButton>
-                )} */}
-                {/* {(!!game?.startTime) && (
-                    <ControlButton onClick={pickNewImage}>New Game</ControlButton>
-                )} */}
-                {/* <ControlButton>Select Size</ControlButton> */}
             </div>
         </div>
     );
 }
 
-export default GameControls;
+export default React.memo(GameControls);

@@ -1,5 +1,6 @@
 import {useContext} from "react";
 import {GameContext} from "../../store/GameContext";
+import { ClockContext } from "../../store/clockContext";
 
 /**
  * Individual square puzzle piece
@@ -24,9 +25,18 @@ const BoardCell = ({
      * @type {import('../../store/GameContext').GameContextType}
      */
     const {play, size, puzzleImage} = useContext(GameContext);
+    const {setWon,won, setIsFinished,setMoves} = useContext(ClockContext);
 
     // the puzzle image is not defined upon first render
     if (!puzzleImage) return null;
+
+    const playTick = (x,y)=>{
+       if(play(x,y)){
+        setWon(true)
+       }
+       setMoves((oldMoves)=>oldMoves+1)
+
+    }
 
     return (
         <div
@@ -39,7 +49,7 @@ const BoardCell = ({
             className={"z-10 absolute overflow-hidden transition-all duration-300 ease-in-out " +
                 " border border-[#fff3] " +
                 (canPlay ? " cursor-pointer hover:opacity-80 hover:border-indigo-700" : "")}
-            onClick={canPlay ? (() => play(x,y)) : undefined}
+            onClick={canPlay ? (() => playTick(x,y)) : undefined}
         >
             <div
                 style={{

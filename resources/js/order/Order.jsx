@@ -199,7 +199,7 @@ function Order({ data }) {
                                             <span
                                                 onClick={() =>
                                                     setNoOfTickets((old) =>
-                                                        old > 0 ? old - 1 : old
+                                                        old > 1 ? old - 1 : old
                                                     )
                                                 }
                                                 className="text-3xl cursor-pointer"

@@ -1,6 +1,4 @@
 import GameScreen from "./screens/GameScreen";
-import {Navigate, Route, Routes} from "react-router-dom";
-import SelectSize from "./screens/SelectSize";
 import FoundationLayout from "./components/layout/FoundationLayout";
 
 /**
@@ -12,7 +10,6 @@ function App() {
   return (
     <FoundationLayout>
        <GameScreen />
-       {/* <SelectSize /> */}
 
     </FoundationLayout>
   );

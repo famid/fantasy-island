@@ -2,7 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { GameContext } from "../../store/GameContext";
 import { IoMdTime } from "react-icons/io";
 import GameInfo from "./GameInfo";
-import Countdown from "react-countdown";
+import Countdown, { zeroPad } from "react-countdown";
+import * as React from 'react'
+import { ClockContext } from "../../store/clockContext";
 
 /**
  * Renders a clock showing the time elapsed
@@ -13,13 +15,12 @@ const GameClock = () => {
     /**
      * @type {import('../../store/GameContext').GameContextType}
      */
-    const { game } = useContext(GameContext);
+    const { gameStarted, setIsFinished, won,setGameStarted } = useContext(ClockContext);
 
     /**
      * clock is the time elapsed in minutes:seconds
      */
     const [clock, setClock] = useState(/** @type {string} */ "00:00");
-
 
 
     const Completionist = () => <span>Time finished!</span>;
@@ -33,7 +34,7 @@ const GameClock = () => {
             // Render a countdown
             return (
                 <span>
-                    {minutes}:{seconds}
+                    {zeroPad(minutes)}:{zeroPad(seconds)}
                 </span>
             );
         }
@@ -43,21 +44,33 @@ const GameClock = () => {
         console.log('started')
     }
 
-    const countDownCompleteHandler = () => {
-        console.log('finished')
+    const countDownCompleteHandler = (time) => {
+        console.log(time)
+
+        setIsFinished(true)
+        setGameStarted(false)
+
     }
+
+
     return (
         <GameInfo label="Time" icon={<IoMdTime />}>
-            <Countdown
-                intervalDelay={100}
-                precision={3}
-                onStart={countDownStartHandler}
-                onComplete={countDownCompleteHandler}
-                date={Date.now() + 5 *60* 1000}
-                renderer={renderer}
-            />
+
+            {
+                gameStarted ? (
+                    <Countdown
+                        intervalDelay={200}
+                        precision={3}
+                        onStart={countDownStartHandler}
+                        onComplete={countDownCompleteHandler}
+                        date={Date.now() + 5 * 60 * 1000}
+                        renderer={renderer}
+                        // onTick={finishingTimeHandler}
+                />
+                ):'00:00'
+            }
         </GameInfo>
     );
 };
 
-export default GameClock;
+export default React.memo(GameClock);
