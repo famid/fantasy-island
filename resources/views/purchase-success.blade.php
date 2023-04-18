@@ -29,3 +29,6 @@
         @vite(['resources/js/download-ticket/main.jsx'])
     </div>
 @endsection
+
+
+

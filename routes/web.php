@@ -31,6 +31,9 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/game', [App\Http\Controllers\GameController::class, 'index'])->name('game');
 Route::get('/signup', [App\Http\Controllers\SignupController::class, 'index'])->name('signup');
+Route::get('/signin', function () {
+    return view('signin');
+});
 Route::get('/order', function () {
     return view('order');
 });

@@ -39,7 +39,7 @@ function SignUp({csrf}) {
                 setIsOtpSentState(true);
 
                 // setButtonValue('OTP SENT')
-                // Handle successful signup
+                // Handle successful SignUp
                 notify('OTP sent to your phone')
             } else {
                 setIsOtpSentState(false)
@@ -77,7 +77,7 @@ function SignUp({csrf}) {
                 },1500)
 
                 // setButtonValue('OTP SENT')
-                // Handle successful signup
+                // Handle successful SignUp
             } else {
                 // setButtonValue('OTP WASN"T SENT')
                 const data = await response.json();
