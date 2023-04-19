@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Http\Request;
 use Spatie\ArrayToXml\ArrayToXml;
@@ -61,9 +62,15 @@ Route::get('/orders/{user_id}/unpaid-order', [OrderController::class, 'unpaidOrd
 
 // Game Play Route
 Route::post('gameplays/create', [GamePlayController::class, 'store'])->name('gameplays.store');
-// This route fetch game plays info, return total `quantity` and `remaining_game`
+// This route fetch game plays info, return total `total_playable_game` and `remaining_game`
 // Input: user_id
 Route::get('gameplays/{user_id}/info', [GamePlayController::class, 'userGameInfo'])->name('gameplays.info');
+
+// Ticket Route
+
+// This route all tickets info by orderId
+// Input: order_id
+Route::get('tickets/{order_id}/info', [TicketController::class, 'orderTicketsInfo'])->name('tickets.info');
 
 Route::get('test', function (
     \App\Http\Controllers\PaymentController $payment,
@@ -86,21 +93,6 @@ Route::middleware('auth')->prefix('/product')->as('product.')->group(function ()
     Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('destroy');
 });
 
-Route::middleware('auth')->prefix('/category')->as('category.')->group(function () {
-    Route::get('/list', [CategoryController::class, 'getList'])->name('list');
-});
-
-Route::middleware('auth')->prefix('/subcategory')->as('subcategory.')->group(function () {
-    Route::get('/list', [SubcategoryController::class, 'getList'])->name('list');
-});
-
-Route::middleware('auth')->prefix('/warehouse')->as('warehouse.')->group(function () {
-    Route::get('/index', [WarehouseController::class, 'index'])->name('index');
-    Route::get('/list', [WarehouseController::class, 'getList'])->name('list');
-    Route::delete('/delete/{id}', [WarehouseController::class, 'destroy'])->name('destroy');
-    Route::get('/create', [WarehouseController::class, 'create'])->name('create');
-    Route::post('/store', [WarehouseController::class, 'store'])->name('store');
-});
 
 //Route::post('sslcommerz/success','PaymentController@success')->name('payment.success');
 //Route::post('sslcommerz/success','PaymentController@success')->name('payment.success');

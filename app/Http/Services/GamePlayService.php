@@ -21,17 +21,23 @@ class GamePlayService extends BaseService {
      * @var OrderService
      */
     private OrderService $orderService;
-    private $orderRepository;
+
+    /**
+     * @var UserService
+     */
+    private UserService $userService;
 
     /**
      * GamePlayService constructor.
      * @param GamePlayRepository $gamePlayRepository
      */
     public function __construct(GamePlayRepository $gamePlayRepository,
-                                OrderService $orderService
+                                OrderService $orderService,
+                                UserService $userService
     ) {
         $this->gamePlayRepository = $gamePlayRepository;
         $this->orderService = $orderService;
+        $this->userService = $userService;
     }
 
     /**
@@ -44,8 +50,11 @@ class GamePlayService extends BaseService {
             $storeResponse = $this->createGamePlay($request);
             if(!$storeResponse['success']) throw new Exception($storeResponse['message']);
 
-            $updateRemainingGame = $this->orderService->decrementRemainingGame($request->order_id);
-            if(!$updateRemainingGame['success']) throw new Exception($storeResponse['message']);
+//            $updateRemainingGame = $this->orderService->decrementRemainingGame($request->order_id);
+//            if(!$updateRemainingGame['success']) throw new Exception($updateRemainingGame['message']);
+            $userId = $storeResponse['data']->user_id;
+            $updateRemainingGame = $this->userService->decrementTotalRemainingGame($userId);
+            if(!$updateRemainingGame['success']) throw new Exception($updateRemainingGame['message']);
 
             DB::commit();
             return $this->response($updateRemainingGame['data'])->success("Game statistics is saved successfully");
@@ -68,7 +77,7 @@ class GamePlayService extends BaseService {
 
             return !$createGamePlayResponse ?
                 $this->response()->error() :
-                $this->response()->success('GamePlay is created successfully');
+                $this->response($createGamePlayResponse)->success('GamePlay is created successfully');
         } catch(QueryException $e) {
 
             return $this->response()->error();
@@ -93,6 +102,7 @@ class GamePlayService extends BaseService {
      * @return array
      */
     public function userGameInfo($userId): array {
-        return $this->orderService->fetchUserGamePlayInfo($userId);
+//        return $this->orderService->fetchUserGamePlayInfo($userId);
+        return $this->userService->fetchUserGamePlayInfo($userId);
     }
 }

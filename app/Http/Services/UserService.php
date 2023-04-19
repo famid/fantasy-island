@@ -199,4 +199,65 @@ class UserService extends BaseService {
     private function verifyOtpCode($otp, $otpCode): bool {
         return $otp == $otpCode;
     }
+
+    /**
+     * @param $userId
+     * @param $quantity
+     * @return array
+     */
+    public function updatePlayableGame($userId, $quantity): array {
+        try {
+            $user = $this->userRepository->firstWhere(['id' => $userId]);
+
+            if(!isset($user->total_playable_game) || !isset($user->remaining_game)) {
+                return $this->response()->error("User total_playable_game or remaining_game column not found.");
+            }
+
+            $user->total_playable_game += $quantity;
+            $user->remaining_game += $quantity;
+            $user->save();
+
+            return $this->response()->success("Added playable game successfully");
+        } catch (Exception $e) {
+
+            return $this->response()->error($e->getMessage());
+        }
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function decrementTotalRemainingGame($userId): array {
+        try {
+            $user = $this->userRepository->firstWhere(['id' => $userId]);
+
+            if(!isset($user->remaining_game) || $user->remaining_game <= 0) {
+                return $this->response()->error("You don't have available game.");
+            }
+
+            $user->remaining_game -= 1;
+            $user->save();
+
+            return $this->response()->success("Added playable game successfully");
+        } catch (Exception $e) {
+
+            return $this->response()->error($e->getMessage());
+        }
+    }
+
+    public function fetchUserGamePlayInfo($userId): array {
+        try {
+            $user = $this->userRepository->firstWhere(['id' => $userId]);
+
+            if(!$user) return $this->response()->error("You don't have available game.");
+
+            return $this->response($user)->success("User game play info is fetched successfully");
+        } catch (Exception $e) {
+
+            return $this->response()->error($e->getMessage());
+        }
+    }
+
+
 }

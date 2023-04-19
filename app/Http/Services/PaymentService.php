@@ -18,6 +18,7 @@ class PaymentService extends BaseService {
     private OrderRepository $orderRepository;
     private OrderService $orderService;
     private TicketService $ticketService;
+    private $userService;
 
     /**
      * PaymentService constructor.
@@ -26,11 +27,13 @@ class PaymentService extends BaseService {
     public function __construct(
         OrderRepository $orderRepository,
         OrderService $orderService,
-        TicketService $ticketService
+        TicketService $ticketService,
+        UserService $userService
     ) {
         $this->orderRepository = $orderRepository;
         $this->orderService = $orderService;
         $this->ticketService = $ticketService;
+        $this->userService = $userService;
     }
 
     /**
@@ -83,15 +86,17 @@ class PaymentService extends BaseService {
     }
 
     public function paymentSuccess($request): array {
-//        dd($request->all());
         try {
             $validate = SSLCommerz::validate_payment($request);
             if(!$validate) return $this->response()->error("Orders payment is failed");
 
             DB::beginTransaction();
             $updateOrderStatus = $this->orderService->updatePaymentStatus($request->value_a);
-
             if(!$updateOrderStatus['success']) throw new Exception("Order payment status is not updated");
+
+            $order = $updateOrderStatus['data'];
+            $updateUserPlayableGame = $this->userService->updatePlayableGame($order->user_id, $order->quantity);
+            if(!$updateUserPlayableGame['success']) throw new Exception($updateUserPlayableGame['message']);
 
             $createTicketResponse = $this->ticketService->insertTickets($updateOrderStatus['data']);
             if(!$createTicketResponse['success']) throw new Exception($createTicketResponse['message']);
