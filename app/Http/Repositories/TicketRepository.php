@@ -15,7 +15,7 @@ class TicketRepository extends BaseRepository {
     }
 
     public function fetchTicketsByOrderId($orderId) {
-        return $this->model::select('tickets.*', 'users.name', 'users.phone', 'orders.payment_status', 'orders.order_id')
+        return $this->model::select('tickets.*', 'users.name', 'users.phone', 'orders.payment_status', 'orders.id as order_id')
             ->join('orders', 'orders.id', '=', 'tickets.order_id')
             ->join('users', 'users.id', '=', 'orders.user_id')
             ->where('tickets.order_id', '=', $orderId)
