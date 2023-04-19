@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/ui/navbar'
 import Slider from '../components/ui/Slider'
 import Hero from '../components/ui/hero'
+import Videos from './../components/ui/Videos';
 
 const landingPage = {
     heroHeadline: 'Fantasy Land Of The Universe',
@@ -27,7 +28,7 @@ function Home() {
           heroIntroText: landingPage.heroIntroText,
         }}
       />
-        {/* <Pricing /> */}
+
       </div>
     </main>
   </div>

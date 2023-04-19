@@ -1,10 +1,11 @@
+import Videos from "./Videos";
 
 
 export default function Hero({
   data: { heroHeadline, heroIntroText },
 }) {
   return (
-    <section className="relative overflow-auto h-full bg-gradient-to-br from-white/50 to-transparent">
+    <section id='hero' className="relative overflow-auto h-full bg-gradient-to-br from-white/50 to-transparent">
       {/* Blob 2 */}
 
       <div className="relative z-10 mx-auto grid max-w-5xl py-48 px-6 sm:py-32  justify-center md:py-48 lg:px-8">
@@ -89,6 +90,7 @@ export default function Hero({
             </div>
           </div>
         </section>
+        <Videos />
       </div>
         </div>
 

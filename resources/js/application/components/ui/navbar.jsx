@@ -5,7 +5,7 @@ export default function Navbar() {
   return (
     <div className="relative">
       {/* <KeystaticBanner /> */}
-      <header className="absolute inset-x-0 z-20 py-4 sm:fixed sm:h-24 bg-transparent  sm:py-6 ">
+      <header className="absolute inset-x-0 z-20 py-4 sm:fixed sm:h-24 bg-transparent  sm:py-6 bg-slate-100">
         <div className="mx-auto flex h-full max-w-5xl items-center justify-between px-6 lg:px-8">
           <LogoLink />
           <nav className="flex items-center justify-between sm:ml-16 sm:w-full">

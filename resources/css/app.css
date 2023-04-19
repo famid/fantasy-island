@@ -58,3 +58,11 @@
 
 	}
 
+#hero::-webkit-scrollbar {
+    display: none;
+}
+
+iframe{
+	width:90vw;
+	height:90vh;
+}
