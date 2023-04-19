@@ -21,12 +21,15 @@ class GamePlayService extends BaseService {
      * @var OrderService
      */
     private OrderService $orderService;
+    private $orderRepository;
 
     /**
      * GamePlayService constructor.
      * @param GamePlayRepository $gamePlayRepository
      */
-    public function __construct(GamePlayRepository $gamePlayRepository, OrderService $orderService) {
+    public function __construct(GamePlayRepository $gamePlayRepository,
+                                OrderService $orderService
+    ) {
         $this->gamePlayRepository = $gamePlayRepository;
         $this->orderService = $orderService;
     }
@@ -83,5 +86,13 @@ class GamePlayService extends BaseService {
             'is_finished' => $request->is_finished,
             'playtime' => $request->playtime,
         ];
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function userGameInfo($userId): array {
+        return $this->orderService->fetchUserGamePlayInfo($userId);
     }
 }

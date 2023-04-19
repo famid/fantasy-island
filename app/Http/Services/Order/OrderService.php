@@ -100,4 +100,36 @@ class OrderService extends BaseService {
             return $this->response()->error($e->getMessage());
         }
     }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function fetchUnpaidOrders($userId): array{
+        try {
+            $orders = $this->orderRepository->fetchUserUnpaidOrderList($userId);
+            if($orders->isEmpty()) return $this->response()->error("No Order is founded!");
+
+            return $this->response($orders)->success("Unpaid Orders are founded successfully.");
+        } catch (Exception $e) {
+
+            return $this->response()->error($e->getMessage());
+        }
+    }
+
+    /**
+     * @param $userId
+     * @return array
+     */
+    public function fetchUserGamePlayInfo($userId): array{
+        try {
+            $gamePlayInfo = $this->orderRepository->getTotalQuantityAndRemainingGameForUser($userId);
+            if(!$gamePlayInfo) return $this->response()->error("No game info is founded yet!");
+
+            return $this->response($gamePlayInfo)->success("User gameplay info.");
+        } catch (Exception $e) {
+
+            return $this->response()->error($e->getMessage());
+        }
+    }
 }

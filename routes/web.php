@@ -53,12 +53,25 @@ Route::post('login', [UserController::class, 'login'])->name('user.login');
 Route::post('orders/create', [OrderController::class, 'store'])->name('orders.store');
 Route::get('/orders/{order_id}/make-payment', [PaymentController::class, 'makePayment'])->name('orders.make_payment');
 
+// This route fetch all unpaid status order which purchase date is greater or equal than current date
+// Input: user_id
+Route::get('/orders/{user_id}/unpaid-order', [OrderController::class, 'unpaidOrders'])->name('orders.unpaid');
+
 
 
 // Game Play Route
 Route::post('gameplays/create', [GamePlayController::class, 'store'])->name('gameplays.store');
+// This route fetch game plays info, return total `quantity` and `remaining_game`
+// Input: user_id
+Route::get('gameplays/{user_id}/info', [GamePlayController::class, 'userGameInfo'])->name('gameplays.info');
 
-Route::get('test', function (\App\Http\Controllers\PaymentController $payment) {
+Route::get('test', function (
+    \App\Http\Controllers\PaymentController $payment,
+    OrderController $orderController,
+    GamePlayController $gamePlayController
+) {
+    dd($gamePlayController->userGameInfo(5));
+    dd($orderController->unpaidOrders(2));
     $data = $payment->order();
     dd((json_decode($data, True)));
 });
