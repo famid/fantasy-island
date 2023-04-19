@@ -15,7 +15,7 @@ const GameClock = () => {
     /**
      * @type {import('../../store/GameContext').GameContextType}
      */
-    const { gameStarted, setIsFinished, won,setGameStarted } = useContext(ClockContext);
+    const { gameStarted, setIsFinished, won,setGameStarted,timeDifference,setTimeDifference } = useContext(ClockContext);
 
     /**
      * clock is the time elapsed in minutes:seconds
@@ -42,6 +42,9 @@ const GameClock = () => {
 
     const countDownStartHandler = () => {
         console.log('started')
+        setTimeDifference((oldState)=>{
+            return [...oldState, new Date()]
+        })
     }
 
     const countDownCompleteHandler = (time) => {
@@ -53,9 +56,16 @@ const GameClock = () => {
     }
 
 
+    const finishingTimeHandler = (time) =>{
+
+    }
+
+    useEffect(()=>{
+        console.log(timeDifference)
+    },[timeDifference])
+
     return (
         <GameInfo label="Time" icon={<IoMdTime />}>
-            {console.log('anir')}
             {
                 gameStarted ? (
                     <Countdown
@@ -65,7 +75,7 @@ const GameClock = () => {
                         onComplete={countDownCompleteHandler}
                         date={Date.now() + 5 * 60 * 1000}
                         renderer={renderer}
-                        // onTick={finishingTimeHandler}
+                        onTick={finishingTimeHandler}
                 />
                 ):'00:00'
             }

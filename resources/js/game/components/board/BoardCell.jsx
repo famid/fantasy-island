@@ -25,7 +25,7 @@ const BoardCell = ({
      * @type {import('../../store/GameContext').GameContextType}
      */
     const {play, size, puzzleImage} = useContext(GameContext);
-    const {setWon,won, setIsFinished,setMoves} = useContext(ClockContext);
+    const {setWon,won, setIsFinished,setMoves,setTimeDifference,timeDifference} = useContext(ClockContext);
 
     // the puzzle image is not defined upon first render
     if (!puzzleImage) return null;
@@ -33,6 +33,11 @@ const BoardCell = ({
     const playTick = (x,y)=>{
        if(play(x,y)){
         setWon(true)
+        setTimeDifference((oldState)=>{
+            console.log('hi')
+            return [...oldState, new Date()]
+        })
+       // console.log(timeDifference)
        }
     //    setMoves((oldMoves) => oldMoves + 1)
     }

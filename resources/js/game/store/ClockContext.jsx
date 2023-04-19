@@ -11,7 +11,9 @@ export const ClockContext = createContext(
         won:false,
         setWon:() => {},
         moves:0,
-        setMoves:()=>{}
+        setMoves:()=>{},
+        timeDifference:{},
+        timeDifference:()=>{}
     }
 );
 
@@ -28,6 +30,7 @@ export const ClockContextProvider = ({ children }) => {
     const [won, setWon] = useState(false);
     const [moves, setMoves] = useState(0);
     const [gameFinishingTime, setGameFinishingTime] = useState('')
+    const [timeDifference, setTimeDifference] = useState([])
 
     return (
         <ClockContext.Provider
@@ -42,7 +45,9 @@ export const ClockContextProvider = ({ children }) => {
                     moves,
                     setMoves,
                     gameFinishingTime,
-                    setGameFinishingTime
+                    setGameFinishingTime,
+                    setTimeDifference,
+                    timeDifference
                 }
             }
         >
