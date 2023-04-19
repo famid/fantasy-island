@@ -59,7 +59,6 @@ Route::get('/orders/{order_id}/make-payment', [PaymentController::class, 'makePa
 Route::get('/orders/{user_id}/unpaid-order', [OrderController::class, 'unpaidOrders'])->name('orders.unpaid');
 
 
-
 // Game Play Route
 Route::post('gameplays/create', [GamePlayController::class, 'store'])->name('gameplays.store');
 // This route fetch game plays info, return total `total_playable_game` and `remaining_game`

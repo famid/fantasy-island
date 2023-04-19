@@ -39,8 +39,6 @@ function Order({ data }) {
 
     const user = authUser ? JSON.parse(authUser) : {};
 
-
-
     // request handlers
     const handleOrderSubmit = async (event) => {
         event.preventDefault();
@@ -72,7 +70,10 @@ function Order({ data }) {
 
                 const result = await response.json();
                 setOrder(result.data);
-                localStorage.setItem('ticket_purchase_order_id', result.data.id);
+                localStorage.setItem(
+                    "ticket_purchase_order_id",
+                    result.data.id
+                );
 
                 setTimeout(() => {
                     setPurchasePage(true);
@@ -81,7 +82,6 @@ function Order({ data }) {
                 // notify('OTP sent to your phone')
             } else {
                 setIsOtpSentState(false);
-
             }
         } catch (error) {}
 
@@ -91,9 +91,9 @@ function Order({ data }) {
     const purchaseHandler = async (e) => {
         try {
             const response = await fetch(`/orders/${order?.id}/make-payment`);
-            const result  = await response.json();
+            const result = await response.json();
 
-            window.location.href  = result.data.data
+            window.location.href = result.data.data;
 
             if (response.ok) {
             } else {
@@ -101,8 +101,18 @@ function Order({ data }) {
         } catch (e) {}
     };
 
+    useEffect(async () => {
+        if (data.authUser) {
+            const response = await fetch(
+                `/orders/${data.authUser.id}/unpaid-order`
+            );
+            const result = await response.json();
+            console.log(result);
+        }
+    }, []);
 
     // side effects
+
 
     useEffect(() => {
         setTotalPrice(() => {
@@ -112,7 +122,6 @@ function Order({ data }) {
 
     useEffect(() => {
         if (selectedDate) {
-
             const year = selectedDate.getFullYear();
             const month = selectedDate.getMonth() + 1;
             const day = selectedDate.getDate();
@@ -120,15 +129,13 @@ function Order({ data }) {
         }
     }, [selectedDate]);
 
-    useEffect(()=>{
-        const today  = new Date()
+    useEffect(() => {
+        const today = new Date();
         const year = today.getFullYear();
         const month = today.getMonth() + 1;
         const day = today.getDate();
         setDate(`${day} ${months[month]} ${year}`);
-    },[])
-
-
+    }, []);
 
     return (
         <div className="container h-screen mx-auto py-8 px-6">
@@ -136,6 +143,7 @@ function Order({ data }) {
                 <header className="mb-8 text-2xl md:text-3xl font-semibold text-center">
                     <h1 className="">Buy Tickets</h1>
                 </header>
+                <div></div>
 
                 <div className="py-8 px-6 bg-[#A5D7E8] rounded-lg md:w-[600px] w-[300px]">
                     {!purchasePage && (
