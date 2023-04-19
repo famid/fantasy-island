@@ -27,4 +27,12 @@ class OrderController extends Controller {
     public function store(Request $request): JsonResponse {
         return response()->json($this->orderService->createOrder($request));
     }
+
+    /**
+     * @param $userId
+     * @return JsonResponse
+     */
+    public function unpaidOrders($userId): JsonResponse {
+        return response()->json($this->orderService->fetchUnpaidOrders($userId));
+    }
 }

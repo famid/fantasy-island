@@ -23,10 +23,12 @@ class DatabaseSeeder extends Seeder {
 
         if (env("APP_ENV") == "production") {
             $this->call(AdminUserSeeder::class);
+            $this->call(TicketTypeSeeder::class);
         } else {
             $this->call(AdminUserSeeder::class);
-//            $this->call(CategorySeeder::class);
-//            $this->call(SubcategorySeeder::class);
+            $this->call(UserSeeder::class);
+            $this->call(TicketTypeSeeder::class);
+            $this->call(OrderSeeder::class);
         }
     }
 }
