@@ -49,6 +49,8 @@ function Order({ data }) {
         }
 
         try {
+            console.log(selectedDate.toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }))
+
             const response = await fetch("/orders/create", {
                 method: "POST",
                 headers: {
@@ -58,7 +60,7 @@ function Order({ data }) {
                 body: JSON.stringify({
                     quantity: noOfTickets,
                     amount: totalPrice,
-                    purchase_date: selectedDate,
+                    purchase_date: selectedDate.toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }),
                     user_id: user.id,
                 }),
             });
