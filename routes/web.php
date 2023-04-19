@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Http\Request;
 use Spatie\ArrayToXml\ArrayToXml;
@@ -61,9 +62,15 @@ Route::get('/orders/{user_id}/unpaid-order', [OrderController::class, 'unpaidOrd
 
 // Game Play Route
 Route::post('gameplays/create', [GamePlayController::class, 'store'])->name('gameplays.store');
-// This route fetch game plays info, return total `quantity` and `remaining_game`
+// This route fetch game plays info, return total `total_playable_game` and `remaining_game`
 // Input: user_id
 Route::get('gameplays/{user_id}/info', [GamePlayController::class, 'userGameInfo'])->name('gameplays.info');
+
+// Ticket Route
+
+// This route all tickets info by orderId
+// Input: order_id
+Route::get('tickets/{order_id}/info', [TicketController::class, 'orderTicketsInfo'])->name('tickets.info');
 
 Route::get('test', function (
     \App\Http\Controllers\PaymentController $payment,

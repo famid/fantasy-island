@@ -67,4 +67,21 @@ class TicketService extends BaseService {
     private function generateUniqueCode(): string {
         return uniqid();
     }
+
+    /**
+     * @param $orderId
+     * @return array
+     */
+    public function fetchOrderTicketsInfo($orderId): array{
+        try {
+            $ticketsInfoResponse = $this->ticketRepository->fetchTicketsByOrderId($orderId);
+
+            return $ticketsInfoResponse->isEmpty() ?
+                $this->response()->error("No tickets is founded") :
+                $this->response($ticketsInfoResponse)->success("Tickets are created successfully");
+        } catch (Exception $e) {
+
+            return $this->response()->error($e->getMessage());
+        }
+    }
 }
