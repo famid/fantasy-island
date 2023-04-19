@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id');
             $table->string('unique_code')->unique();
             $table->dateTime('available_date')->nullable();
-            $table->unsignedBigInteger('ticket_type_id')->default(0);
+            $table->unsignedBigInteger('ticket_type_id')->default(1);
             $table->tinyInteger('ticket_used_status')->default(TICKET_UNUSED_STATUS);
             $table->timestamps();
 
