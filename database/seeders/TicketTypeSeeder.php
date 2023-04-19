@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class AdminUserSeeder extends Seeder {
+class TicketTypeSeeder extends Seeder {
 
     /**
      * Run the database seeds.
@@ -15,12 +16,11 @@ class AdminUserSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        DB::table('users')->insert([
+        DB::table('ticket_types')->insert([
             [
                 'id' => 1,
-                'name' => "Admin",
-                'email' => "admin@email.com",
-                'password' => Hash::make('1234'),
+                'name' => 'default',
+                'price' => 200,
             ]
         ]);
     }
