@@ -6,10 +6,10 @@ import FoundationLayout from "./components/layout/FoundationLayout";
  * @returns {JSX.Element}
  * @constructor
  */
-function App() {
+function App({data}) {
   return (
     <FoundationLayout>
-       <GameScreen />
+       <GameScreen data={data}/>
 
     </FoundationLayout>
   );

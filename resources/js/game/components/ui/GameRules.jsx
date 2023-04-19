@@ -1,8 +1,24 @@
-import React from "react";
+import React,{useEffect} from "react";
 import GameClock from "../controls/GameClock";
 
-function GameRules() {
+function GameRules({data}) {
 
+    const fetchUserGameInfo  = async () =>{
+        try {
+            const response = await fetch(`/gameplays/${data.authUser.id}/info`);
+            const result  = await response.json();
+            console.log(result)
+
+            if (response.ok) {
+            } else {
+            }
+        } catch (e) {}
+    }
+
+
+    useEffect(()=>{
+        fetchUserGameInfo()
+    },[])
     return (
         <article className="max-w-[280px] flex items-center">
 

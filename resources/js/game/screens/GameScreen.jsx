@@ -9,16 +9,16 @@ import { ClockContextProvider } from "../store/clockContext";
  * @returns {JSX.Element}
  * @constructor
  */
-const GameScreen = () => {
+const GameScreen = ({data}) => {
     return (
 
         <div className="flex gap-12 lg:flex-row flex-col-reverse ">
-            <GameRules />
+            <GameRules data={data}/>
             <ClockContextProvider>
                 <GameContextProvider>
-                    <GameBoard />
+                    <GameBoard data={data}/>
                 </GameContextProvider>
-                <GameControls />
+                <GameControls data={data}/>
             </ClockContextProvider>
         </div>
 

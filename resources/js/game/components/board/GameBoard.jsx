@@ -12,7 +12,7 @@ import { ClockContext } from "../../store/clockContext";
  * @returns {JSX.Element|null}
  * @constructor
  */
-const GameBoard = () => {
+const GameBoard = ({data}) => {
     /**
      * @type {import('../../store/GameContext').GameContextType}
      */

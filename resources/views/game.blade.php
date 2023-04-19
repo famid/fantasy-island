@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="">
-    <div id='game'>
+    <div id='game' data-authUser="{{Auth::user()}}" data-csrf_token="{{ csrf_token() }}">
 
     </div>
     @viteReactRefresh
