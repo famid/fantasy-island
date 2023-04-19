@@ -43,7 +43,7 @@ export const GameContext = createContext(/** @type {GameContextType} */ {
 export const GameContextProvider = ({children}) => {
     const [size, setSize] = useState(
         /** @type {{x: number, y: number}} - Number of columns and rows of the puzzle*/
-        {x: 2, y: 2}
+        {x: 3, y: 3}
     );
 
     const [isFinished, setIsFinished] = useState(false);
@@ -73,7 +73,7 @@ export const GameContextProvider = ({children}) => {
     // sets the dynamic path to the image used for the puzzle
     useEffect(() => {
         if (!imagePicked) return;
-        setPuzzleImage('/assets/images/' + imagePicked );
+        setPuzzleImage('/assets/game/' + imagePicked );
     }, [imagePicked ]);
 
     // creates an instance of the game,

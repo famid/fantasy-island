@@ -5,6 +5,7 @@ import { createRoot } from "react-dom/client";
 window.React = React
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ConferenceTicket from "./TicketPdf";
 function Main({csrf,authUser}) {
 
   useEffect(()=>{
@@ -19,8 +20,8 @@ function Main({csrf,authUser}) {
       <>
       <ToastContainer/>
       <Download csrf={csrf}/>
+      {/* <ConferenceTicket/> */}
       </>
-
     );
 }
 

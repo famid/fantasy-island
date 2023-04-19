@@ -1,19 +1,6 @@
 import { createContext, useCallback, useEffect, useState } from "react";
-import Game from "../models/Game";
-import { pickRandomImage } from "../data/imageList";
 
-/**
- * @typedef {Object} GameContextType
- * @property {{x: number, y: number}} size - number of columns and rows of the puzzle
- * @property {function} setSize - setter for the puzzle size
- * @property {?Game} game - instance of the Game being played
- * @property {Object[]} board - state of the puzzle board being rendered
- * @property {function} start - function to start the game
- * @property {function(number, number): null} play - function to play a piece at given column and row
- * @property {function} togglePause - pause or resume the game
- * @property {?string} puzzleImage - dynamic path to the current puzzle image
- * @property {function} pickNewImage - selects a new random image for the puzzle
- */
+
 
 export const ClockContext = createContext(
     /** @type {GameContextType} */ {
