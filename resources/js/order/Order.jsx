@@ -4,8 +4,6 @@ import { Group } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useClickOutside } from "@mantine/hooks";
 import { BsCalendarDate } from "react-icons/bs";
-
-import { Select } from "@mantine/core";
 import notify from "./components/notify";
 
 const months = {
@@ -102,6 +100,7 @@ function Order({ data }) {
     };
 
     useEffect(async () => {
+
         if (data.authUser) {
             const response = await fetch(
                 `/orders/${data.authUser.id}/unpaid-order`

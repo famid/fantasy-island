@@ -50,7 +50,9 @@ class OrderService extends BaseService {
     private function preparedCreateOrderData (object $request) :array {
         return [
             'user_id' => $request->user_id,
-            'purchase_date' => Carbon::parse($request->purchase_date),
+            //'purchase_date' => Carbon::parse($request->purchase_date),
+            // 'purchase_date' => Carbon::parse($request->purchase_date, 'Asia/Dhaka')->setTimezone('UTC'),
+            'purchase_date'=> Carbon::parse($request->purchase_date)->timezone('GMT'),
             'amount' => $request->amount,
             'remaining_game' => $request->quantity,
             'quantity' => $request->quantity,
