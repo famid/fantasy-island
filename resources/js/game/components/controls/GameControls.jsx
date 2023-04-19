@@ -21,7 +21,7 @@ const GameControls = ({data}) => {
     // const {game, start, togglePause, pickNewImage,puzzleImage} = useContext(GameContext);
 
     const { won, moves,finishingTime} = useContext(ClockContext);
-    console.log(data)
+
 
 
     /**
@@ -58,7 +58,7 @@ const GameControls = ({data}) => {
                 {/* <GameInfo label="Moves" icon={<TbClick />}>{moves}</GameInfo> */}
 
                 {
-                    !won &&    <GameClock />
+                    !won &&    <GameClock data={data}/>
                 }
 
 
@@ -70,7 +70,7 @@ const GameControls = ({data}) => {
 
                             </div>
                        </GameInfo>
-                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none " onClick={resultSubmitHandler}>Submit Result</button>
+                     <button className="bg-[#576CBC] hover:bg-[#0B2447] text-white font-bold py-2 px-4  focus:outline-none rounded-xl" onClick={resultSubmitHandler}>Submit Result</button>
                     </>
 
                 )}

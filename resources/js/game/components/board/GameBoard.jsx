@@ -12,14 +12,13 @@ import { ClockContext } from "../../store/clockContext";
  * @returns {JSX.Element|null}
  * @constructor
  */
-const GameBoard = ({data}) => {
+const GameBoard = ({ data }) => {
     /**
      * @type {import('../../store/GameContext').GameContextType}
      */
-    const { board, game, start, togglePause, size } =
-        useContext(GameContext);
+    const { board, game, start, togglePause, size } = useContext(GameContext);
 
-    const { isFinished,setGameStarted } = useContext(ClockContext);
+    const { isFinished, setGameStarted } = useContext(ClockContext);
 
     /**
      * @type {[number, number]} dimensions of the browser window
@@ -62,10 +61,12 @@ const GameBoard = ({data}) => {
 
     if (!size || !board) return null;
 
-    const startGame = ()=>{
-        setGameStarted(true)
-        start()
-    }
+    const startGame = () => {
+        if (data?.authUser?.remaining_game > 0) {
+            setGameStarted(true);
+            start();
+        }
+    };
 
     return (
         <div className="flex items-center  flex-col  p-0 rounded">
@@ -76,6 +77,7 @@ const GameBoard = ({data}) => {
                     height: size.y * cellSize,
                 }}
             >
+
                 {!!board &&
                     !game.pauseTime &&
                     board.map((cell) => (
@@ -89,11 +91,14 @@ const GameBoard = ({data}) => {
                 {!game.startTime && (
                     // render the overlay with the "Start" button when game is not yet started
                     <BoardAction onClick={startGame}>
-                        Click Here to Play
-                        <BsPlayCircle className="text-5xl" />
+                        {data?.authUser?.remaining_game > 0
+                            ? "Click Here to Play"
+                            : "Don't have chance? Please buy tickets"}
+                             {data?.authUser?.remaining_game > 0 && <BsPlayCircle className="text-5xl" />}
+
                     </BoardAction>
                 )}
-                  {(isFinished) && (
+                {isFinished && (
                     // render the overlay with the "Start" button when game is not yet started
                     <BoardAction>
                         You couldn't solve the puzzle in time!!

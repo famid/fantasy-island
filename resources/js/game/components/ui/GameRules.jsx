@@ -1,15 +1,18 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import GameClock from "../controls/GameClock";
 
 function GameRules({data}) {
+    const [totalGames, setTotalGames] = useState(0)
+    const [remainingGames, setRemainingGames] = useState(0)
 
     const fetchUserGameInfo  = async () =>{
         try {
             const response = await fetch(`/gameplays/${data.authUser.id}/info`);
             const result  = await response.json();
-            console.log(result)
 
-            if (response.ok) {
+            if (result.data) {
+                setTotalGames(data.authUser.total_playable_game)
+                setRemainingGames(data.authUser.remaining_game)
             } else {
             }
         } catch (e) {}
@@ -20,10 +23,10 @@ function GameRules({data}) {
         fetchUserGameInfo()
     },[])
     return (
-        <article className="max-w-[280px] flex items-center">
+        <article className="max-w-[280px] flex items-center justify-center">
 
             <div>
-            <h2 className="text-left text-2xl  text-gray-900 leading-8 font-semibold">You bought <span className="text-indigo-900">19 </span> tickets and already attended  <span className="text-indigo-900">8 </span> games, you have  <span className="text-indigo-900">11 </span> chances left! </h2>
+            <h2 className="text-left text-2xl  text-gray-900 leading-8 font-semibold">You bought <span className="text-indigo-900">{totalGames} </span> tickets and already attended  <span className="text-indigo-900">{totalGames - remainingGames} </span> games, you have  <span className="text-indigo-900">{remainingGames} </span> chances left! </h2>
                 <h1 className="text-2xl font-bold tracking-wide leading-[60px] text-gray-800 ">
                     Rules Of The Game!
                 </h1>

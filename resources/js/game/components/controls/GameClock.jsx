@@ -5,16 +5,18 @@ import GameInfo from "./GameInfo";
 import Countdown, { zeroPad } from "react-countdown";
 import * as React from 'react'
 import { ClockContext } from "../../store/clockContext";
+import notify from "../../../order/components/notify";
 
 /**
  * Renders a clock showing the time elapsed
  * @returns {JSX.Element}
  * @constructor
  */
-const GameClock = () => {
+const GameClock = ({data}) => {
     /**
      * @type {import('../../store/GameContext').GameContextType}
      */
+
     const { gameStarted, setIsFinished, won,setGameStarted,timeDifference,setTimeDifference } = useContext(ClockContext);
 
     /**
@@ -47,12 +49,31 @@ const GameClock = () => {
         })
     }
 
-    const countDownCompleteHandler = (time) => {
-        console.log(time)
+    const resultSubmitHandler = async () => {
+        try {
+            const response = await fetch("/gameplays/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": data.csrfToken,
+                },
+                body: JSON.stringify({ user_id:data.authUser.id, is_finished:false,playtime:'00:00:00'}),
+            });
 
+            console.log(response);
+
+            if (response.ok) {
+                notify('Your result submitted successfully')
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const countDownCompleteHandler = (time) => {
         setIsFinished(true)
         setGameStarted(false)
-
+        resultSubmitHandler()
     }
 
 
@@ -73,7 +94,7 @@ const GameClock = () => {
                         precision={3}
                         onStart={countDownStartHandler}
                         onComplete={countDownCompleteHandler}
-                        date={Date.now() + 5 * 60 * 1000}
+                        date={Date.now() + 5 * 1000}
                         renderer={renderer}
                         onTick={finishingTimeHandler}
                 />
