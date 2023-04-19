@@ -34,8 +34,7 @@ const BoardCell = ({
        if(play(x,y)){
         setWon(true)
        }
-       setMoves((oldMoves)=>oldMoves+1)
-
+    //    setMoves((oldMoves) => oldMoves + 1)
     }
 
     return (

@@ -32,7 +32,7 @@ const GameControls = () => {
     return (
         <div className="flex flex-col justify-center  items-center gap-2">
             <div className="flex flex-row md:flex-col gap-4 justify-between">
-                <GameInfo label="Moves" icon={<TbClick />}>{moves}</GameInfo>
+                {/* <GameInfo label="Moves" icon={<TbClick />}>{moves}</GameInfo> */}
 
                 {
                     !won &&    <GameClock />

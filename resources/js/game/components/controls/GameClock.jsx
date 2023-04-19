@@ -55,7 +55,7 @@ const GameClock = () => {
 
     return (
         <GameInfo label="Time" icon={<IoMdTime />}>
-
+            {console.log('anir')}
             {
                 gameStarted ? (
                     <Countdown
