@@ -59,7 +59,7 @@ export default function Videos() {
         <section id="pricing" className="isolate pb-20 md:pb-32">
             <div className="mx-auto max-w-5xl px-6 lg:px-8">
                 <h2 className="mt-24 max-w-2xl text-4xl font-bold sm:text-6xl md:mt-40">
-                    Videos you may find for your tour!
+                    Check the videos!
                 </h2>
                 <section className="text-gray-600 body-font  flex justify-center items-center">
                     <div className="container px-5 py-24 mx-auto">

@@ -1,10 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Group } from "@mantine/core";
+import { Group, Select } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useClickOutside } from "@mantine/hooks";
 import { BsCalendarDate } from "react-icons/bs";
 import notify from "./components/notify";
+import PurchaseManual from "./PurchaseManual";
 
 const months = {
     1: "January",
@@ -140,7 +141,7 @@ function Order({ data }) {
     }, []);
 
     return (
-        <div className="container h-screen mx-auto py-8 px-6">
+        <div className="container min:h-screen mx-auto py-8 px-6">
             <div className="max-w-md mx-auto h-full flex justify-center items-center flex-col  rounded-lg ">
                 <header className="mb-8 text-2xl md:text-3xl font-semibold text-center">
                     <h1 className="">Buy Tickets</h1>
@@ -277,25 +278,18 @@ function Order({ data }) {
                                     the price of {totalPrice}
                                 </h2>
 
-                                <div>
-                                    {/* <Select
-                                    label="Please Select A Payment Method"
-                                    placeholder="Pick one"
-                                    data={[
-                                        { value: 'Nagad', label: 'Nagad' },
-                                        { value: 'Bikash', label: 'Bikash' },
-                                        { value: 'Rocket', label: 'Rocket' },
-                                    ]}
-                                    /> */}
-                                </div>
+                                <PurchaseManual data={data}/>
+
+
+
                             </div>
-                            <button
+                            {/* <button
                                 type="submit"
                                 onClick={purchaseHandler}
                                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none "
                             >
                                 Purchase
-                            </button>
+                            </button> */}
                         </div>
                     )}
                 </div>
