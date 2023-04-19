@@ -27,7 +27,7 @@ function Download() {
 
             <button
                 onClick={generateTicket}
-                class="rounded-full border border-black px-5 py-2.5  text-center font-medium hover:bg-gray-200/25 "
+                className="rounded-full border border-black px-5 py-2.5  text-center font-medium hover:bg-gray-200/25 "
             >
                 Download Ticket
             </button>

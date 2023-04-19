@@ -8,11 +8,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import ConferenceTicket from "./TicketPdf";
 function Main({csrf,authUser}) {
 
-  useEffect(()=>{
+  useEffect( async ()=>{
     const ticket_purchase_order_id = localStorage.getItem('ticket_purchase_order_id');
     // make a get request to get ticket data
-
-
+    try{
+      const response = await fetch(`tickets/${ticket_purchase_order_id}/info`)
+      const result = await response.json()
+      console.log(result)
+    } catch (e){console.log(e)}
 
   },[])
 
