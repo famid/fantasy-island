@@ -25,6 +25,8 @@ return new class extends Migration
             $table->timestamp('phone_verification_expiry')->nullable();
             $table->tinyInteger('is_phone_verified')->default(PENDING_STATUS);
             $table->tinyInteger('status')->default(USER_INACTIVE);
+            $table->unsignedInteger('total_playable_game')->default(0);
+            $table->unsignedInteger('remaining_game')->default(0);
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

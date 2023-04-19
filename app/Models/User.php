@@ -26,6 +26,8 @@ class User extends Authenticatable
         'phone_verification_code',
         'is_phone_verified',
         'status',
+        'total_playable_game',
+        'remaining_game',
     ];
 
     /**
