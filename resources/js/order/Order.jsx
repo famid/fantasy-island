@@ -104,8 +104,9 @@ function Order({ data }) {
     useEffect(async () => {
 
         if (data.authUser) {
+            // console.log(JSON.parse(user))
             const response = await fetch(
-                `/orders/${data.authUser.id}/unpaid-order`
+                `/orders/${JSON.parse(data.authUser).id}/unpaid-order`
             );
             const result = await response.json();
             console.log(result);
