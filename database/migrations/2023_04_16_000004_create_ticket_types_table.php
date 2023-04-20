@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('ticket_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
+            $table->string('name', 191);
+            $table->string('description', 191)->nullable();
             $table->decimal('price', 8, 2);
             $table->timestamps();
             $table->softDeletes();

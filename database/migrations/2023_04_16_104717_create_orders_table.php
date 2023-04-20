@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('payment_type')->nullable();
             $table->integer('remaining_game');
             $table->integer('quantity');
-            $table->string('transaction_number')->nullable();
+            $table->string('transaction_number', 191)->nullable();
             $table->tinyInteger('payment_status')->default(PENDING_STATUS);
             $table->timestamps();
             $table->softDeletes();

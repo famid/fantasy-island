@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('order_id');
-            $table->string('unique_code')->unique();
+            $table->string('unique_code', 191)->unique();
             $table->dateTime('available_date')->nullable();
             $table->unsignedBigInteger('ticket_type_id')->default(1);
             $table->tinyInteger('ticket_used_status')->default(TICKET_UNUSED_STATUS);
