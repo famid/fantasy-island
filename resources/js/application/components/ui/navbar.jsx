@@ -12,7 +12,7 @@ export default function Navbar() {
             <div className="hidden gap-10 sm:flex">
             </div>
             <a
-              href="#"
+              href="/order"
               className="rounded-full bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-900"
             >
               Buy Ticket

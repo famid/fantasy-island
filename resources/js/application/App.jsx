@@ -1,9 +1,12 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import Home from "./pages/Home";
+import 'process/browser';
 
 window.React = React;
 function App() {
+
+
     return  <Home />;
 }
 

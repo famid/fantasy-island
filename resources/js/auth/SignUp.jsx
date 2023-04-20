@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import notify from './components/notify';
 import {redirect } from "react-router-dom";
+import { domain } from "../uitls";
 
 function SignUp({csrf}) {
     const [name, setName] = useState("");
@@ -73,7 +74,7 @@ function SignUp({csrf}) {
             if (response.ok) {
                 notify('Phone verification successful')
                 setTimeout(()=>{
-                    window.location.href='http://127.0.0.1:8000/order'
+                    window.location.href= `${domain}/order`
                 },1500)
 
                 // setButtonValue('OTP SENT')

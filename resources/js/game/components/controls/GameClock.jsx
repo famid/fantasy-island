@@ -93,7 +93,7 @@ const GameClock = ({data}) => {
                         precision={3}
                         onStart={countDownStartHandler}
                         onComplete={countDownCompleteHandler}
-                        date={Date.now() + 5 * 1000}
+                        date={Date.now() + 3 * 60 * 1000}
                         renderer={renderer}
                         onTick={finishingTimeHandler}
                 />

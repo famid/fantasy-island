@@ -13,7 +13,7 @@ export const ClockContext = createContext(
         moves:0,
         setMoves:()=>{},
         timeDifference:{},
-        timeDifference:()=>{}
+        SetTimeDifference:()=>{}
     }
 );
 
