@@ -60,10 +60,9 @@ const GameClock = ({data}) => {
                 body: JSON.stringify({ user_id:data.authUser.id, is_finished:false,playtime:'00:00:00'}),
             });
 
-            console.log(response);
-
             if (response.ok) {
                 notify('Your result submitted successfully')
+                location.reload();
             }
         } catch (error) {
             console.log(error)
@@ -94,7 +93,7 @@ const GameClock = ({data}) => {
                         precision={3}
                         onStart={countDownStartHandler}
                         onComplete={countDownCompleteHandler}
-                        date={Date.now() + 5 * 60 * 1000}
+                        date={Date.now() + 5 * 1000}
                         renderer={renderer}
                         onTick={finishingTimeHandler}
                 />

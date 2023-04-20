@@ -44,6 +44,7 @@ const GameControls = ({data}) => {
 
             if (response.ok) {
                 notify('Your result submitted successfully')
+                location.reload();
             }
         } catch (error) {
             console.log(error)
