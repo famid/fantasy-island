@@ -20,5 +20,9 @@ class Order extends Model
         'remaining_game',
         'quantity',
         'payment_status',
+        'payment_system',
+        'client_phone',
+        'transaction_id',
+        'merchant_account_phone',
     ];
 }
