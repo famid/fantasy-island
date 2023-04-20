@@ -160,6 +160,7 @@ function PurchaseManual({ data }) {
                     <li>Pay the specified amount to this number.</li>
                     <li>Enter the transaction id.</li>
                     <li>Enter your number.</li>
+                    <li>Submit information.</li>
                 </o>
             </div>
             <div className="mb-4">
@@ -202,7 +203,7 @@ function PurchaseManual({ data }) {
                 onClick={purchase}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none "
             >
-                Purchase
+                Submit
             </button>
         </div>
     );
