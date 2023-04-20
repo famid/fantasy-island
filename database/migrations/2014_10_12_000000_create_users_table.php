@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->tinyInteger('role')->default(USER_ROLE);
-            $table->string('email')->unique()->nullable();
+            $table->string('email', 191)->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password', 191);
             $table->string('phone',25)->nullable();
             $table->integer('phone_verification_code')->nullable();
             $table->timestamp('phone_verification_expiry')->nullable();
