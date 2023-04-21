@@ -6,8 +6,8 @@ export default function Hero({
   data: { heroHeadline, heroIntroText },
 }) {
   return (
-    <section id='hero' className="relative overflow-auto h-full bg-gradient-to-br from-white/50 to-transparent">
-      {/* Blob 2 */}
+    <section id='hero' className="relative h-full bg-gradient-to-br from-white/50 to-transparent overflow-auto">
+
 
       <div className="relative z-10 mx-auto grid max-w-5xl py-48 px-6 sm:py-32  justify-center md:py-48 lg:px-8">
 
@@ -18,7 +18,7 @@ export default function Hero({
             {heroIntroText}
           </p>
 
-          {/* Buttons */}
+
           <div className="mt-12 flex flex-wrap justify-center items-center gap-6 md:mt-20 md:gap-6">
             <a href="/order"               className="rounded-full bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-900">
                 Buy Ticket
