@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/ui/navbar'
 
 import Hero from '../components/ui/hero'
+import Slider from './../components/ui/Slider';
 
 
 const landingPage = {
@@ -20,7 +21,7 @@ function Home() {
     <Navbar />
 
     <main className=" ">
-    {/* <Slider/> */}
+    <Slider/>
       <div className="absolute top-0 left-0 right-0 bottom-0 overflow-auto">
       <Hero
         data={{
