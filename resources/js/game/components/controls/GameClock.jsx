@@ -51,6 +51,7 @@ const GameClock = ({data}) => {
 
     const resultSubmitHandler = async () => {
         try {
+
             const response = await fetch("/gameplays/create", {
                 method: "POST",
                 headers: {
@@ -62,7 +63,10 @@ const GameClock = ({data}) => {
 
             if (response.ok) {
                 notify('Your result submitted successfully')
-                location.reload();
+                setTimeout(()=>{{
+                    location.reload();
+                }},1000)
+
             }
         } catch (error) {
             console.log(error)

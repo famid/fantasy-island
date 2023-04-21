@@ -21,7 +21,7 @@ const GameControls = ({data}) => {
 
     // const {game, start, togglePause, pickNewImage,puzzleImage} = useContext(GameContext);
 
-    const { won, moves,finishingTime} = useContext(ClockContext);
+    const { won, moves,finishingTime, timeDifference} = useContext(ClockContext);
 
 
 
@@ -31,6 +31,23 @@ const GameControls = ({data}) => {
     // const navigate = useNavigate();> {
 
     const resultSubmitHandler = async () => {
+        console.log(timeDifference)
+        const date1 = new Date(timeDifference[0]);
+        const date2 = new Date(timeDifference[1]);
+        const diffInMs = date2 - date1;
+        function formatTime(ms) {
+            const min = Math.floor(ms / 60000); // calculate minutes
+            const sec = Math.floor((ms % 60000) / 1000); // calculate seconds
+            const mil = ms % 1000; // calculate remaining milliseconds
+
+            // pad single-digit numbers with a leading zero
+            const minStr = min < 10 ? `0${min}` : `${min}`;
+            const secStr = sec < 10 ? `0${sec}` : `${sec}`;
+            const milStr = mil < 10 ? `00${mil}` : mil < 100 ? `0${mil}` : `${mil}`;
+
+            return `${minStr}:${secStr}:${milStr}`;
+          }
+
         try {
             const response = await fetch("/gameplays/create", {
                 method: "POST",
@@ -38,13 +55,15 @@ const GameControls = ({data}) => {
                     "Content-Type": "application/json",
                     "X-CSRF-TOKEN": data.csrfToken,
                 },
-                body: JSON.stringify({ user_id:data.authUser.id, is_finished:true,playtime:'00:20:10'}),
+                body: JSON.stringify({ user_id:data.authUser.id, is_finished:true,playtime:`${formatTime(diffInMs)}`}),
             });
 
 
             if (response.ok) {
                 notify('Your result submitted successfully')
-                location.reload();
+                setTimeout(()=>{{
+                    location.reload();
+                }},1000)
             }
         } catch (error) {
             console.log(error)

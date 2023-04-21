@@ -30,14 +30,15 @@ function Download({ tickets }) {
             >
                 Download Ticket
             </button>
-            <div className="">
+
+            <div className="absolute -z-20">
                 <div
                     className="mt-10  top-72 h-auto"
                     id="pdf-content"
                     style={styles}
                 >
                     {tickets.map((ticket, i) => {
-                        return <Ticket ticket={ticket} />;
+                        return <Ticket key={i} ticket={ticket} />;
                     })}
                 </div>
             </div>

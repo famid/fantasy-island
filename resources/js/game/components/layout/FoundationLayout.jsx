@@ -42,7 +42,7 @@ const FoundationLayout = ({ children }) => {
                 </header>
             </div>
             <div className="min-h-screen z-50   flex items-center mx-auto justify-between max-w-7xl">
-                <div className="flex flex-col md:justify-center py-7 md:py-32 md:flex-row gap-6 p-4 top-0 left-0 right-0 bottom-0 absolute ">
+                <div className="flex flex-col md:justify-center py-7 md:py-32 md:flex-row gap-6 p-4 top-0 left-0 right-0 bottom-0 absolute game-screen ">
                     {children}
                 </div>
             </div>

@@ -13,7 +13,7 @@ import { ClockContextProvider } from "../store/clockContext";
  */
 const GameScreen = ({ data }) => {
     return (
-        <div className=" gap-12 wrapper">
+        <div className=" gap-12 wrapper game-screen">
             <GameRules data={data} />
             <ClockContextProvider>
                 <div className="flex flex-col gap-3 md:mt-0 mt-20">

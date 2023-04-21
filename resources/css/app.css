@@ -74,6 +74,9 @@ html,body,*{
 #hero::-webkit-scrollbar {
     display: none;
 }
+.game-screen::-webkit-scrollbar {
+    display: none;
+}
 
 iframe{
 	width:90vw;

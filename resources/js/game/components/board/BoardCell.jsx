@@ -34,10 +34,10 @@ const BoardCell = ({
        if(play(x,y)){
         setWon(true)
         setTimeDifference((oldState)=>{
-            console.log('hi')
+
             return [...oldState, new Date()]
         })
-       // console.log(timeDifference)
+
        }
 
     }
