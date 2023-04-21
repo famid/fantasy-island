@@ -1,11 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Group, Select } from "@mantine/core";
+import { Group, Select, Modal } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
-import { useClickOutside } from "@mantine/hooks";
+import { useClickOutside, useDisclosure } from "@mantine/hooks";
 import { BsCalendarDate } from "react-icons/bs";
 import notify from "./components/notify";
 import PurchaseManual from "./PurchaseManual";
+import SignUp from "../auth/SignUp";
 
 const months = {
     1: "January",
@@ -33,6 +34,7 @@ function Order({ data }) {
     const [purchasePage, setPurchasePage] = useState(false);
     const [loading, setLoading] = useState();
     const [order, setOrder] = useState();
+    const [opened, { open, close }] = useDisclosure(false);
 
     const { authUser, csrfToken } = data;
 
@@ -50,7 +52,9 @@ function Order({ data }) {
         }
 
         try {
-            console.log(selectedDate.toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }))
+            console.log(
+                selectedDate.toLocaleString("en-US", { timeZone: "Asia/Dhaka" })
+            );
 
             const response = await fetch("/orders/create", {
                 method: "POST",
@@ -61,7 +65,9 @@ function Order({ data }) {
                 body: JSON.stringify({
                     quantity: noOfTickets,
                     amount: totalPrice,
-                    purchase_date: selectedDate.toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }),
+                    purchase_date: selectedDate.toLocaleString("en-US", {
+                        timeZone: "Asia/Dhaka",
+                    }),
                     user_id: user.id,
                 }),
             });
@@ -102,20 +108,20 @@ function Order({ data }) {
         } catch (e) {}
     };
 
-    useEffect(async () => {
-
-        if (data.authUser) {
-            // console.log(JSON.parse(user))
-            const response = await fetch(
-                `/orders/${JSON.parse(data.authUser).id}/unpaid-order`
-            );
-            const result = await response.json();
-            console.log(result);
-        }
+    useEffect(() => {
+        const request = async () => {
+            if (data.authUser) {
+                // console.log(JSON.parse(user))
+                const response = await fetch(
+                    `/orders/${JSON.parse(data.authUser).id}/unpaid-order`
+                );
+                const result = await response.json();
+            }
+        };
+        request();
     }, []);
 
     // side effects
-
 
     useEffect(() => {
         setTotalPrice(() => {
@@ -261,7 +267,7 @@ function Order({ data }) {
                                 <button
                                     onClick={handleOrderSubmit}
                                     type="submit"
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none "
+                                    className="bg-[#E94E77] hover:bg-[#C15B8A] text-white font-bold py-2 px-4 w-full rounded focus:outline-none "
                                 >
                                     Place Order
                                 </button>
@@ -278,22 +284,22 @@ function Order({ data }) {
                                     the price of {totalPrice}
                                 </h2>
 
-                                {/* <PurchaseManual data={data}/> */}
-
-
-
+                                <PurchaseManual data={data}/>
                             </div>
-                            <button
+                            {/* <button
                                 type="submit"
                                 onClick={purchaseHandler}
                                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none "
                             >
                                 Purchase
-                            </button>
+                            </button> */}
                         </div>
                     )}
                 </div>
             </div>
+            {/* <Modal opened={opened} onClose={close} title="Authentication">
+                <SignUp/>
+            </Modal> */}
         </div>
     );
 }

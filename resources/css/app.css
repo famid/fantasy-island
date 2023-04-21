@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+html,body,*{
+	font-family: 'Lora', serif;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,6 +21,14 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.gradient-text-banner {
+	font-size: 16px;
+	font-weight: bold;
+	background: linear-gradient(to right, #fc00ff, #00dbde);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+  }
 
 .button {
 	display: inline-block;
@@ -66,3 +79,30 @@ iframe{
 	width:90vw;
 	height:90vh;
 }
+
+
+
+.wrapper {
+	width: 100%;
+	margin: auto;
+	overflow-x: hidden;
+  }
+
+  .target {
+	font-weight: bold;
+	color: #fbfbfb;
+	animation-name: rightToLeft;
+	animation-duration: 4.5s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	/* animation: rightToLeft 4.5s linear infinite; */
+  }
+
+  @keyframes rightToLeft {
+	0% {
+	  transform: translateX(200px);
+	}
+	100% {
+	  transform: translateX(-160px);
+	}
+  }

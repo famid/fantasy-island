@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import notify from './components/notify';
-import {redirect } from "react-router-dom";
 import { domain } from "../uitls";
 
 function SignUp({csrf}) {
@@ -95,11 +94,11 @@ function SignUp({csrf}) {
         <div className="max-w-md mx-auto h-full flex justify-center items-center flex-col  rounded-lg overflow-hidden">
             <header className="mb-8 text-2xl md:text-3xl font-semibold text-center">
                 <h1>
-                    Register To Buy Tickets And Have A Chance To Win Prizes!
+                   Buy Tickets And Have A Chance To Win Prizes!
                 </h1>
             </header>
             <div className="py-4 px-6 bg-[#A5D7E8] rounded-lg md:w-[400px] w-[300px]">
-                <h2 className="text-2xl font-bold mb-2">Register</h2>
+
                 <form>
                     <div className="mb-4">
                         <label
@@ -155,8 +154,10 @@ function SignUp({csrf}) {
                     <div className="mb-4">
                         <button
                             onClick={handleSubmit}
+                            // #E94E77
+// #C15B8A
                             type="button"
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none "
+                            className="bg-[#E94E77] hover:bg-[#C15B8A] text-white font-bold py-2 px-4 rounded focus:outline-none "
                             id="send-otp"
                         >
                             {" "}
@@ -185,7 +186,7 @@ function SignUp({csrf}) {
                             onClick={verifyOtp}
                             // disabled={!isOtpSent}
                             type="submit"
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none "
+                            className="bg-[#E94E77] hover:bg-[#C15B8A] text-white font-bold py-2 px-4 rounded focus:outline-none "
                         >
                             Verify OTP
                         </button>

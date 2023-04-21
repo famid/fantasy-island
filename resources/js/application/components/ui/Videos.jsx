@@ -9,26 +9,26 @@ const videoList = [
         video_id: "tszI9GrH1u0",
         thumbnail: "https://softr-prod.imgix.net/applications/8f7af9fb-a550-425d-b327-48195c193a5f/assets/img-1617202971594.png?rndt=1617202971594",
     },
-    {
-        id: "2",
-        video_id: "tszI9GrH1u0",
-        thumbnail: "https://softr-prod.imgix.net/applications/8f7af9fb-a550-425d-b327-48195c193a5f/assets/img-1617202971594.png?rndt=1617202971594",
-    },
-    {
-        id: "3",
-        video_id: "tszI9GrH1u0",
-        thumbnail: "https://softr-prod.imgix.net/applications/8f7af9fb-a550-425d-b327-48195c193a5f/assets/img-1617202971594.png?rndt=1617202971594",
-    },
-    {
-        id: "4",
-        video_id: "tszI9GrH1u0",
-        thumbnail: "https://softr-prod.imgix.net/applications/8f7af9fb-a550-425d-b327-48195c193a5f/assets/img-1617202971594.png?rndt=1617202971594",
-    },
-    {
-        id: "5",
-        video_id: "tszI9GrH1u0",
-        thumbnail: "https://softr-prod.imgix.net/applications/8f7af9fb-a550-425d-b327-48195c193a5f/assets/img-1617202971594.png?rndt=1617202971594",
-    },
+    // {
+    //     id: "2",
+    //     video_id: "tszI9GrH1u0",
+    //     thumbnail: "https://softr-prod.imgix.net/applications/8f7af9fb-a550-425d-b327-48195c193a5f/assets/img-1617202971594.png?rndt=1617202971594",
+    // },
+    // {
+    //     id: "3",
+    //     video_id: "tszI9GrH1u0",
+    //     thumbnail: "https://softr-prod.imgix.net/applications/8f7af9fb-a550-425d-b327-48195c193a5f/assets/img-1617202971594.png?rndt=1617202971594",
+    // },
+    // {
+    //     id: "4",
+    //     video_id: "tszI9GrH1u0",
+    //     thumbnail: "https://softr-prod.imgix.net/applications/8f7af9fb-a550-425d-b327-48195c193a5f/assets/img-1617202971594.png?rndt=1617202971594",
+    // },
+    // {
+    //     id: "5",
+    //     video_id: "tszI9GrH1u0",
+    //     thumbnail: "https://softr-prod.imgix.net/applications/8f7af9fb-a550-425d-b327-48195c193a5f/assets/img-1617202971594.png?rndt=1617202971594",
+    // },
 ];
 
 export default function Videos() {
@@ -58,15 +58,15 @@ export default function Videos() {
     return (
         <section id="pricing" className="isolate pb-20 md:pb-32">
             <div className="mx-auto max-w-5xl px-6 lg:px-8">
-                <h2 className="mt-24 max-w-2xl text-4xl font-bold sm:text-6xl md:mt-40">
+                {/* <h2 className="mt-24 max-w-2xl text-4xl font-bold sm:text-6xl md:mt-40">
                     Check the videos!
-                </h2>
+                </h2> */}
                 <section className="text-gray-600 body-font  flex justify-center items-center">
                     <div className="container px-5 py-24 mx-auto">
                         <div className="flex flex-wrap -m-4 text-center justify-center">
                             {videoList.map((video, id) => {
                                 return (
-                                    <div className="p-4 sm:w-1/2 lg:w-1/3 w-full hover:scale-105 duration-500">
+                                    <div className="p-4 w-full hover:scale-105 duration-500">
                                         <Card
                                             shadow="sm"
                                             padding="xl"

@@ -1,17 +1,17 @@
 import React from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import Ticket from "./Ticket";
 
 function Download() {
     const ticket = 'url("/assets/ticket.png")';
     const styles = {
-        backgroundImage: ticket,
-        width: "1000px",
-        backgroundSize: "cover",
-        objectFit:'contain',
-        backgroundRepeat:'no-repeat',
+        // backgroundImage: ticket,
+        width: "795px",
+        // objectFit:'cover',
+        // backgroundRepeat:'no-repeat',
         // backgroundPosition: "center",
-        height: "328px",
+        // height: "",
     };
     const generateTicket = () => {
         const input = document.getElementById("pdf-content");
@@ -24,19 +24,22 @@ function Download() {
     };
     return (
         <div className="flex h-auto flex-col">
-
             <button
                 onClick={generateTicket}
                 className="rounded-full border border-black px-5 py-2.5  text-center font-medium hover:bg-gray-200/25 "
             >
                 Download Ticket
             </button>
-            <div
-                className="mt-10 "
-                id="pdf-content"
-                 style={styles}
-            >
+            <div className="">
+                <div
+                    className="mt-10  top-72 h-auto"
+                    id="pdf-content"
+                    style={styles}
+                >
+                    <Ticket/>
 
+
+                </div>
             </div>
         </div>
     );

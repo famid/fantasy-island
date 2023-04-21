@@ -4,18 +4,19 @@ import Order from "./Order";
 window.React = React
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { redirect } from "react-router-dom";
 import { domain } from "../uitls";
 
 function Main({authUser, csrfToken}) {
 
-    if(!authUser){
-      window.location.href=`${domain}/signin`
-      return
-    }
+    // if(!authUser){
+    //   window.location.href=`${domain}/signin`
+    //   return
+    // }
     return <> <Order data={{authUser, csrfToken}}/><ToastContainer /></>
 }
 
+// #E94E77
+// #C15B8A
 export default Main;
 
 if (document.getElementById("order")) {
