@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/js/auth/App.jsx',
                 'resources/js/download-ticket/main.jsx',
                 'resources/js/game/main.jsx',
+                'resources/js/participants/main.jsx',
             ],
             refresh: true,
         }),

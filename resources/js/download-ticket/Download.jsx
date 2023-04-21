@@ -26,12 +26,12 @@ function Download({ tickets }) {
         <div className="flex h-auto flex-col">
             <button
                 onClick={generateTicket}
-                className="rounded-full border border-black px-5 py-2.5  text-center font-medium hover:bg-gray-200/25 "
+                className="rounded-full border border-white px-5 py-2.5  text-center font-medium bg-[#E94E77] hover:bg-[#C15B8A] text-white "
             >
                 Download Ticket
             </button>
 
-            <div className="absolute -z-20">
+            <div className="fixed top-0 left-0 right-0 bottom-0 -z-20">
                 <div
                     className="mt-10  top-72 h-auto"
                     id="pdf-content"

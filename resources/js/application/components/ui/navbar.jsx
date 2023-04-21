@@ -33,8 +33,7 @@ function KeystaticBanner() {
   return (
     <div className="absolute wrapper inset-x-0 top-19 z-20 bg-black fill-white px-4 py-3 text-center font-bold leading-5 text-sm text-green-100 sm:top-24 ">
       <span className='target'>
-      Eid Mubarak from Fantasy Island, Buy tickets and win fantastic prizes.
-
+      Eid Mubarak from Fantasy Island, Buy tickets and Join the Celebration and win fantastic prizes.
       </span>
     </div>
   );

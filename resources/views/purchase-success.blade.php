@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container h-screen mx-auto py-8 px-6">
+    <div class="container h-screen w-screen mx-auto bg-white py-8 px-6">
         <div class="max-w-xl mx-auto h-full flex justify-center items-center flex-col  rounded-lg overflow-hidden">
             <div class="py-4  bg-[#A5D7E8] rounded-lg px-3">
                 <div class="w-full mx-auto  flex justify-center items-center flex-col ">
@@ -15,15 +15,15 @@
                         serving you in Fantasy Island</p>
                     <div class='flex gap-3 justify-center w-full px-3 items-center md:px-14 mt-3 md:flex-row flex-col'>
                         <a href="/game"
-                            class="rounded-full border border-black px-5 py-2.5  text-center font-medium hover:bg-gray-200/25">
+                            class="rounded-full  border border-white text-white px-5 py-2.5  text-center font-medium bg-[#E94E77] hover:bg-[#C15B8A]">
                             Play Game
                         </a>
-
+                        <div id='download-ticket' data-authUser="{{ Auth::user() }}" data-csrf_token="{{ csrf_token() }}">
+                        </div>
                     </div>
                 </div>
             </div>
-             <div id='download-ticket' data-authUser="{{ Auth::user() }}" data-csrf_token="{{ csrf_token() }}">
-                        </div>
+
         </div>
         @viteReactRefresh
 
