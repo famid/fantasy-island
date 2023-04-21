@@ -33,6 +33,20 @@ class PaymentController extends Controller
 
     /**
      * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function makeManualPayment(Request $request) {
+        $orderPaymentSuccessResponse = $this->paymentService->manualPaymentOperation($request);
+
+        if($orderPaymentSuccessResponse['success']) {
+            return view('purchase-success');
+        }
+
+        return view('purchase-failed');
+    }
+
+    /**
+     * @param Request $request
      * @return Application|View|Factory
      */
     public function success(Request $request): Application|View|Factory {

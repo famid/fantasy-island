@@ -53,6 +53,7 @@ Route::post('login', [UserController::class, 'login'])->name('user.login');
 // Order Route
 Route::post('orders/create', [OrderController::class, 'store'])->name('orders.store');
 Route::get('/orders/{order_id}/make-payment', [PaymentController::class, 'makePayment'])->name('orders.make_payment');
+Route::post('/orders/make-manual-payment', [PaymentController::class, 'makeManualPayment'])->name('orders.manual_payment');
 
 // This route fetch all unpaid status order which purchase date is greater or equal than current date
 // Input: user_id
