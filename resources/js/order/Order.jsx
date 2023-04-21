@@ -45,7 +45,7 @@ function Order({ data }) {
 
 
         try {
-            console.log('hiii')
+
             const response = await fetch("/register", {
                 method: "POST",
                 headers: {
@@ -55,7 +55,17 @@ function Order({ data }) {
                 body: JSON.stringify({ name, phone, password ,email}),
             });
 
-            console.log(response);
+
+
+            const result = await response.json();
+
+            if(result.message === 'User is already verified'){
+                notify(result.message + " " + ', Redirecting to Login page')
+                setTimeout(()=>{
+                    window.location.href=`${domain}/signin`
+                },1300)
+                return
+            }
 
             if (response.ok) {
                 setIsOtpSentState(true);
@@ -219,7 +229,7 @@ function Order({ data }) {
     }, []);
 
     return (
-        <div className="container min:h-screen mx-auto py-8 px-6" >
+        <div className="container mx-auto py-8 px-6  " >
             <div className="max-w-md mx-auto h-full flex justify-center items-center flex-col  rounded-lg ">
                 <header className="mb-8 text-2xl md:text-3xl font-semibold text-center">
                     <h1 className="">Buy Tickets</h1>
