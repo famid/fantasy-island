@@ -111,3 +111,29 @@ iframe{
   /* .mantine-mmcoum {
 	border: 0.0625rem solid #8d0808;
   } */
+
+  .rules {
+	grid-area: rules;
+  }
+  .game-board {
+	grid-area: game-board;
+  }
+  .pools {
+	grid-area: pools;
+  }
+.wrapper {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-areas:
+  "rules game-board pools"
+}
+
+@media only screen and (max-width: 900px) {
+	.wrapper {
+		grid-template-areas:
+		"game-board"
+		"pools"
+		"rules"
+	}
+  }

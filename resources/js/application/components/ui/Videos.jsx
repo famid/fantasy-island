@@ -66,7 +66,7 @@ export default function Videos() {
                         <div className="flex flex-wrap -m-4 text-center justify-center">
                             {videoList.map((video, id) => {
                                 return (
-                                    <div className="p-4 w-full hover:scale-105 duration-500">
+                                    <div key={i} className="p-4 w-full hover:scale-105 duration-500">
                                         <Card
                                             shadow="sm"
                                             padding="xl"

@@ -21,13 +21,13 @@ const FoundationLayout = ({ children }) => {
             <div className="relative">
 
                 <header
-                    className="absolute inset-x-0 z-20 py-4 sm:fixed sm:h-24 bg-[#587AAA] bg-opacity-[0.9]  sm:py-6 "
+                    className="absolute inset-x-0 z-20 py-4 sm:fixed sm:h-24 bg-[#587AAA]  sm:py-6 "
 
                 >
                     <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-8">
-                        <a href="/">
+
                             <LogoLink />
-                        </a>
+
 
                         <nav className="flex items-center justify-between sm:ml-16 sm:w-full">
                             <div className="hidden gap-10 sm:flex"></div>

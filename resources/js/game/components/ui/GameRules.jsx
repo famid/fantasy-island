@@ -23,7 +23,7 @@ function GameRules({data}) {
         fetchUserGameInfo()
     },[])
     return (
-        <article className="max-w-[280px] flex items-center justify-center">
+        <article className="max-w-[280px] rules flex items-center justify-center">
 
             <div>
             <h2 className="text-left text-2xl  text-gray-900 leading-8 font-semibold">You bought <span className="text-indigo-900">{totalGames} </span> tickets and already attended  <span className="text-indigo-900">{totalGames - remainingGames} </span> games, you have  <span className="text-indigo-900">{remainingGames} </span> chances left! </h2>

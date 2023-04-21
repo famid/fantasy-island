@@ -69,7 +69,7 @@ const GameBoard = ({ data }) => {
     };
 
     return (
-        <div className="flex items-center  flex-col  p-0 rounded">
+        <div className="flex items-center game-board flex-col  p-0 rounded">
             <div
                 className="relative bg-[#ddd6] overflow-hidden"
                 style={{
