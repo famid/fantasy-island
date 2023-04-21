@@ -85,13 +85,26 @@ class PaymentService extends BaseService {
         return False;
     }
 
+    /**
+     * @param $request
+     * @return array
+     */
     public function paymentSuccess($request): array {
         try {
             $validate = SSLCommerz::validate_payment($request);
             if(!$validate) return $this->response()->error("Orders payment is failed");
 
+            return $this->updateOrderAndGenerateTicketAndGame($request->value_a);
+        } catch (Exception $e) {
+
+            return $this->response()->error($e->getMessage());
+        }
+    }
+
+    private function updateOrderAndGenerateTicketAndGame($orderId): array {
+        try {
             DB::beginTransaction();
-            $updateOrderStatus = $this->orderService->updatePaymentStatus($request->value_a);
+            $updateOrderStatus = $this->orderService->updatePaymentStatus($orderId);
             if(!$updateOrderStatus['success']) throw new Exception("Order payment status is not updated");
 
             $order = $updateOrderStatus['data'];
@@ -108,7 +121,41 @@ class PaymentService extends BaseService {
             DB::rollBack();
             return $this->response()->error($e->getMessage());
         }
+    }
 
+    /**
+     * @param $request
+     * @return array
+     */
+    public function manualPaymentOperation($request) {
+        try {
+            $order = $this->orderRepository->firstWhere([
+                'id' => $request->order_id,
+                'user_id' => $request->user_id,
+                'payment_status' => PENDING_STATUS
+            ]);
+            if(!$order) return $this->response()->error("No order is founded.");
 
+            DB::beginTransaction();
+            $saveManualPaymentInfo = $this->orderRepository->updateWhere(['id' => $order->id],
+                [
+                    'payment_system' => $request->payment_system,
+                    'client_phone' => $request->client_phone,
+                    'transaction_id' => $request->transaction_id,
+                    'merchant_account_phone' => $request->merchant_account_phone,
+                ]
+            );
+            if(!$saveManualPaymentInfo) throw new Exception("Order payment info does not save!");
+
+            $processOrderResponse = $this->updateOrderAndGenerateTicketAndGame($request->order_id);
+            if(!$processOrderResponse['success']) throw new Exception($processOrderResponse['message']);
+
+            DB::commit();
+            return $processOrderResponse;
+        } catch (Exception $e) {
+
+            DB::rollBack();
+            return $this->response()->error($e->getMessage());
+        }
     }
 }

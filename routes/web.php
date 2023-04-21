@@ -1,16 +1,11 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GamePlayController;
+use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\NagadPaymentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\TicketController;
-use App\Http\Controllers\WarehouseController;
-use Illuminate\Http\Request;
-use Spatie\ArrayToXml\ArrayToXml;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +38,7 @@ Route::get('/purchase-success', [App\Http\Controllers\PurchaseSuccessController:
 
 //====================Start Fantasy Island ========================//
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 // Auth Route
 Route::post('register', [UserController::class, 'registration'])->name('user.register');
@@ -53,12 +49,12 @@ Route::post('login', [UserController::class, 'login'])->name('user.login');
 // Order Route
 Route::post('orders/create', [OrderController::class, 'store'])->name('orders.store');
 Route::get('/orders/{order_id}/make-payment', [PaymentController::class, 'makePayment'])->name('orders.make_payment');
+Route::post('/orders/make-manual-payment', [PaymentController::class, 'makeManualPayment'])->name('orders.manual_payment');
 
 // This route fetch all unpaid status order which purchase date is greater or equal than current date
 // Input: user_id
 Route::get('/orders/{user_id}/unpaid-order', [OrderController::class, 'unpaidOrders'])->name('orders.unpaid');
-
-
+Route::get('/orders/list', [OrderController::class, 'orderList'])->name('admin.orders.list');
 
 // Game Play Route
 Route::post('gameplays/create', [GamePlayController::class, 'store'])->name('gameplays.store');
@@ -71,12 +67,19 @@ Route::get('gameplays/{user_id}/info', [GamePlayController::class, 'userGameInfo
 // This route all tickets info by orderId
 // Input: order_id
 Route::get('tickets/{order_id}/info', [TicketController::class, 'orderTicketsInfo'])->name('tickets.info');
+Route::post('tickets/update/make-used', [TicketController::class, 'updateTicketStatusById'])->name('tickets.update.');
+
+Route::get('user/game-results/leaderboard', [LeaderboardController::class, 'getUserGameResultsLeaderboard'])
+    ->name('user.game-results.leaderboard');
 
 Route::get('test', function (
     \App\Http\Controllers\PaymentController $payment,
     OrderController $orderController,
     GamePlayController $gamePlayController
 ) {
+    $numbers = "01618019049";
+    $response  = sendOTP($numbers, 1555, SMS_SENDER_ID);
+    dd($response);
     dd($gamePlayController->userGameInfo(5));
     dd($orderController->unpaidOrders(2));
     $data = $payment->order();
@@ -93,9 +96,6 @@ Route::middleware('auth')->prefix('/product')->as('product.')->group(function ()
     Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('destroy');
 });
 
-
-//Route::post('sslcommerz/success','PaymentController@success')->name('payment.success');
-//Route::post('sslcommerz/success','PaymentController@success')->name('payment.success');
 Route::post('sslcommerz/success', [PaymentController::class, 'success'])->name('payment.success');
 Route::post('sslcommerz/failure', [PaymentController::class, 'failure'])->name('payment.failure');
 Route::post('sslcommerz/cancel', [PaymentController::class, 'cancel'])->name('sslc.cancel');
