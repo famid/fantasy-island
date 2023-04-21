@@ -48,4 +48,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getPlaytimeAttribute($value): string
+    {
+        $minutes = floor($value / 60000);
+        $seconds = floor(($value - $minutes * 60000) / 1000);
+        $ms = $value - ($minutes * 60000) - ($seconds * 1000);
+        return sprintf('%02d:%02d:%03d', $minutes, $seconds, $ms);
+    }
 }

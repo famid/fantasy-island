@@ -120,6 +120,7 @@ class UserService extends BaseService {
         return [
             'name' => $request->name,
             'phone' => $request->phone,
+            'email' => $request->email ?? null,
             'password' => Hash::make($request->password)
         ];
     }
@@ -259,5 +260,18 @@ class UserService extends BaseService {
         }
     }
 
+    /**
+     * @return array
+     */
+    public function fetchGameResultsLeaderboard(): array {
+        try {
+            $leaderboards = $this->userRepository->getLeaderboardData();
+            if($leaderboards->isEmpty()) $this->response()->error("No game results are founded.");
 
+            return $this->response($leaderboards)->success("Game plays results.");
+        } catch (Exception $e) {
+
+            return $this->response()->error($e->getMessage());
+        }
+    }
 }
