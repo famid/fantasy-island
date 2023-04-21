@@ -18,11 +18,12 @@
                             class="rounded-full border border-black px-5 py-2.5  text-center font-medium hover:bg-gray-200/25">
                             Play Game
                         </a>
-                        <div id='download-ticket' data-authUser="{{ Auth::user() }}" data-csrf_token="{{ csrf_token() }}">
-                        </div>
+
                     </div>
                 </div>
             </div>
+             <div id='download-ticket' data-authUser="{{ Auth::user() }}" data-csrf_token="{{ csrf_token() }}">
+                        </div>
         </div>
         @viteReactRefresh
 

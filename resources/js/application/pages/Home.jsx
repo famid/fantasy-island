@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/ui/navbar'
 import Slider from '../components/ui/Slider'
 import Hero from '../components/ui/hero'
+import Videos from './../components/ui/Videos';
 
 const landingPage = {
     heroHeadline: 'Fantasy Land Of The Universe',
@@ -27,8 +28,18 @@ function Home() {
           heroIntroText: landingPage.heroIntroText,
         }}
       />
-        {/* <Pricing /> */}
+
+
       </div>
+      {/* <div style={{backgroundImage:'url("/assets/images/BENNER.png")', height:'100vh', width:'100vw', objectFit:'cover'}}>
+
+      </div>
+    <Hero
+        data={{
+          heroHeadline: landingPage.heroHeadline,
+          heroIntroText: landingPage.heroIntroText,
+        }}
+      /> */}
     </main>
   </div>
   )

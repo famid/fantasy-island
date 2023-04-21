@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import notify from "./components/notify";
 import { redirect } from "react-router-dom";
+import { domain } from "../uitls";
 
 function SignIn({ csrf }) {
     const [phone, setPhone] = useState("");
@@ -29,7 +30,7 @@ function SignIn({ csrf }) {
 
             if (result.success) {
                 notify("Logged in successfully");
-                window.location.href = "http://127.0.0.1:8000/order";
+                window.location.href = `${domain}/order`;
             } else {
                 notify(result.message);
             }

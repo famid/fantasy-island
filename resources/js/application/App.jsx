@@ -1,18 +1,14 @@
+import * as React from "react";
+import { createRoot } from "react-dom/client";
+import Home from "./pages/Home";
+import 'process/browser';
 
-import * as React from 'react'
-import { createRoot } from 'react-dom/client';
-import Home from './pages/Home';
-import Game from './pages/Game';
-
-window.React = React
+window.React = React;
 function App() {
-    return(
-        <>
-            <Home/>
-        </>
-    )
-}
 
+
+    return  <Home />;
+}
 
 if (document.getElementById("application")) {
     const root = createRoot(document.getElementById("application"));
