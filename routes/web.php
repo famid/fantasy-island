@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GamePlayController;
+use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\NagadPaymentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
@@ -67,6 +68,10 @@ Route::get('gameplays/{user_id}/info', [GamePlayController::class, 'userGameInfo
 // Input: order_id
 Route::get('tickets/{order_id}/info', [TicketController::class, 'orderTicketsInfo'])->name('tickets.info');
 Route::post('tickets/update/make-used', [TicketController::class, 'updateTicketStatusById'])->name('tickets.update.');
+
+Route::get('leaderboard', [LeaderboardController::class, 'getLeaderboardList']);
+Route::get('user/game-results/leaderboard', [LeaderboardController::class, 'getUserGameResultsLeaderboard'])
+    ->name('user.game-results.leaderboard');
 
 Route::get('test', function (
     \App\Http\Controllers\PaymentController $payment,
