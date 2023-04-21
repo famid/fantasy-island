@@ -83,6 +83,13 @@ iframe{
 	height:90vh;
 }
 
+tr td {
+	color:white
+}
+
+th {
+	color:wheat !important;
+}
 
 
 .wrapper {

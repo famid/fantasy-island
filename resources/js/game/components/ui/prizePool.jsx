@@ -16,7 +16,7 @@ function PrizePool() {
         </tr>
       ));
   return (
-    <Table  highlightOnHover withBorder withColumnBorders >
+    <Table  withBorder withColumnBorders >
       <thead>
         <tr>
           <th>Prize position</th>

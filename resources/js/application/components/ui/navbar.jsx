@@ -7,7 +7,7 @@ export default function Navbar() {
       <KeystaticBanner />
       <header className="absolute inset-x-0 z-20 py-4 sm:fixed sm:h-24 bg-transparent  sm:py-6 " style={{background:'rgba(226 232 240)'}}>
         <div className="mx-auto flex h-full max-w-5xl items-center justify-between px-6 lg:px-8">
-          <a href="/"><LogoLink /></a>
+         <LogoLink />
 
           <nav className="flex items-center justify-between sm:ml-16 sm:w-full">
             <div className="hidden gap-10 sm:flex">
