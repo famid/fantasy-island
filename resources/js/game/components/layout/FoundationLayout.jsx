@@ -28,7 +28,9 @@ const FoundationLayout = ({ children }) => {
 
                             <LogoLink />
 
-
+                            <a href="/participants" className='font-medium ml-5 text-gray-600 hover:text-gray-900'>
+          Participants
+         </a>
                         <nav className="flex items-center justify-between sm:ml-16 sm:w-full">
                             <div className="hidden gap-10 sm:flex"></div>
                             <a
