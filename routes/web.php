@@ -91,14 +91,6 @@ Route::get('test', function (
 
 //========================End Fantasy Island==========================//
 
-
-Route::middleware('auth')->prefix('/product')->as('product.')->group(function () {
-    Route::get('/list', [ProductController::class, 'getList'])->name('list');
-    Route::get('/create', [ProductController::class, 'create'])->name('create');
-    Route::post('/store', [ProductController::class, 'store'])->name('store');
-    Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('destroy');
-});
-
 Route::post('sslcommerz/success', [PaymentController::class, 'success'])->name('payment.success');
 Route::post('sslcommerz/failure', [PaymentController::class, 'failure'])->name('payment.failure');
 Route::post('sslcommerz/cancel', [PaymentController::class, 'cancel'])->name('sslc.cancel');
