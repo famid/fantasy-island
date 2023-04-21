@@ -69,7 +69,6 @@ Route::get('gameplays/{user_id}/info', [GamePlayController::class, 'userGameInfo
 Route::get('tickets/{order_id}/info', [TicketController::class, 'orderTicketsInfo'])->name('tickets.info');
 Route::post('tickets/update/make-used', [TicketController::class, 'updateTicketStatusById'])->name('tickets.update.');
 
-Route::get('leaderboard', [LeaderboardController::class, 'getLeaderboardList']);
 Route::get('user/game-results/leaderboard', [LeaderboardController::class, 'getUserGameResultsLeaderboard'])
     ->name('user.game-results.leaderboard');
 
