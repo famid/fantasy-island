@@ -6,7 +6,7 @@ import { useClickOutside, useDisclosure } from "@mantine/hooks";
 import { BsCalendarDate } from "react-icons/bs";
 import notify from "./components/notify";
 import PurchaseManual from "./PurchaseManual";
-import { months } from "../uitls";
+import { domain, months } from "../uitls";
 
 
 
@@ -90,12 +90,11 @@ function Order({ data }) {
                 body: JSON.stringify({ phone_verification_code: otp, phone }),
             });
 
-            console.log(response);
 
             if (response.ok) {
                 notify("Phone verification successful");
                 setTimeout(() => {
-                    window.location.href = `${domain}/order`;
+                    location.reload()
                 }, 1500);
 
                 // setButtonValue('OTP SENT')
@@ -316,8 +315,8 @@ function Order({ data }) {
                                                 id="send-otp"
                                             >
                                                 {" "}
-                                                {/* {buttonValue} */}
-                                                send otp
+                                                {buttonValue}
+
                                             </button>
                                         </div>
                                         <div className="mb-4">
