@@ -35,4 +35,12 @@ class OrderController extends Controller {
     public function unpaidOrders($userId): JsonResponse {
         return response()->json($this->orderService->fetchUnpaidOrders($userId));
     }
+
+    public function orderList(Request $request) {
+        $orderList = $this->orderService->filterOrderList($request->query());
+        return response()->json($orderList);
+//        dd($orderList);
+
+        return view('admin.order.index', ['orders' => $orderList]);
+    }
 }
