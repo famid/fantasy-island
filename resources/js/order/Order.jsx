@@ -1,27 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Group, Select, Modal } from "@mantine/core";
+import { Group } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
 import { useClickOutside, useDisclosure } from "@mantine/hooks";
 import { BsCalendarDate } from "react-icons/bs";
 import notify from "./components/notify";
 import PurchaseManual from "./PurchaseManual";
-import SignUp from "../auth/SignUp";
+import { months } from "../uitls";
 
-const months = {
-    1: "January",
-    2: "February",
-    3: "March",
-    4: "April",
-    5: "May",
-    6: "June",
-    7: "July",
-    8: "August",
-    9: "September",
-    10: "October",
-    11: "November",
-    12: "December",
-};
+
 
 function Order({ data }) {
     const [datePickerToggle, setDatePickerToggle] = useState(false);
@@ -31,14 +18,97 @@ function Order({ data }) {
     const [perTicketPrice, setPerTicketPrice] = useState(200);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [date, setDate] = useState(null);
-    const [purchasePage, setPurchasePage] = useState(false);
+    const [purchasePage, setPurchasePage] = useState(true);
     const [loading, setLoading] = useState();
     const [order, setOrder] = useState();
-    const [opened, { open, close }] = useDisclosure(false);
-
     const { authUser, csrfToken } = data;
 
     const user = authUser ? JSON.parse(authUser) : {};
+
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [password, setPassword] = useState("");
+    const [otp, setOTP] = useState("");
+    const [error, setError] = useState("");
+    const [buttonValue, setButtonValue] = useState("SEND OTP");
+    const [isOtpSent, setIsOtpSentState] = useState(false);
+
+    useEffect(() => {
+        if (isOtpSent) setButtonValue("RESEND OTP");
+    }, [isOtpSent]);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+        //   setButtonValue('SENDING OTP')
+        setError("");
+
+        try {
+            const response = await fetch("/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": csrf,
+                },
+                body: JSON.stringify({ name, phone, password }),
+            });
+
+            console.log(response);
+
+            if (response.ok) {
+                setIsOtpSentState(true);
+
+                // setButtonValue('OTP SENT')
+                // Handle successful SignUp
+                notify("OTP sent to your phone");
+            } else {
+                setIsOtpSentState(false);
+                // setButtonValue('OTP WASN"T SENT')
+                const data = await response.json();
+                setError(data.message);
+            }
+        } catch (error) {
+            setError("Something went wrong. Please try again later.");
+        }
+
+        setLoading(false);
+    };
+
+    const verifyOtp = async (event) => {
+        event.preventDefault();
+        setLoading(true);
+
+        try {
+            const response = await fetch("/verify-otp", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": csrf,
+                },
+                body: JSON.stringify({ phone_verification_code: otp, phone }),
+            });
+
+            console.log(response);
+
+            if (response.ok) {
+                notify("Phone verification successful");
+                setTimeout(() => {
+                    window.location.href = `${domain}/order`;
+                }, 1500);
+
+                // setButtonValue('OTP SENT')
+                // Handle successful SignUp
+            } else {
+                // setButtonValue('OTP WASN"T SENT')
+                const data = await response.json();
+                setError(data.message);
+            }
+        } catch (error) {
+            setError("Something went wrong. Please try again later.");
+        }
+
+        setLoading(false);
+    };
 
     // request handlers
     const handleOrderSubmit = async (event) => {
@@ -76,6 +146,7 @@ function Order({ data }) {
                 // notify('You are being redirected to purchase page!')
 
                 const result = await response.json();
+
                 setOrder(result.data);
                 localStorage.setItem(
                     "ticket_purchase_order_id",
@@ -156,123 +227,235 @@ function Order({ data }) {
 
                 <div className="py-8 px-6 bg-[#A5D7E8] rounded-lg md:w-[600px] w-[300px]">
                     {!purchasePage && (
-                        <form>
-                            <div className="mb-8 flex justify-center flex-col items-center">
-                                <label
-                                    htmlFor="name"
-                                    className="block mb-2 text-2xl  font-semibold text-gray-900"
-                                >
-                                    Place
-                                </label>
-                                <span className="block mb-2 underline    text-sm font-medium text-gray-900">
-                                    House 10 Rd. 03 Sector 01 Uttara Dhaka,
-                                    Dhaka 1230 BD
-                                </span>
-                            </div>
-                            <div className="w-full mb-8 flex md:flex-row flex-col justify-between">
-                                <div className="w-full md:w-2/5">
-                                    <div className="mb-4 relative">
-                                        <label
-                                            htmlFor="phone"
-                                            className=" mb-2 text-xl font-semibold flex gap-3 items-center text-gray-900"
-                                        >
-                                            Pick Your Date{" "}
-                                            <BsCalendarDate
-                                                onClick={() =>
-                                                    setDatePickerToggle(true)
-                                                }
-                                            />
-                                        </label>
+                        <>
+                            <form>
+                                <div className="mb-4">
+                                    <label
+                                        htmlFor="name"
+                                        className="block text-gray-700 font-bold mb-2"
+                                    >
+                                        Name
+                                    </label>
+                                    <input
+                                        value={name}
+                                        onChange={(e) =>
+                                            setName(e.target.value)
+                                        }
+                                        type="text"
+                                        name="name"
+                                        id="name"
+                                        className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none "
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label
+                                        htmlFor="phone"
+                                        className="block text-gray-700 font-bold mb-2"
+                                    >
+                                        Phone Number
+                                    </label>
+                                    <input
+                                        value={phone}
+                                        onChange={(e) =>
+                                            setPhone(e.target.value)
+                                        }
+                                        type="tel"
+                                        name="phone"
+                                        id="phone"
+                                        className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none "
+                                        required
+                                    />
+                                </div>
 
-                                        {datePickerToggle && (
-                                            <div
-                                                ref={ref}
-                                                className="absolute top-8 left-2 bg-white"
+                                {!authUser && (
+                                    <>
+                                        <div className="mb-4">
+                                            <label
+                                                htmlFor="password"
+                                                className="block text-gray-700 font-bold mb-2"
                                             >
-                                                <Group position="center shadow-lg">
-                                                    <DatePicker
-                                                        value={selectedDate}
-                                                        onClick={() =>
-                                                            setDatePickerToggle(
-                                                                false
-                                                            )
-                                                        }
-                                                        onChange={
-                                                            setSelectedDate
-                                                        }
-                                                    />
-                                                </Group>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className="mb-4">
-                                        <label
-                                            htmlFor="otp"
-                                            className="block mb-2 text-xl font-semibold text-gray-900"
-                                        >
-                                            Select No Of Tickets.
-                                        </label>
-                                        <div className="flex gap-3 max-w-[150px]">
-                                            <span
-                                                onClick={() =>
-                                                    setNoOfTickets((old) =>
-                                                        old > 1 ? old - 1 : old
-                                                    )
-                                                }
-                                                className="text-3xl cursor-pointer"
-                                            >
-                                                -
-                                            </span>
+                                                Password
+                                            </label>
                                             <input
-                                                className="text-2xl text-center appearance-none border rounded w-[50px]  px-1 text-gray-700 leading-tight focus:outline-none"
-                                                type="text"
-                                                onChange={() => null}
-                                                value={noOfTickets}
-                                            />
-                                            <span
-                                                onClick={() =>
-                                                    setNoOfTickets(
-                                                        (old) => old + 1
-                                                    )
+                                                value={password}
+                                                onChange={(e) =>
+                                                    setPassword(e.target.value)
                                                 }
-                                                className="text-3xl cursor-pointer"
+                                                type="password"
+                                                name="password"
+                                                id="password"
+                                                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none "
+                                                required
+                                            />
+                                        </div>
+                                        <div className="mb-4">
+                                            <button
+                                                onClick={handleSubmit}
+                                                // #E94E77
+                                                // #C15B8A
+                                                type="button"
+                                                className="bg-[#E94E77] hover:bg-[#C15B8A] text-white font-bold py-2 px-4 rounded focus:outline-none "
+                                                id="send-otp"
                                             >
-                                                +
+                                                {" "}
+                                                {buttonValue}
+                                            </button>
+                                        </div>
+                                        <div className="mb-4">
+                                            <label
+                                                htmlFor="otp"
+                                                className="block text-gray-700 font-bold mb-2"
+                                            >
+                                                OTP
+                                            </label>
+                                            <input
+                                                value={otp}
+                                                onChange={(e) =>
+                                                    setOTP(e.target.value)
+                                                }
+                                                type="text"
+                                                name="otp"
+                                                id="otp"
+                                                className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none "
+                                                required
+                                            />
+                                        </div>
+                                        <div className="mb-4">
+                                            <button
+                                                onClick={verifyOtp}
+                                                // disabled={!isOtpSent}
+                                                type="submit"
+                                                className="bg-[#E94E77] hover:bg-[#C15B8A] text-white font-bold py-2 px-4 rounded focus:outline-none "
+                                            >
+                                                Verify OTP
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
+                            </form>
+                            <form>
+                                <div className="mb-8 flex justify-center flex-col items-center">
+                                    <label
+                                        htmlFor="name"
+                                        className="block mb-2 text-2xl  font-semibold text-gray-900"
+                                    >
+                                        Place
+                                    </label>
+                                    <span className="block mb-2 underline    text-sm font-medium text-gray-900">
+                                        House 10 Rd. 03 Sector 01 Uttara Dhaka,
+                                        Dhaka 1230 BD
+                                    </span>
+                                </div>
+                                <div className="w-full mb-8 flex md:flex-row flex-col justify-between">
+                                    <div className="w-full md:w-2/5">
+                                        <div className="mb-4 relative">
+                                            <label
+                                                htmlFor="phone"
+                                                className=" mb-2 text-xl font-semibold flex gap-3 items-center text-gray-900"
+                                            >
+                                                Pick Your Date{" "}
+                                                <BsCalendarDate
+                                                    onClick={() =>
+                                                        setDatePickerToggle(
+                                                            true
+                                                        )
+                                                    }
+                                                />
+                                            </label>
+
+                                            {datePickerToggle && (
+                                                <div
+                                                    ref={ref}
+                                                    className="absolute top-8 left-2 bg-white"
+                                                >
+                                                    <Group position="center shadow-lg">
+                                                        <DatePicker
+                                                            value={selectedDate}
+                                                            onClick={() =>
+                                                                setDatePickerToggle(
+                                                                    false
+                                                                )
+                                                            }
+                                                            onChange={
+                                                                setSelectedDate
+                                                            }
+                                                        />
+                                                    </Group>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="mb-4">
+                                            <label
+                                                htmlFor="otp"
+                                                className="block mb-2 text-xl font-semibold text-gray-900"
+                                            >
+                                                Select No Of Tickets.
+                                            </label>
+                                            <div className="flex gap-3 max-w-[150px]">
+                                                <span
+                                                    onClick={() =>
+                                                        setNoOfTickets((old) =>
+                                                            old > 1
+                                                                ? old - 1
+                                                                : old
+                                                        )
+                                                    }
+                                                    className="text-3xl cursor-pointer"
+                                                >
+                                                    -
+                                                </span>
+                                                <input
+                                                    className="text-2xl text-center appearance-none border rounded w-[50px]  px-1 text-gray-700 leading-tight focus:outline-none"
+                                                    type="text"
+                                                    onChange={() => null}
+                                                    value={noOfTickets}
+                                                />
+                                                <span
+                                                    onClick={() =>
+                                                        setNoOfTickets(
+                                                            (old) => old + 1
+                                                        )
+                                                    }
+                                                    className="text-3xl cursor-pointer"
+                                                >
+                                                    +
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="border border-gray-900 h-[100px] md:block hidden"></div>
+                                    <div className="flex w-full md:w-2/5 flex-col gap-3 mb-4 items-start">
+                                        <div>
+                                            <p className="block mb-2 text-xl font-semibold text-gray-900">
+                                                Date: {date}
+                                            </p>
+                                        </div>
+                                        <div className="flex">
+                                            <label
+                                                htmlFor="price"
+                                                className="block mb-2 text-xl font-semibold text-gray-900"
+                                            >
+                                                Total Price:
+                                            </label>
+                                            <span className="block mb-2 ml-1 text-xl font-semibold text-gray-900">
+                                                {totalPrice} TK
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="border border-gray-900 h-[100px] md:block hidden"></div>
-                                <div className="flex w-full md:w-2/5 flex-col gap-3 mb-4 items-start">
-                                    <div>
-                                        <p className="block mb-2 text-xl font-semibold text-gray-900">
-                                            Date: {date}
-                                        </p>
-                                    </div>
-                                    <div className="flex">
-                                        <label
-                                            htmlFor="price"
-                                            className="block mb-2 text-xl font-semibold text-gray-900"
-                                        >
-                                            Total Price:
-                                        </label>
-                                        <span className="block mb-2 ml-1 text-xl font-semibold text-gray-900">
-                                            {totalPrice} TK
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div className="mb-4">
-                                <button
-                                    onClick={handleOrderSubmit}
-                                    type="submit"
-                                    className="bg-[#E94E77] hover:bg-[#C15B8A] text-white font-bold py-2 px-4 w-full rounded focus:outline-none "
-                                >
-                                    Place Order
-                                </button>
-                            </div>
-                        </form>
+                                <div className="mb-4">
+                                    <button
+                                        onClick={handleOrderSubmit}
+                                        type="submit"
+                                        className="bg-[#E94E77] hover:bg-[#C15B8A] text-white font-bold py-2 px-4 w-full rounded focus:outline-none "
+                                    >
+                                        Place Order
+                                    </button>
+                                </div>
+                            </form>
+                        </>
                     )}
 
                     {purchasePage && (
@@ -284,7 +467,7 @@ function Order({ data }) {
                                     the price of {totalPrice}
                                 </h2>
 
-                                <PurchaseManual data={data}/>
+                                <PurchaseManual data={data} />
                             </div>
                             {/* <button
                                 type="submit"
@@ -297,9 +480,6 @@ function Order({ data }) {
                     )}
                 </div>
             </div>
-            {/* <Modal opened={opened} onClose={close} title="Authentication">
-                <SignUp/>
-            </Modal> */}
         </div>
     );
 }
