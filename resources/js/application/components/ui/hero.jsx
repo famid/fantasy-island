@@ -11,7 +11,7 @@ export default function Hero({
 
       <div className="relative z-10 mx-auto grid max-w-5xl py-48 px-6 sm:py-32  justify-center md:py-48 lg:px-8">
 
-          <h1 className="mt-0 text-4xl gradient-text leading-[50px] text-center font-bold sm:text-5xl md:mt-20 md:text-6xl lg:text-7xl">
+          <h1 className="mt-0 text-4xl  leading-[50px] text-center font-bold sm:text-5xl md:mt-20 md:text-6xl lg:text-7xl">
             {heroHeadline}
           </h1>
           <p className="mt-6 sm:mt-10 sm:text-xl mx-auto font-semibold text-center max-w-[700px] sm:leading-8">
@@ -25,7 +25,7 @@ export default function Hero({
             </a>
             <a
               href="/game"
-              className="rounded-full border border-black px-5 py-2.5 font-medium hover:bg-gray-200/25"
+              className="rounded-full bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-900"
             >
               Play Game
             </a>

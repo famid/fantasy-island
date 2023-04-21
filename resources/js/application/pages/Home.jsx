@@ -29,7 +29,17 @@ function Home() {
         }}
       />
 
+
       </div>
+      {/* <div style={{backgroundImage:'url("/assets/images/BENNER.png")', height:'100vh', width:'100vw', objectFit:'cover'}}>
+
+      </div>
+    <Hero
+        data={{
+          heroHeadline: landingPage.heroHeadline,
+          heroIntroText: landingPage.heroIntroText,
+        }}
+      /> */}
     </main>
   </div>
   )

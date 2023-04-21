@@ -21,7 +21,7 @@ const sliderImages = [
 ];
 
 export default function Slider() {
-    const autoplay = useRef(Autoplay({ delay: 5000 }));
+    const autoplay = useRef(Autoplay({ delay: 50000 }));
     return (
         <Carousel
             maw={"100%"}

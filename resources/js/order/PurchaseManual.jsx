@@ -1,6 +1,7 @@
 import { Select } from "@mantine/core";
 import React, { useState, useEffect } from "react";
 import notify from "./components/notify";
+import { domain } from "../uitls";
 
 const paymentSystems = [
     {
@@ -80,19 +81,17 @@ function PurchaseManual({ data }) {
         ) {
             notify("Please select all the credentials properly!");
         }
-
-
-
+        const user = JSON.parse(data.authUser)
         let tempData = {
             payment_system: selectedPaymentSystem?.value,
             client_phone: clientPhone,
             transaction_id: transactionId,
             order_id: ticket_purchase_order_id,
-            mercent_account_phone: selectedMercentAccountPhone,
-            user_id: data.authUser.id,
+            merchant_account_phone: selectedMercentAccountPhone,
+            user_id: user.id,
         }
 
-        console.log(tempData)
+        console.log(tempData,data.csrfToken)
 
         try {
 
@@ -100,7 +99,7 @@ function PurchaseManual({ data }) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": csrfToken,
+                    "X-CSRF-TOKEN": data.csrfToken,
                 },
                 body: JSON.stringify(tempData),
             });
@@ -109,10 +108,12 @@ function PurchaseManual({ data }) {
 
             if (response.ok) {
                 // notify('You are being redirected to purchase page!')
+                window.location.href = `${domain}/purchase-success`
+                // const result = await response.json();
 
-                const result = await response.json();
+                // notify('Payment successfully done')
 
-                // notify('OTP sent to your phone')
+
             }
         } catch (error) {}
 

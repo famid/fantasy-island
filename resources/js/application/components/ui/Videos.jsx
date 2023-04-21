@@ -6,8 +6,8 @@ import { useState } from 'react';
 const videoList = [
     {
         id: "1",
-        video_id: "tszI9GrH1u0",
-        thumbnail: "https://softr-prod.imgix.net/applications/8f7af9fb-a550-425d-b327-48195c193a5f/assets/img-1617202971594.png?rndt=1617202971594",
+        video_id: "BIlU0ebXihY",
+        thumbnail: '/assets/images/thumbnail.png',
     },
     // {
     //     id: "2",
@@ -78,6 +78,7 @@ export default function Videos() {
                                                 <img
                                                     src={video.thumbnail}
                                                     height={160}
+                                                    className="cursor-pointer"
                                                     alt="No way!"
                                                 />
                                             </Card.Section>

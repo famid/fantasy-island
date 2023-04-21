@@ -3,7 +3,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import Ticket from "./Ticket";
 
-function Download() {
+function Download({ tickets }) {
     const ticket = 'url("/assets/ticket.png")';
     const styles = {
         // backgroundImage: ticket,
@@ -36,9 +36,9 @@ function Download() {
                     id="pdf-content"
                     style={styles}
                 >
-                    <Ticket/>
-
-
+                    {tickets.map((ticket, i) => {
+                        return <Ticket ticket={ticket} />;
+                    })}
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@ function Order({ data }) {
     const [perTicketPrice, setPerTicketPrice] = useState(200);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [date, setDate] = useState(null);
-    const [purchasePage, setPurchasePage] = useState(true);
+    const [purchasePage, setPurchasePage] = useState(false);
     const [loading, setLoading] = useState();
     const [order, setOrder] = useState();
     const { authUser, csrfToken } = data;
@@ -38,7 +38,7 @@ function Order({ data }) {
         if (isOtpSent) setButtonValue("RESEND OTP");
     }, [isOtpSent]);
 
-    const handleSubmit = async (event) => {
+    const handleSignUpSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
         setError("");
@@ -50,9 +50,9 @@ function Order({ data }) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": csrf,
+                    "X-CSRF-TOKEN": csrfToken,
                 },
-                body: JSON.stringify({ name, phone, password }),
+                body: JSON.stringify({ name, phone, password ,email}),
             });
 
             console.log(response);
@@ -85,7 +85,7 @@ function Order({ data }) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": csrf,
+                    "X-CSRF-TOKEN": csrfToken,
                 },
                 body: JSON.stringify({ phone_verification_code: otp, phone }),
             });
@@ -231,7 +231,11 @@ function Order({ data }) {
                     {!purchasePage && (
                         <>
                             <form>
-                                <div className="mb-4">
+
+
+                                {!authUser && (
+                                    <>
+                                        <div className="mb-4">
                                     <label
                                         htmlFor="name"
                                         className="block text-gray-700 font-bold mb-2"
@@ -244,8 +248,6 @@ function Order({ data }) {
                                             setName(e.target.value)
                                         }
                                         type="text"
-                                        name="name"
-                                        id="name"
                                         className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none "
                                         required
                                     />
@@ -264,15 +266,10 @@ function Order({ data }) {
                                             setPhone(e.target.value)
                                         }
                                         type="tel"
-                                        name="phone"
-                                        id="phone"
                                         className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none "
                                         required
                                     />
                                 </div>
-
-                                {!authUser && (
-                                    <>
                                        <div className="mb-4">
                                     <label
                                         htmlFor="name"
@@ -285,9 +282,8 @@ function Order({ data }) {
                                         onChange={(e) =>
                                             setEmail(e.target.value)
                                         }
-                                        type="text"
-                                        name="email"
-                                        id="email"
+                                        type="email"
+
                                         className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none "
                                         required
                                     />
@@ -305,15 +301,14 @@ function Order({ data }) {
                                                     setPassword(e.target.value)
                                                 }
                                                 type="password"
-                                                name="password"
-                                                id="password"
+
                                                 className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none "
                                                 required
                                             />
                                         </div>
                                         <div className="mb-4">
                                             <button
-                                                onClick={handleSubmit}
+                                                onClick={handleSignUpSubmit}
                                                 // #E94E77
                                                 // #C15B8A
                                                 type="button"
@@ -321,7 +316,8 @@ function Order({ data }) {
                                                 id="send-otp"
                                             >
                                                 {" "}
-                                                {buttonValue}
+                                                {/* {buttonValue} */}
+                                                send otp
                                             </button>
                                         </div>
                                         <div className="mb-4">
