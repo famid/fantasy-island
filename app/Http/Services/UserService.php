@@ -120,6 +120,7 @@ class UserService extends BaseService {
         return [
             'name' => $request->name,
             'phone' => $request->phone,
+            'email' => $request->email ?? null,
             'password' => Hash::make($request->password)
         ];
     }
