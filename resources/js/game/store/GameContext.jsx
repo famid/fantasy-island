@@ -29,6 +29,9 @@ export const GameContext = createContext(/** @type {GameContextType} */ {
     togglePause: () => {},
     puzzleImage: null,
     pickNewImage: () => {},
+    isFinished:false,
+    setIsFinished:()=>{},
+
 });
 
 /**
@@ -42,6 +45,10 @@ export const GameContextProvider = ({children}) => {
         /** @type {{x: number, y: number}} - Number of columns and rows of the puzzle*/
         {x: 3, y: 3}
     );
+
+    const [isFinished, setIsFinished] = useState(false);
+
+
 
     const [imagePicked, setImagePicked] = useState(
         /** @type {string} - name of the puzzle image file selected */
@@ -66,7 +73,7 @@ export const GameContextProvider = ({children}) => {
     // sets the dynamic path to the image used for the puzzle
     useEffect(() => {
         if (!imagePicked) return;
-        setPuzzleImage('/assets/images/' + imagePicked );
+        setPuzzleImage('/assets/game/' + imagePicked );
     }, [imagePicked ]);
 
     // creates an instance of the game,
@@ -88,7 +95,6 @@ export const GameContextProvider = ({children}) => {
     const start = useCallback(() => {
         if (!game) return;
         game.start();
-        console.log('game started')
         setBoard(game.getBoard());
     }, [game]);
 
@@ -103,7 +109,9 @@ export const GameContextProvider = ({children}) => {
         // re-render the board with a delay to allow a css transition
         if (isWon) {
             setTimeout(() => setBoard(game.getBoard()), 300);
+            return true
         }
+        return false
     }, [game]);
 
     /**
@@ -135,6 +143,9 @@ export const GameContextProvider = ({children}) => {
             togglePause,
             puzzleImage,
             pickNewImage,
+            isFinished,
+            setIsFinished
+
         }}>
             {children}
         </GameContext.Provider>

@@ -4,21 +4,26 @@ import LogoLink from "./logo-link";
 export default function Navbar() {
   return (
     <div className="relative">
-      {/* <KeystaticBanner /> */}
-      <header className="absolute inset-x-0 z-20 py-4 sm:fixed sm:h-24 bg-transparent  sm:py-6 ">
+      <KeystaticBanner />
+      <header className="absolute inset-x-0 z-20 py-4 sm:fixed sm:h-24 bg-transparent  sm:py-6 " style={{background:'rgba(226 232 240)'}}>
         <div className="mx-auto flex h-full max-w-5xl items-center justify-between px-6 lg:px-8">
-          <LogoLink />
+         <LogoLink />
+         <a href="/participants" className='font-medium ml-5 text-gray-600 hover:text-gray-900'>
+          Participants
+         </a>
+
           <nav className="flex items-center justify-between sm:ml-16 sm:w-full">
             <div className="hidden gap-10 sm:flex">
             </div>
             <a
-              href="#"
-              className="rounded-full bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-900"
+              href="/order"
+              className="rounded-full md:block hidden bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-900"
             >
               Buy Ticket
             </a>
           </nav>
         </div>
+
       </header>
     </div>
   );
@@ -26,20 +31,11 @@ export default function Navbar() {
 
 function KeystaticBanner() {
   return (
-    <div className="absolute inset-x-0 top-20 z-20 bg-black fill-white px-4 py-3 text-center text-sm text-white sm:top-24">
-      You're looking at a{" "}
-      Game site official page
-      <a
-        href="https://keystatic.thinkmill.com.au"
-        className="text-white mx-1 underline hover:text-yellow-300"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+    <div className="absolute wrapper inset-x-0 top-19 z-20 bg-black fill-white px-4 py-3 text-center font-bold leading-5 text-sm text-green-100 sm:top-24 ">
+      <span className='target'>
+      Eid Mubarak from Fantasy Island, Buy tickets and win fantastic prizes.
 
-        Learn more about Game site
-        <span className="sr-only">opens in a new tab</span>
-      </a>{" "}
-      and start the game.
+      </span>
     </div>
   );
 }

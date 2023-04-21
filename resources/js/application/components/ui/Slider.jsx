@@ -1,31 +1,48 @@
+import { useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
+import { Carousel } from "@mantine/carousel";
 
-
-import { useRef } from 'react';
-import Autoplay from 'embla-carousel-autoplay';
-import { Carousel } from '@mantine/carousel';
+const sliderImages = [
+    {
+        src: "/assets/images/BENNER.PNG ",
+        clsnm: "w-full h-[100vh] object-cover",
+        alt: "",
+    },
+//     {
+//       src: "/assets/images/3.jpg",
+//       clsnm: "w-full h-[100vh] object-cover",
+//       alt: "",
+//   },
+//   {
+//     src: "/assets/images/2.jpg",
+//     clsnm: "w-full h-[100vh] object-cover",
+//     alt: "",
+// }
+];
 
 export default function Slider() {
-  const autoplay = useRef(Autoplay({ delay: 2000 }));
-  return (
-    <Carousel
-      maw={'100%'}
-      mx="auto"
-      withIndicators
-      height={'100vh'}
-      plugins={[autoplay.current]}
-      onMouseEnter={autoplay.current.stop}
-      onMouseLeave={autoplay.current.reset}
-    >
-      <Carousel.Slide>
-        <img src="/assets/images/a1.jpg" alt="" className='w-full h-[100vh] object-cover' />
-      </Carousel.Slide>
-      <Carousel.Slide>
-      <img src="/assets/images/a1.jpg" alt=""  className='w-full h-[100vh] object-cover' />
-      </Carousel.Slide>
-      <Carousel.Slide>
-      <img src="/assets/images/a1.jpg"alt=""  className='w-full h-[100vh] object-cover' />
-      </Carousel.Slide>
-
-    </Carousel>
-  );
+    const autoplay = useRef(Autoplay({ delay: 50000 }));
+    return (
+        <Carousel
+            maw={"100%"}
+            mx="auto"
+            withIndicators
+            height={"100vh"}
+            plugins={[autoplay.current]}
+            onMouseEnter={autoplay.current.stop}
+            onMouseLeave={autoplay.current.reset}
+        >
+            {sliderImages.map((slide, i) => {
+                return (
+                    <Carousel.Slide>
+                        <img
+                            src={slide.src}
+                            alt={slide.alt}
+                            className={slide.clsnm}
+                        />
+                    </Carousel.Slide>
+                );
+            })}
+        </Carousel>
+    );
 }

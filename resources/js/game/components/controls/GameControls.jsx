@@ -1,58 +1,104 @@
 import GameInfo from "./GameInfo";
 import {TbClick} from "react-icons/tb";
-import ControlButton from "./ControlButton";
 import {useContext} from "react";
 import {GameContext} from "../../store/GameContext";
-import {useNavigate} from "react-router-dom";
 import {FaFlagCheckered} from "react-icons/fa";
 import GameClock from "./GameClock";
-
+import * as React from 'react'
+import { ClockContext } from "../../store/clockContext";
+import notify from './../../../order/components/notify';
+import PrizePool from "../ui/prizePool";
 /**
  * Renders the game controls, either on the right or on the bottom of the puzzle board
  * this includes the game information (moves/clock) and the action buttons
  * @returns {JSX.Element}
  * @constructor
  */
-const GameControls = () => {
+const GameControls = ({data}) => {
     /**
      * @type {import('../../store/GameContext').GameContextType}
      */
-    const {game, start, togglePause, pickNewImage,puzzleImage} = useContext(GameContext);
+
+    // const {game, start, togglePause, pickNewImage,puzzleImage} = useContext(GameContext);
+
+    const { won, moves,finishingTime, timeDifference} = useContext(ClockContext);
+
+
 
     /**
      * @type {NavigateFunction} navigate instance to go to the "change size" screen
      */
-    // const navigate = useNavigate();
+    // const navigate = useNavigate();> {
+
+    const resultSubmitHandler = async () => {
+        console.log(timeDifference)
+        const date1 = new Date(timeDifference[0]);
+        const date2 = new Date(timeDifference[1]);
+        const diffInMs = date2 - date1;
+        function formatTime(ms) {
+            const min = Math.floor(ms / 60000); // calculate minutes
+            const sec = Math.floor((ms % 60000) / 1000); // calculate seconds
+            const mil = ms % 1000; // calculate remaining milliseconds
+
+            // pad single-digit numbers with a leading zero
+            const minStr = min < 10 ? `0${min}` : `${min}`;
+            const secStr = sec < 10 ? `0${sec}` : `${sec}`;
+            const milStr = mil < 10 ? `00${mil}` : mil < 100 ? `0${mil}` : `${mil}`;
+
+            return `${minStr}:${secStr}:${milStr}`;
+          }
+
+        try {
+            const response = await fetch("/gameplays/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": data.csrfToken,
+                },
+                body: JSON.stringify({ user_id:data.authUser.id, is_finished:true,playtime:`${formatTime(diffInMs)}`}),
+            });
+
+
+            if (response.ok) {
+                notify('Your result submitted successfully')
+                setTimeout(()=>{{
+                    location.reload();
+                }},1000)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
 
     return (
         <div className="flex flex-col justify-center  items-center gap-2">
             <div className="flex flex-row md:flex-col gap-4 justify-between">
-                <GameInfo label="Moves" icon={<TbClick />}>{game?.moves?.length ?? 0}</GameInfo>
-                <GameClock />
-                {game?.gameWon && (
-                    <GameInfo icon={<FaFlagCheckered />}>Congratulations</GameInfo>
+                {/* <GameInfo label="Moves" icon={<TbClick />}>{moves}</GameInfo> */}
+
+                {
+                    !won &&    <GameClock data={data}/>
+                }
+
+
+                {won && (
+                    <>
+                     <GameInfo icon={<FaFlagCheckered />}>
+                            <div>
+                                <h3> Congratulations You have finished the puzzle in {finishingTime} !</h3>
+
+                            </div>
+                       </GameInfo>
+                     <button className="bg-[#576CBC] hover:bg-[#0B2447] text-white font-bold py-2 px-4  focus:outline-none rounded-xl" onClick={resultSubmitHandler}>Submit Result</button>
+                    </>
+
                 )}
+
             </div>
-            <div className="flex flex-row md:flex-col gap-2">
-            <div className="max-w-[200px] ">
-                    <img className="max-w-[200px]  height-[200px] mt-4" src={puzzleImage} alt="" />
-                </div>
-                {/* {(!game?.startTime) && [
-                    <ControlButton onClick={start} key="startGame">Start Game</ControlButton>,
-                    <ControlButton onClick={pickNewImage} key="changeImage">Change Image</ControlButton>
-                ]} */}
-                {/* {(!!game?.startTime) && (!game?.gameWon) && (
-                    <ControlButton onClick={togglePause}>
-                        {game.pauseTime ? 'Resume' : 'Pause'}
-                    </ControlButton>
-                )} */}
-                {/* {(!!game?.startTime) && (
-                    <ControlButton onClick={pickNewImage}>New Game</ControlButton>
-                )} */}
-                {/* <ControlButton>Select Size</ControlButton> */}
-            </div>
+
         </div>
     );
 }
 
-export default GameControls;
+export default React.memo(GameControls);
