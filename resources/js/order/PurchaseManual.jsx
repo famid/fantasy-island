@@ -96,7 +96,7 @@ function PurchaseManual({ data }) {
 
         try {
 
-            const response = await fetch("/", {
+            const response = await fetch("/orders/make-manual-payment", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -9,7 +9,7 @@
 const GameInfo = ({icon = null, label = '', children}) => {
     return (
         <div
-            className="flex flex-row md:flex-col justify-center items-center gap-2 text-gray-800
+            className="flex flex-row justify-center items-center gap-2 text-gray-800
             bg-[#576CBC] py-2 px-3 rounded-xl flex-1 md:flex-none"
         >
             <div className="text-2xl md:text-5xl font-bold">

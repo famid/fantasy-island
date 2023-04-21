@@ -7,6 +7,7 @@ import GameClock from "./GameClock";
 import * as React from 'react'
 import { ClockContext } from "../../store/clockContext";
 import notify from './../../../order/components/notify';
+import PrizePool from "../ui/prizePool";
 /**
  * Renders the game controls, either on the right or on the bottom of the puzzle board
  * this includes the game information (moves/clock) and the action buttons
@@ -77,11 +78,7 @@ const GameControls = ({data}) => {
                 )}
 
             </div>
-            <div className="flex flex-row md:flex-col gap-2">
-            <div className="max-w-[200px] ">
-                    {/* <img className="w-[200px] object-cover  height-[200px] mt-4" src={puzzleImage} alt="" /> */}
-                </div>
-            </div>
+
         </div>
     );
 }

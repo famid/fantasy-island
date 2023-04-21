@@ -18,7 +18,7 @@ function Order({ data }) {
     const [perTicketPrice, setPerTicketPrice] = useState(200);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [date, setDate] = useState(null);
-    const [purchasePage, setPurchasePage] = useState(true);
+    const [purchasePage, setPurchasePage] = useState(false);
     const [loading, setLoading] = useState();
     const [order, setOrder] = useState();
     const { authUser, csrfToken } = data;
@@ -28,6 +28,7 @@ function Order({ data }) {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState('')
     const [otp, setOTP] = useState("");
     const [error, setError] = useState("");
     const [buttonValue, setButtonValue] = useState("SEND OTP");
@@ -43,7 +44,10 @@ function Order({ data }) {
         //   setButtonValue('SENDING OTP')
         setError("");
 
+        console.log('hi', csrfToken)
+
         try {
+            console.log({ name, phone, password })
             const response = await fetch("/register", {
                 method: "POST",
                 headers: {
@@ -248,6 +252,7 @@ function Order({ data }) {
                                         required
                                     />
                                 </div>
+
                                 <div className="mb-4">
                                     <label
                                         htmlFor="phone"
@@ -270,6 +275,25 @@ function Order({ data }) {
 
                                 {!authUser && (
                                     <>
+                                       {/* <div className="mb-4">
+                                    <label
+                                        htmlFor="name"
+                                        className="block text-gray-700 font-bold mb-2"
+                                    >
+                                        Email
+                                    </label>
+                                    <input
+                                        value={email}
+                                        onChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
+                                        type="text"
+                                        name="email"
+                                        id="email"
+                                        className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none "
+                                        required
+                                    />
+                                </div> */}
                                         <div className="mb-4">
                                             <label
                                                 htmlFor="password"
