@@ -4,20 +4,20 @@ import { Carousel } from "@mantine/carousel";
 
 const sliderImages = [
     {
-        src: "/assets/images/a1.jpg",
+        src: "/assets/images/BENNER.PNG ",
         clsnm: "w-full h-[100vh] object-cover",
         alt: "",
     },
-    {
-      src: "/assets/images/3.jpg",
-      clsnm: "w-full h-[100vh] object-cover",
-      alt: "",
-  },
-  {
-    src: "/assets/images/2.jpg",
-    clsnm: "w-full h-[100vh] object-cover",
-    alt: "",
-}
+//     {
+//       src: "/assets/images/3.jpg",
+//       clsnm: "w-full h-[100vh] object-cover",
+//       alt: "",
+//   },
+//   {
+//     src: "/assets/images/2.jpg",
+//     clsnm: "w-full h-[100vh] object-cover",
+//     alt: "",
+// }
 ];
 
 export default function Slider() {

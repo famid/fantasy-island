@@ -64,7 +64,7 @@ export default function Videos() {
                 <section className="text-gray-600 body-font  flex justify-center items-center">
                     <div className="container px-5 py-24 mx-auto">
                         <div className="flex flex-wrap -m-4 text-center justify-center">
-                            {videoList.map((video, id) => {
+                            {videoList.map((video, i) => {
                                 return (
                                     <div key={i} className="p-4 w-full hover:scale-105 duration-500">
                                         <Card

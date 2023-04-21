@@ -41,7 +41,6 @@ const GameControls = ({data}) => {
                 body: JSON.stringify({ user_id:data.authUser.id, is_finished:true,playtime:'00:20:10'}),
             });
 
-            console.log(response);
 
             if (response.ok) {
                 notify('Your result submitted successfully')

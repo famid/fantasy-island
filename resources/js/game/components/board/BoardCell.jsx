@@ -39,7 +39,7 @@ const BoardCell = ({
         })
        // console.log(timeDifference)
        }
-    //    setMoves((oldMoves) => oldMoves + 1)
+
     }
 
     return (

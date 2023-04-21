@@ -18,7 +18,7 @@ function Order({ data }) {
     const [perTicketPrice, setPerTicketPrice] = useState(200);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [date, setDate] = useState(null);
-    const [purchasePage, setPurchasePage] = useState(false);
+    const [purchasePage, setPurchasePage] = useState(true);
     const [loading, setLoading] = useState();
     const [order, setOrder] = useState();
     const { authUser, csrfToken } = data;
@@ -41,13 +41,11 @@ function Order({ data }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
-        //   setButtonValue('SENDING OTP')
         setError("");
 
-        console.log('hi', csrfToken)
 
         try {
-            console.log({ name, phone, password })
+            console.log('hiii')
             const response = await fetch("/register", {
                 method: "POST",
                 headers: {
@@ -275,7 +273,7 @@ function Order({ data }) {
 
                                 {!authUser && (
                                     <>
-                                       {/* <div className="mb-4">
+                                       <div className="mb-4">
                                     <label
                                         htmlFor="name"
                                         className="block text-gray-700 font-bold mb-2"
@@ -293,7 +291,7 @@ function Order({ data }) {
                                         className=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none "
                                         required
                                     />
-                                </div> */}
+                                </div>
                                         <div className="mb-4">
                                             <label
                                                 htmlFor="password"
