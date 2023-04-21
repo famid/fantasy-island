@@ -133,9 +133,7 @@ function Order({ data }) {
         }
 
         try {
-            console.log(
-                selectedDate.toLocaleString("en-US", { timeZone: "Asia/Dhaka" })
-            );
+
 
             const response = await fetch("/orders/create", {
                 method: "POST",

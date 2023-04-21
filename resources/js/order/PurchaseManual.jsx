@@ -77,7 +77,6 @@ function PurchaseManual({ data }) {
             user_id: user.id,
         }
 
-        console.log(tempData,data.csrfToken)
 
         try {
 
@@ -90,7 +89,7 @@ function PurchaseManual({ data }) {
                 body: JSON.stringify(tempData),
             });
 
-            console.log(response)
+
 
             if (response.ok) {
                 // notify('You are being redirected to purchase page!')
