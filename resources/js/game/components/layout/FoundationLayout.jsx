@@ -19,23 +19,21 @@ const FoundationLayout = ({ children }) => {
             }}
         >
             <div className="relative">
-
-                <header
-                    className="absolute inset-x-0 z-20 py-4 sm:fixed sm:h-24 bg-[#587AAA]  sm:py-6 "
-
-                >
+                <header className="absolute inset-x-0 z-20 py-4 sm:fixed sm:h-24 bg-[#587AAA]  sm:py-6 ">
                     <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-8">
+                        <LogoLink />
 
-                            <LogoLink />
-
-                            <a href="/participants" className='font-medium ml-5 text-gray-600 hover:text-gray-900'>
-          Participants
-         </a>
+                        <a
+                            href="/participants"
+                            className="font-medium md:block hidden ml-5 text-gray-600 hover:text-gray-900"
+                        >
+                            Participants
+                        </a>
                         <nav className="flex items-center justify-between sm:ml-16 sm:w-full">
                             <div className="hidden gap-10 sm:flex"></div>
                             <a
                                 href="/order"
-                                className="rounded-full bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-900"
+                                className="rounded-full  bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-900"
                             >
                                 Buy Ticket
                             </a>
