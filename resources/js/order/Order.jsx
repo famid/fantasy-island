@@ -219,7 +219,7 @@ function Order({ data }) {
     }, []);
 
     return (
-        <div className="container min:h-screen mx-auto py-8 px-6">
+        <div className="container min:h-screen mx-auto py-8 px-6" >
             <div className="max-w-md mx-auto h-full flex justify-center items-center flex-col  rounded-lg ">
                 <header className="mb-8 text-2xl md:text-3xl font-semibold text-center">
                     <h1 className="">Buy Tickets</h1>

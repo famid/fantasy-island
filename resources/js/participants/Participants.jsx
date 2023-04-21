@@ -5,9 +5,9 @@ import Navbar from '../application/components/ui/navbar'
 import LeaderboardTable from './table/LeaderboardTable'
 
 function Participants({participantsData}) {
-    console.log(participantsData)
+
   return (
-    <div className=" w-full h-screen" style={{background:"url('/assets/images/BENNER.png')",}}>
+    <div className=" w-full h-screen" style={{background:"url('/assets/images/bg.webp')"}}>
     <Navbar />
 
     <main className=" z-10 pt-40 max-w-5xl mx-auto px-4 game-screen" >

@@ -4,7 +4,7 @@ import { Carousel } from "@mantine/carousel";
 
 const sliderImages = [
     {
-        src: "/assets/images/BENNER.PNG ",
+        src: "/assets/images/bg.webp",
         clsnm: "w-full h-[100vh] object-cover",
         alt: "",
     },

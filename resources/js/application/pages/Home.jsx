@@ -20,8 +20,8 @@ function Home() {
     <Navbar />
 
     <main className="relative z-10">
-    <Slider/>
-      <div className="absolute top-0 left-0 right-0 bottom-0">
+    {/* <Slider/> */}
+      {/* <div className="absolute top-0 left-0 right-0 bottom-0"> */}
       <Hero
         data={{
           heroHeadline: landingPage.heroHeadline,
@@ -30,7 +30,7 @@ function Home() {
       />
 
 
-      </div>
+      {/* </div> */}
       {/* <div style={{backgroundImage:'url("/assets/images/BENNER.png")', height:'100vh', width:'100vw', objectFit:'cover'}}>
 
       </div>
