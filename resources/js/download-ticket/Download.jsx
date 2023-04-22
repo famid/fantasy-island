@@ -1,17 +1,24 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import Ticket from "./Ticket";
+import { useViewportSize } from '@mantine/hooks';
 
 function Download({ tickets }) {
     const ticket = 'url("/assets/ticket.png")';
+    const [widtht, setWidtht] = useState('399px')
+    const { height, width } = useViewportSize();
+
+
+    useEffect(()=>{
+        if(width > 1000) setWidtht('795px')
+        else setWidtht('399px')
+    },[width])
+
     const styles = {
-        // backgroundImage: ticket,
-        width: "795px",
-        // objectFit:'cover',
-        // backgroundRepeat:'no-repeat',
-        // backgroundPosition: "center",
-        // height: "",
+        width: widtht,
+        objectFit:'cover',
+
     };
     const generateTicket = () => {
         const input = document.getElementById("pdf-content");
@@ -19,9 +26,10 @@ function Download({ tickets }) {
             const imgData = canvas.toDataURL("image/png");
             const pdf = new jsPDF();
             pdf.addImage(imgData, "PNG", 0, 0);
-            pdf.save("download.pdf");
+            pdf.save("ticket.pdf");
         });
     };
+
     return (
         <div className="flex h-auto flex-col">
             <button
