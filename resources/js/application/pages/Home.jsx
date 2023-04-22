@@ -8,7 +8,7 @@ import Slider from './../components/ui/Slider';
 const landingPage = {
     heroHeadline: 'Fantasy Island',
 heroIntroText:
-  'Eid Offer - By tickets to Fantasy Island for you and your family and Solve puzzle and win Prizes ',
+  'Eid Offer - Buy tickets to Fantasy Island for you and your family and Solve puzzle and win Prizes ',
 footerHeadline: 'Get started with Game site, today.',
 footerText:
  ' Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s'

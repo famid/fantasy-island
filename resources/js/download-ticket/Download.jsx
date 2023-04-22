@@ -12,7 +12,8 @@ function Download({ tickets }) {
 
     useEffect(()=>{
         if(width > 1000) setWidtht('795px')
-        else setWidtht('399px')
+        else if((width > 500)) setWidtht('399px')
+        else setWidtht('270px')
     },[width])
 
     const styles = {
