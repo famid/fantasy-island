@@ -103,7 +103,9 @@ class OrderRepository extends BaseRepository {
                 'orders.client_phone',
                 'orders.merchant_account_phone',
                 'orders.purchase_date',
-                'orders.transaction_id'
+                'orders.transaction_id',
+                'users.name',
+                'users.phone'
             )
             ->orderByDesc('orders.created_at');
 
