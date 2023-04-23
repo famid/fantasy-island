@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Table } from "@mantine/core";
 import Ticket from "./Ticket";
 import notify from "../order/components/notify";
-import { Modal, Button, Group } from "@mantine/core";
+import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import FilterInput from "./filterInput";
 
 function Dashboard({ orders, csrfToken }) {
     const [opened, { open, close }] = useDisclosure(false);
     const [activeOrder, setActiveOrder] = useState(null);
+    const [sideBar, setSidebar] = useState(true);
 
     const openModalForAllTicketsUsed = (order) => {
         open();
@@ -92,37 +94,50 @@ function Dashboard({ orders, csrfToken }) {
     return (
         <div className="flex h-screen bg-white">
             {/* Left Sidebar */}
-            <div className="flex flex-col w-48 bg-white border-r">
-                <div className="flex flex-col items-center h-16 bg-gray-200 justify-center">
-                    <span className="text-2xl font-bold">Dashboard</span>
+            {sideBar && (
+                <div className="flex flex-col w-48 bg-white border-r">
+                    <div className="flex flex-col items-center h-16 bg-gray-200 justify-center">
+                        <span className="text-2xl font-bold">Dashboard</span>
+                    </div>
+                    <div className="flex flex-col pt-4">
+                        {/* <a
+                            href="#"
+                            className="px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800"
+                        >
+                            Participants
+                        </a> */}
+                        <a
+                            href="#"
+                            className="px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800"
+                        >
+                            Order List
+                        </a>
+                        {/* <a
+                            href="#"
+                            className="px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800"
+                        >
+                            Ticket List
+                        </a> */}
+                    </div>
                 </div>
-                <div className="flex flex-col pt-4">
-                    {/* <a
-                        href="#"
-                        className="px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800"
-                    >
-                        Participants
-                    </a> */}
-                    <a
-                        href="#"
-                        className="px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800"
-                    >
-                        Order List
-                    </a>
-                    {/* <a
-                        href="#"
-                        className="px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800"
-                    >
-                        Ticket List
-                    </a> */}
-                </div>
-            </div>
+            )}
 
             {/* Main Content */}
             <div className="flex flex-col flex-1 overflow-y-auto">
                 <div className="flex items-center justify-between px-6 py-4 bg-white border-b">
                     <span className="text-lg font-bold">Order List</span>
-                    <button className="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
+                    {/* <div className="flex justify-between gap-4 items-center">
+                        {" "}
+                        <FilterInput />
+                        <button className="py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white rounded-md">
+                            Search
+                        </button>
+                    </div> */}
+
+                    <button
+                        onClick={() => setSidebar(!sideBar)}
+                        className="p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+                    >
                         <svg
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
