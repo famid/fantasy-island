@@ -24,4 +24,12 @@ class TicketController extends Controller
     public function orderTicketsInfo($orderId): JsonResponse {
         return response()->json($this->ticketService->fetchOrderTicketsInfo($orderId));
     }
+
+    /**
+     * @param $ticketId
+     * @return JsonResponse
+     */
+    public function markAsUsed($ticketId): JsonResponse {
+        return response()->json($this->ticketService->updateTicketUsedStatus($ticketId));
+    }
 }

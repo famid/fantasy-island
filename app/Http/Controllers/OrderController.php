@@ -39,8 +39,11 @@ class OrderController extends Controller {
     public function orderList(Request $request) {
         $orderList = $this->orderService->filterOrderList($request->query());
         return response()->json($orderList);
-//        dd($orderList);
 
         return view('admin.order.index', ['orders' => $orderList]);
+    }
+
+    public function markAllTicketsAsUsed($orderId) {
+        return response()->json($this->orderService->updateOrderTicketsStatus($orderId));
     }
 }

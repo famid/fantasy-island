@@ -21,6 +21,10 @@ use App\Http\Controllers\TicketController;
 // Route::get('/', function () {
 //     return redirect()->route('login');
 // });
+// Add this code to your routes/web.php file
+Route::prefix('admin')->group(function () {
+    Auth::routes(['name' => 'admin.']);
+});
 
 Auth::routes();
 
@@ -60,7 +64,6 @@ Route::post('/orders/make-manual-payment', [PaymentController::class, 'makeManua
 // This route fetch all unpaid status order which purchase date is greater or equal than current date
 // Input: user_id
 Route::get('/orders/{user_id}/unpaid-order', [OrderController::class, 'unpaidOrders'])->name('orders.unpaid');
-Route::get('/orders/list', [OrderController::class, 'orderList'])->name('admin.orders.list');
 
 // Game Play Route
 Route::post('gameplays/create', [GamePlayController::class, 'store'])->name('gameplays.store');
@@ -73,10 +76,13 @@ Route::get('gameplays/{user_id}/info', [GamePlayController::class, 'userGameInfo
 // This route all tickets info by orderId
 // Input: order_id
 Route::get('tickets/{order_id}/info', [TicketController::class, 'orderTicketsInfo'])->name('tickets.info');
-Route::post('tickets/update/make-used', [TicketController::class, 'updateTicketStatusById'])->name('tickets.update.');
 
 Route::get('user/game-results/leaderboard', [LeaderboardController::class, 'getUserGameResultsLeaderboard'])
     ->name('user.game-results.leaderboard');
+
+Route::get('admin/orders/list', [OrderController::class, 'orderList'])->name('admin.orders.list');
+Route::post('admin/tickets/{id}/use', [TicketController::class, 'markAsUsed'])->name('admin.tickets.markAsUsed');
+Route::post('admin/orders/{id}/tickets/use', [OrderController::class, 'markAllTicketsAsUsed'])->name('admin.order.markAllTicketsAsUsed');
 
 Route::get('test', function (
     \App\Http\Controllers\PaymentController $payment,

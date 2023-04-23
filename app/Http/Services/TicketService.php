@@ -84,4 +84,44 @@ class TicketService extends BaseService {
             return $this->response()->error($e->getMessage());
         }
     }
+
+    /**
+     * @param $ticketId
+     * @return array
+     */
+    public function updateTicketUsedStatus($ticketId): array {
+        try {
+            $updateTicketStatusResponse = $this->ticketRepository->updateWhere(
+                ['id' => $ticketId],
+                ['ticket_used_status' => TICKET_USED_STATUS]
+            );
+
+            return !$updateTicketStatusResponse ?
+                $this->response()->error() :
+                $this->response()->success('Ticket marked as used.');
+        } catch(QueryException $e) {
+
+            return $this->response()->error();
+        }
+    }
+
+    /**
+     * @param $orderId
+     * @return array
+     */
+    public function markAllTicketsAsUsed($orderId): array {
+        try {
+            $updateTicketStatusResponse = $this->ticketRepository->updateWhere(
+                ['order_id' => $orderId],
+                ['ticket_used_status' => TICKET_USED_STATUS]
+            );
+
+            return !$updateTicketStatusResponse ?
+                $this->response()->error() :
+                $this->response()->success('All tickets marked as used.');
+        } catch(QueryException $e) {
+
+            return $this->response()->error();
+        }
+    }
 }
