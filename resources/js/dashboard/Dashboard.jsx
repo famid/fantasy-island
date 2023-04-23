@@ -2,31 +2,34 @@ import React from "react";
 import { Table } from "@mantine/core";
 import Ticket from "./Ticket";
 
-function Dashboard({ orders }) {
-    console.log(orders);
-
+function Dashboard({ orders,csrfToken }) {
+    console.log(csrfToken,'token')
     const rows = orders.map((order) => (
         <tr className="dashboard-table" key={order.unique_code}>
             <td>{order.name}</td>
-            <td>{order.payment_status === 1 ? <span className="bg-green-400 p-1">Paid</span>: <span className="bg-red-400 p-1">Unpaid</span>}</td>
-            <td>{order.phone}</td>
-            <td>{order.tickets.length}</td>
-            <td>{order.tickets.length}</td>
+            <td>
+                {order.payment_status === 1 ? (
+                    <span className="bg-green-400 p-1">Paid</span>
+                ) : (
+                    <span className="bg-red-400 p-1">Unpaid</span>
+                )}
+            </td>
+            <td>{order.merchant_account_phone}</td>
+            <td>{order.client_phone}</td>
+            <td>{order.purchase_date}</td>
+            <td>{order.transaction_id}</td>
             <td>{order.tickets.length}</td>
             <td>
-                {
-                    order.tickets.map((ticket,i)=>{
-                        return  <Ticket ticket={ticket}/>
-                    })
-                }
-
+                {order.tickets.map((ticket, i) => {
+                    return <Ticket csrfToken={csrfToken} ticket={ticket} />;
+                })}
             </td>
         </tr>
     ));
     return (
         <div className="flex h-screen bg-white">
             {/* Left Sidebar */}
-            <div className="flex flex-col w-72 bg-white border-r">
+            <div className="flex flex-col w-48 bg-white border-r">
                 <div className="flex flex-col items-center h-16 bg-gray-200 justify-center">
                     <span className="text-2xl font-bold">Dashboard</span>
                 </div>
@@ -69,6 +72,9 @@ function Dashboard({ orders }) {
                             />
                         </svg>
                     </button>
+                    {/* <form action="admin/logout" method="POST">
+                        <button type="submit">Logout</button>
+                    </form> */}
                 </div>
                 <div className="px-6 py-4">
                     <Table withColumnBorders highlightOnHover>

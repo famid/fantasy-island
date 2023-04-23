@@ -9,7 +9,7 @@
           <h2 class="text-xl font-semibold text-gray-600">{{ __('Login') }}</h2>
         </div>
         <div class="p-4">
-          <form method="POST" action="{{ route('login') }}">
+          <form method="POST" action="{{ url('/admin/login') }}">
             @csrf
             <div class="mb-4">
               <label for="email" class="block mb-2 font-semibold text-gray-600">{{ __('Email Address') }}</label>

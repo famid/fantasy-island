@@ -29,7 +29,7 @@ function Main({csrf,authUser}) {
     return (
       <>
       <ToastContainer/>
-      <Dashboard csrf={csrf} orders={orders}/>
+      <Dashboard csrfToken={csrf} orders={orders}/>
       {/* <ConferenceTicket/> */}
       </>
     );
