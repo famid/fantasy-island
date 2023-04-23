@@ -40,9 +40,7 @@ Route::get('/order', function () {
 Route::get('/participants', function () {
     return view('participants');
 });
-Route::get('/dashboard', function () {
-    return view('dashbooard');
-});
+
 Route::get('/purchase-success', [App\Http\Controllers\PurchaseSuccessController::class, 'index'])->name('purchase-success');
 
 
@@ -84,6 +82,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/orders/list', [OrderController::class, 'orderList'])->name('admin.orders.list');
     Route::post('admin/tickets/{id}/use', [TicketController::class, 'markAsUsed'])->name('admin.tickets.markAsUsed');
     Route::post('admin/orders/{id}/tickets/use', [OrderController::class, 'markAllTicketsAsUsed'])->name('admin.order.markAllTicketsAsUsed');
+    Route::get('/dashboard', function () {
+        return view('dashbooard');
+    });
 });
 
 Route::get('test', function (
