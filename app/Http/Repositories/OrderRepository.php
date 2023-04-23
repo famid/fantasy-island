@@ -90,6 +90,10 @@ class OrderRepository extends BaseRepository {
             ->select(
                 'orders.id',
                 'orders.payment_status',
+                'orders.client_phone',
+                'orders.merchant_account_phone',
+                'orders.transaction_id',
+                'orders.purchase_date',
                 'users.name',
                 'users.phone',
                 'tickets.id as ticket_id',
