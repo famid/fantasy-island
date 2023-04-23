@@ -133,8 +133,11 @@ class OrderService extends BaseService {
         }
     }
 
-    public function filterOrderList(array $queries): array
-    {
+    /**
+     * @param array $queries
+     * @return array
+     */
+    public function filterOrderList(array $queries): array {
         try {
             $orders = $this->orderRepository->fetchOrderList($queries);
             if(!$orders) return $this->response()->error("No order is found yet!");
