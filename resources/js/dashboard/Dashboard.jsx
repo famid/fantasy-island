@@ -18,7 +18,10 @@ function Dashboard({ orders,csrfToken }) {
             <td>{order.client_phone}</td>
             <td>{order.purchase_date}</td>
             <td>{order.transaction_id}</td>
-            <td>{order.tickets.length}</td>
+            <td>
+            {order.tickets.length}
+            <button>Mark All ticket </button>
+            </td>
             <td>
                 {order.tickets.map((ticket, i) => {
                     return <Ticket csrfToken={csrfToken} ticket={ticket} />;

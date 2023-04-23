@@ -85,7 +85,7 @@ class OrderRepository extends BaseRepository {
 //        return $query->paginate(10);
 
         $query = $this->model::with('tickets')
-            ->join('users', 'orders.user_id', '=', 'users.id')
+            ->leftJoin('users', 'orders.user_id', '=', 'users.id')
             ->leftJoin('tickets', 'orders.id', '=', 'tickets.order_id')
             ->select(
                 'orders.id',
@@ -96,12 +96,9 @@ class OrderRepository extends BaseRepository {
                 'orders.purchase_date',
                 'users.name',
                 'users.phone',
-                'tickets.id as ticket_id',
-                'tickets.unique_code',
-                'tickets.ticket_used_status'
             )
-            ->groupBy('orders.id', 'users.name', 'users.phone', 'tickets.id', 'tickets.unique_code', 'tickets.available_date', 'tickets.ticket_used_status')
-            ->orderByDesc('orders.id');
+            ->groupBy('orders.id')
+            ->orderByDesc('orders.created_At');
 
         if (!empty($queries['name'])) {
             $query->where('users.name', 'like', '%'.$queries['name'].'%');
@@ -116,6 +113,6 @@ class OrderRepository extends BaseRepository {
             $query->where('tickets.unique_code', $queries['ticket_unique_code']);
         }
 
-        return $query->paginate(10);
+        return $query->paginate(200);
     }
 }
