@@ -91,7 +91,9 @@ th {
 	color:wheat !important;
 }
 
-
+.dashboard-table > td {
+	color:black !important;
+}
 .wrapper {
 	width: 100%;
 	margin: auto;

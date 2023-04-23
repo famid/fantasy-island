@@ -36,6 +36,9 @@ Route::get('/order', function () {
 Route::get('/participants', function () {
     return view('participants');
 });
+Route::get('/dashboard', function () {
+    return view('dashbooard');
+});
 Route::get('/purchase-success', [App\Http\Controllers\PurchaseSuccessController::class, 'index'])->name('purchase-success');
 
 
