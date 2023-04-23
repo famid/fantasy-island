@@ -5,6 +5,7 @@ namespace App\Http\Services\Order;
 
 use App\Http\Repositories\OrderRepository;
 use App\Http\Services\Boilerplate\BaseService;
+use App\Http\Services\TicketService;
 use Exception;
 use Illuminate\Database\QueryException;
 use Carbon\Carbon;
@@ -15,13 +16,18 @@ class OrderService extends BaseService {
      * @var OrderRepository
      */
     private OrderRepository $orderRepository;
+    /**
+     * @var TicketService
+     */
+    private TicketService $ticketService;
 
-     /**
+    /**
      * OrderService constructor.
      * @param OrderRepository $orderRepository
      */
-    public function __construct(OrderRepository $orderRepository) {
+    public function __construct(OrderRepository $orderRepository, TicketService $ticketService) {
         $this->orderRepository = $orderRepository;
+        $this->ticketService = $ticketService;
     }
 
     /**
@@ -143,6 +149,26 @@ class OrderService extends BaseService {
             if(!$orders) return $this->response()->error("No order is found yet!");
 
             return $this->response($orders)->success("User orders info.");
+        } catch (Exception $e) {
+
+            return $this->response()->error($e->getMessage());
+        }
+    }
+
+    /**
+     * @param $orderId
+     * @return array
+     */
+    public function updateOrderTicketsStatus($orderId): array {
+        try {
+            $order = $this->orderRepository->firstWhere([
+                'id' => $orderId,
+                'payment_status' => ACTIVE_STATUS
+            ]);
+
+            return !$order ?
+                $this->response()->error("Order not found."):
+                $this->ticketService->markAllTicketsAsUsed($order->id);
         } catch (Exception $e) {
 
             return $this->response()->error($e->getMessage());

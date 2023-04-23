@@ -78,9 +78,8 @@ Route::get('user/game-results/leaderboard', [LeaderboardController::class, 'getU
     ->name('user.game-results.leaderboard');
 
 Route::get('admin/orders/list', [OrderController::class, 'orderList'])->name('admin.orders.list');
-//Route::post('admin/tickets/{id}/use', [TicketController::class, 'markAsUsed'])->name('admin.tickets.markAsUsed');
-//Route::post('admin/orders/{id}/tickets/use', [OrderController::class, 'markAllTicketsAsUsed'])->('admin.order.markAllTicketsAsUsed');
-
+Route::post('admin/tickets/{id}/use', [TicketController::class, 'markAsUsed'])->name('admin.tickets.markAsUsed');
+Route::post('admin/orders/{id}/tickets/use', [OrderController::class, 'markAllTicketsAsUsed'])->name('admin.order.markAllTicketsAsUsed');
 
 Route::get('test', function (
     \App\Http\Controllers\PaymentController $payment,

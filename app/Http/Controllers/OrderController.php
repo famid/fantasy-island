@@ -42,4 +42,8 @@ class OrderController extends Controller {
 
         return view('admin.order.index', ['orders' => $orderList]);
     }
+
+    public function markAllTicketsAsUsed($orderId) {
+        return response()->json($this->orderService->updateOrderTicketsStatus($orderId));
+    }
 }
