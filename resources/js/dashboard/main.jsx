@@ -5,12 +5,18 @@ window.React = React
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from "./Dashboard";
+import { domain } from "../uitls";
 function Main({csrf,authUser}) {
 
   const [orders, setOrders] = useState([])
 
+  useEffect(()=>{
+    if(!authUser) window.location.href = `${domain}/login`
+  },[authUser])
+
   useEffect(  ()=>{
     // make a get request to get ticket data
+    console.log(authUser)
 
     const request = async () => {
       try{
