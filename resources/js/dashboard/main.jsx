@@ -14,7 +14,7 @@ function Main({csrf,authUser}) {
 
     const request = async () => {
       try{
-        const response = await fetch(`/orders/list`)
+        const response = await fetch(`admin/orders/list`)
         if(response.ok){
           const result = await response.json();
            setOrders([...result.data.data])

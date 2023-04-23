@@ -7,10 +7,11 @@ function Dashboard({ orders }) {
 
     const rows = orders.map((order) => (
         <tr className="dashboard-table" key={order.unique_code}>
-             <td>{order.id}</td>
             <td>{order.name}</td>
-            <td>{order.payment_status === 1 ? 'Paid' : 'Unpaid'}</td>
+            <td>{order.payment_status === 1 ? <span className="bg-green-400 p-1">Paid</span>: <span className="bg-red-400 p-1">Unpaid</span>}</td>
             <td>{order.phone}</td>
+            <td>{order.tickets.length}</td>
+            <td>{order.tickets.length}</td>
             <td>{order.tickets.length}</td>
             <td>
                 {
@@ -73,10 +74,13 @@ function Dashboard({ orders }) {
                     <Table withColumnBorders highlightOnHover>
                         <thead>
                             <tr>
-                                <th>Order Id</th>
                                 <th>Name</th>
                                 <th>Payment Status</th>
-                                <th>Phone</th>
+                                {/* <th>Phone</th> */}
+                                <th>Merchant Phone</th>
+                                <th>Client Phone</th>
+                                <th>Purchase Date</th>
+                                <th>Transaction Id</th>
                                 <th>Tickets Counts</th>
                                 <th>Tickets</th>
                             </tr>
