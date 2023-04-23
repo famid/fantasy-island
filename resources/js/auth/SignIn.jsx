@@ -87,7 +87,7 @@ function SignIn({ csrf }) {
                         <button
                             onClick={handleSubmit}
                             type="button"
-                            className="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-4 rounded focus:outline-none "
+                            className=" bg-[#E94E77] hover:bg-[#C15B8A] w-full text-white font-bold py-2 px-4 rounded focus:outline-none "
                             id="send-otp"
                         >
                             {" "}

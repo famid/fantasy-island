@@ -11,7 +11,7 @@ const elements = [
   ];
 
 export default function LeaderboardTable({participantsData}) {
-    console.log(participantsData)
+
     const rows = participantsData.map((element,i) => (
         <tr key={i}>
           <td>{element.ranking}</td>

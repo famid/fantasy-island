@@ -18,7 +18,7 @@
 </head>
 <body>
     <div id="app">
-        <main class="bg-white">
+        <main class="bg-white" style="background:url(/assets/images/bg.webp); min-height:100vh;">
             @yield('content')
         </main>
     </div>

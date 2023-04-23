@@ -93,7 +93,7 @@ const GameBoard = ({ data }) => {
                     <BoardAction onClick={startGame}>
                         {data?.authUser?.remaining_game > 0
                             ? "Click Here to Play"
-                            : "Don't have chance? Please buy tickets"}
+                            : <a href='/order'>"Don't have chance? Please buy tickets"</a>}
                              {data?.authUser?.remaining_game > 0 && <BsPlayCircle className="text-5xl" />}
 
                     </BoardAction>

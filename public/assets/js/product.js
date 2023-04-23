@@ -19,7 +19,7 @@ function handleFilter() {
         } else {
             category_id = this.value;
         }
-        console.log("category_id", category_id);
+
         renderSubcategoryFilter()
         renderProductTable()
     })
@@ -96,7 +96,7 @@ function renderProductTable() {
         url:url,
         type:'GET',
     }).done(function(response){
-        console.log('products', response['data']);
+
         setProductData(response['data']);
         handleDeleteProduct();
     }).fail(function (error) {
@@ -108,7 +108,7 @@ function renderCategoryFilter() {
         url:'http://127.0.0.1:8000/category/list',
         type:'GET',
     }).done(function(response){
-        console.log(response['data']);
+
         setCategoryData(response['data'])
     }).fail(function (error) {
         console.log(error);
@@ -123,7 +123,7 @@ function renderSubcategoryFilter() {
         url: url,
         type:'GET',
     }).done(function(response){
-        console.log(response['data']);
+
         setSubcategoryData(response['data'])
     }).fail(function (error) {
         console.log(error);
@@ -172,7 +172,7 @@ function setSubcategoryData(subcategories) {
 
 function handleDeleteProduct() {
     $(".delete-product").click(function(){
-        console.log('click');
+
         let product_id = $(this).attr("data-id");
         $.ajax({
             url: "http://127.0.0.1:8000/product/delete/"+product_id,

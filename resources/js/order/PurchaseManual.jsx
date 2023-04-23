@@ -5,22 +5,15 @@ import { domain } from "../uitls";
 
 const paymentSystems = [
     {
-        payment_system: "Bikash",
-        value: "Bikash",
-        label: "Bikash",
+        payment_system: "Bkash",
+        value: "Bkash",
+        label: "Bkash",
         mercent_accounts_phone: [
             {
-                value: "0187236232",
-                label: "0187236232",
+                value: "01716128008",
+                label: "01716128008",
             },
-            {
-                value: "0187236234",
-                label: "0187236234",
-            },
-            {
-                value: "0187236235",
-                label: "0187236235",
-            },
+
         ],
     },
     {
@@ -29,13 +22,9 @@ const paymentSystems = [
         label: "Nagad",
         mercent_accounts_phone: [
             {
-                value: "0187236232",
-                label: "0187236232",
-            },
-            {
-                value: "0187236238",
-                label: "0187236238",
-            },
+                value: "01716128008",
+                label: "01716128008",
+            }
         ],
     },
     {
@@ -44,13 +33,9 @@ const paymentSystems = [
         label: "Rocket",
         mercent_accounts_phone: [
             {
-                value: "0187236239",
-                label: "0187236239",
-            },
-            {
-                value: "0187236237",
-                label: "0187236237",
-            },
+                value: "01716128008",
+                label: "01716128008",
+            }
         ],
     },
 ];
@@ -80,6 +65,7 @@ function PurchaseManual({ data }) {
             !selectedMercentAccountPhone
         ) {
             notify("Please select all the credentials properly!");
+            return
         }
         const user = JSON.parse(data.authUser)
         let tempData = {
@@ -91,7 +77,6 @@ function PurchaseManual({ data }) {
             user_id: user.id,
         }
 
-        console.log(tempData,data.csrfToken)
 
         try {
 
@@ -104,7 +89,7 @@ function PurchaseManual({ data }) {
                 body: JSON.stringify(tempData),
             });
 
-            console.log(response)
+
 
             if (response.ok) {
                 // notify('You are being redirected to purchase page!')

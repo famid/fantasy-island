@@ -43,7 +43,7 @@ const GameClock = ({data}) => {
     };
 
     const countDownStartHandler = () => {
-        console.log('started')
+
         setTimeDifference((oldState)=>{
             return [...oldState, new Date()]
         })
@@ -80,14 +80,6 @@ const GameClock = ({data}) => {
     }
 
 
-    const finishingTimeHandler = (time) =>{
-
-    }
-
-    useEffect(()=>{
-        console.log(timeDifference)
-    },[timeDifference])
-
     return (
         <GameInfo label="Time" icon={<IoMdTime />}>
             {
@@ -99,7 +91,7 @@ const GameClock = ({data}) => {
                         onComplete={countDownCompleteHandler}
                         date={Date.now() + 3 * 60 * 1000}
                         renderer={renderer}
-                        onTick={finishingTimeHandler}
+
                 />
                 ):'00:00'
             }

@@ -75,12 +75,16 @@ export default function Videos() {
                                             target="_blank"
                                         >
                                             <Card.Section>
+
                                                 <img
                                                     src={video.thumbnail}
                                                     height={160}
-                                                    className="cursor-pointer"
+                                                    className="cursor-pointer w-full"
                                                     alt="No way!"
                                                 />
+
+
+
                                             </Card.Section>
                                         </Card>
                                     </div>

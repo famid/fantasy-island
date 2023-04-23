@@ -31,7 +31,7 @@ const GameControls = ({data}) => {
     // const navigate = useNavigate();> {
 
     const resultSubmitHandler = async () => {
-        console.log(timeDifference)
+
         const date1 = new Date(timeDifference[0]);
         const date2 = new Date(timeDifference[1]);
         const diffInMs = date2 - date1;

@@ -33,7 +33,7 @@ function SignUp({csrf}) {
                 body: JSON.stringify({ name, phone, password }),
             });
 
-            console.log(response);
+
 
             if (response.ok) {
                 setIsOtpSentState(true);
@@ -68,7 +68,7 @@ function SignUp({csrf}) {
                 body: JSON.stringify({ phone_verification_code:otp, phone }),
             });
 
-            console.log(response);
+
 
             if (response.ok) {
                 notify('Phone verification successful')
