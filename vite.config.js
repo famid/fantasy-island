@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/js/download-ticket/main.jsx',
                 'resources/js/game/main.jsx',
                 'resources/js/participants/main.jsx',
+                'resources/js/dashboard/main.jsx',
             ],
             refresh: true,
         }),
