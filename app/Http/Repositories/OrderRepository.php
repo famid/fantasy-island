@@ -97,8 +97,8 @@ class OrderRepository extends BaseRepository {
                 'users.name',
                 'users.phone',
             )
-            ->groupBy('orders.id')
-            ->orderByDesc('orders.created_At');
+            ->groupBy('orders.id', 'orders.payment_status')
+            ->orderByDesc('orders.created_at');
 
         if (!empty($queries['name'])) {
             $query->where('users.name', 'like', '%'.$queries['name'].'%');
