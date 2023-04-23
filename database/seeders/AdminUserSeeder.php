@@ -19,6 +19,7 @@ class AdminUserSeeder extends Seeder {
             [
                 'id' => 1,
                 'name' => "Admin",
+                'role' => ADMIN_ROLE,
                 'email' => "admin@email.com",
                 'password' => Hash::make('1234'),
             ]
