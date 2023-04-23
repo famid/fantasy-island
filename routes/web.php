@@ -33,7 +33,7 @@ Route::get('/game', [App\Http\Controllers\GameController::class, 'index'])->name
 Route::get('/signup', [App\Http\Controllers\SignupController::class, 'index'])->name('signup');
 Route::get('/signin', function () {
     return view('signin');
-});
+})->name('user.sign_in');
 Route::get('/order', function () {
     return view('order');
 });
@@ -80,9 +80,11 @@ Route::get('tickets/{order_id}/info', [TicketController::class, 'orderTicketsInf
 Route::get('user/game-results/leaderboard', [LeaderboardController::class, 'getUserGameResultsLeaderboard'])
     ->name('user.game-results.leaderboard');
 
-Route::get('admin/orders/list', [OrderController::class, 'orderList'])->name('admin.orders.list');
-Route::post('admin/tickets/{id}/use', [TicketController::class, 'markAsUsed'])->name('admin.tickets.markAsUsed');
-Route::post('admin/orders/{id}/tickets/use', [OrderController::class, 'markAllTicketsAsUsed'])->name('admin.order.markAllTicketsAsUsed');
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('admin/orders/list', [OrderController::class, 'orderList'])->name('admin.orders.list');
+    Route::post('admin/tickets/{id}/use', [TicketController::class, 'markAsUsed'])->name('admin.tickets.markAsUsed');
+    Route::post('admin/orders/{id}/tickets/use', [OrderController::class, 'markAllTicketsAsUsed'])->name('admin.order.markAllTicketsAsUsed');
+});
 
 Route::get('test', function (
     \App\Http\Controllers\PaymentController $payment,
