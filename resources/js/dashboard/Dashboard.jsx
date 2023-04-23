@@ -47,7 +47,7 @@ function Dashboard({ orders, csrfToken }) {
     const checkAllTicketsStatus = (order) => {
         let status = true;
         order.tickets.forEach((order) => {
-            if (order.ticket_used_status === 0) {
+            if (order.ticket_used_status == 0) {
                 status = false;
             }
         });
@@ -63,7 +63,7 @@ function Dashboard({ orders, csrfToken }) {
         <tr className="dashboard-table" key={order.unique_code}>
             <td>{order.name}</td>
             <td>
-                {order.payment_status === 1 ? (
+                {order.payment_status == 1 ? (
                     <span className="bg-green-400 p-1">Paid</span>
                 ) : (
                     <span className="bg-red-400 p-1">Unpaid</span>

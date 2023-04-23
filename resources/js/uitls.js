@@ -15,7 +15,7 @@ export const prizePool = [
     },
     {
         prizeIndex:'3rd',
-        prizeAmount : 100000,
+    prizeAmount : 100000,
         type:'Education Insurance'
     },
     {

@@ -28,12 +28,12 @@ function Ticket({ ticket, csrfToken }) {
     };
     return (
         <div className="flex gap-1 mb-1 p-1 bg-slate-200">
-            {ticket.ticket_used_status === 1 && (
+            {(ticket.ticket_used_status == 1) && (
                 <span className="bg-red-100">{ "Used"}</span>
             )}
 
             <span>{ticket.unique_code}</span>
-            {ticket.ticket_used_status === 0 && (
+            {ticket.ticket_used_status == 0 && (
                 <button
                     onClick={markUserHandler}
                     className="bg-blue-400 hover:bg-blue-500 text-[10px] text-white p-1"
