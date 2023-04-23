@@ -1,9 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table } from "@mantine/core";
 import Ticket from "./Ticket";
+import notify from "../order/components/notify";
+import { Modal, Button, Group } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
-function Dashboard({ orders,csrfToken }) {
-    console.log(csrfToken,'token')
+function Dashboard({ orders, csrfToken }) {
+    const [opened, { open, close }] = useDisclosure(false);
+    const [activeOrder, setActiveOrder] = useState(null);
+
+    const openModalForAllTicketsUsed = (order) => {
+        open();
+        setActiveOrder(order);
+    };
+
+    const markAllTicketHandler = async (order) => {
+        if (!order) return;
+        try {
+            const response = await fetch(
+                `admin/orders/${order.id}/tickets/use`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    body: JSON.stringify({}),
+                }
+            );
+
+            if (response.ok) {
+                notify(
+                    `${order.id} order tickets has been marked as used successfully`
+                );
+                setTimeout(() => {
+                    location.reload();
+                }, 1300);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const checkAllTicketsStatus = (order) => {
+        let status = true;
+        order.tickets.forEach((order) => {
+            if (order.ticket_used_status === 0) {
+                status = false;
+            }
+        });
+        return status;
+    };
+    const onlyDateSection = (date) => {
+        const dateWithTime = new Date(date);
+        const dateWithoutTime = dateWithTime.toISOString().substr(0, 10);
+        return dateWithoutTime;
+    };
+
     const rows = orders.map((order) => (
         <tr className="dashboard-table" key={order.unique_code}>
             <td>{order.name}</td>
@@ -16,11 +69,18 @@ function Dashboard({ orders,csrfToken }) {
             </td>
             <td>{order.merchant_account_phone}</td>
             <td>{order.client_phone}</td>
-            <td>{order.purchase_date}</td>
+            <td>{onlyDateSection(order.purchase_date)}</td>
             <td>{order.transaction_id}</td>
-            <td>
-            {order.tickets.length}
-            <button>Mark All ticket </button>
+            <td className="gap-2 flex-col justify-center flex items-center">
+                <span>{order.tickets.length}</span>
+                {order.tickets.length > 1 && !checkAllTicketsStatus(order) && (
+                    <button
+                        onClick={() => openModalForAllTicketsUsed(order)}
+                        className="p-1 bg-blue-400 hover:bg-blue-600 text-white rounded-xl text-[10px]"
+                    >
+                        Mark All <br /> ticket as used{" "}
+                    </button>
+                )}
             </td>
             <td>
                 {order.tickets.map((ticket, i) => {
@@ -98,6 +158,28 @@ function Dashboard({ orders,csrfToken }) {
                     </Table>{" "}
                 </div>
             </div>
+            <Modal opened={opened} onClose={close}>
+                <div>
+                    <h2 className="text-2xl ">
+                        {" "}
+                        Are you sure to update all the tickets as used!
+                    </h2>
+                    <div className="flex gap-4 mt-4">
+                        <button
+                            onClick={() => close()}
+                            className="bg-red-300 p-2 text-white hover:bg-red-600 rounded-sm"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={() => markAllTicketHandler(activeOrder)}
+                            className="bg-blue-300 p-2 text-white hover:bg-blue-600 rounded-sm"
+                        >
+                            Confirm
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 }

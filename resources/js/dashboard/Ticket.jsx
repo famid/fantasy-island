@@ -1,6 +1,7 @@
 import React from "react";
 import notify from "../order/components/notify";
 
+
 function Ticket({ ticket, csrfToken }) {
     const markUserHandler = async () => {
         try {
@@ -17,6 +18,9 @@ function Ticket({ ticket, csrfToken }) {
                 notify(
                     `${ticket.id} ticket has been marked as used successfully`
                 );
+                setTimeout(()=>{
+                  location.reload()
+              },1300)
             }
         } catch (error) {
             console.log(error);
