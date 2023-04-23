@@ -31,7 +31,7 @@ function Dashboard({ orders, csrfToken }) {
 
             if (response.ok) {
                 notify(
-                    `${order.id} order tickets has been marked as used successfully`
+                    `${order.id} order tickets have been marked as used successfully`
                 );
                 setTimeout(() => {
                     location.reload();

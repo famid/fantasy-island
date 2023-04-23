@@ -16,7 +16,7 @@ function Ticket({ ticket, csrfToken }) {
 
             if (response.ok) {
                 notify(
-                    `${ticket.id} ticket has been marked as used successfully`
+                    `${ticket.id} number ticket has been marked as used successfully`
                 );
                 setTimeout(()=>{
                   location.reload()
