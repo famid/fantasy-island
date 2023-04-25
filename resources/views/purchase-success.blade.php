@@ -11,7 +11,7 @@
                     <h2 class="font-bold md:text-2xl text-xl  text-[#191919] mt-3 pb-2">Congratulations on your purchase. 👋
                     </h2>
                     <p class="font-medium  text-center text-[14px] leading-[22px] text-[#808191] my-4">Congratulations, you
-                        just bought your 3 tickets. We're so excited to have you as a customer, and we look forward to
+                        just bought your tickets. We're so excited to have you as a customer, and we look forward to
                         serving you in Fantasy Island</p>
                     <div class='flex gap-3 justify-center w-full px-3 items-center md:px-14 mt-3 md:flex-row flex-col'>
                         <a href="/game"

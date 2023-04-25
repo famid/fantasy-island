@@ -18,7 +18,9 @@ function Main({csrf,authUser}) {
       try{
         const response = await fetch(`tickets/${ticket_purchase_order_id}/info`)
         if(response.ok){
+
           const result = await response.json();
+          console.log(result)
           setTickets([...result.data])
         }
       } catch (e){console.log(e)}

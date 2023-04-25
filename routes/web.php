@@ -41,6 +41,9 @@ Route::get('/participants', function () {
     return view('participants');
 });
 
+Route::get('/testing', function () {
+    return view('testing');
+});
 Route::get('/purchase-success', [App\Http\Controllers\PurchaseSuccessController::class, 'index'])->name('purchase-success');
 
 

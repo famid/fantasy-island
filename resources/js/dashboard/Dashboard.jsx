@@ -4,7 +4,6 @@ import Ticket from "./Ticket";
 import notify from "../order/components/notify";
 import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import FilterInput from "./filterInput";
 
 function Dashboard({ orders, csrfToken }) {
     const [opened, { open, close }] = useDisclosure(false);

@@ -39,8 +39,9 @@ const Ticket = ({ ticket }) => {
         const formattedDate = `${day} ${monthName} - ${hour}.${minutes} ${amPm}`;
         setDate(formattedDate)
     });
+
     return (
-        <div className="ticket w-full h-auto relative mb-4">
+        <div className="ticket w-full h-auto relative mb-4" id={`ticket-${ticket.id}`}>
             <div className="absolute top-[230px] left-[56px] h-3 bg-white font-semibold text-[10px] leading-[0px] ">
                 TICKET NO: {ticket.unique_code}
             </div>

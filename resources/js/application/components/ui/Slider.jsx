@@ -8,20 +8,20 @@ const sliderImages = [
         clsnm: "w-full h-[100vh] object-cover",
         alt: "",
     },
-//     {
-//       src: "/assets/images/3.jpg",
-//       clsnm: "w-full h-[100vh] object-cover",
-//       alt: "",
-//   },
-//   {
-//     src: "/assets/images/2.jpg",
-//     clsnm: "w-full h-[100vh] object-cover",
-//     alt: "",
-// }
+    {
+      src: "/assets/b1.webp",
+      clsnm: "w-full h-[100vh] object-cover",
+      alt: "",
+  },
+  {
+    src: "/assets/b2.webp",
+    clsnm: "w-full h-[100vh] object-cover",
+    alt: "",
+}
 ];
 
 export default function Slider() {
-    const autoplay = useRef(Autoplay({ delay: 50000 }));
+    const autoplay = useRef(Autoplay({ delay: 3000 }));
     return (
         <Carousel
             maw={"100%"}

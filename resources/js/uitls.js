@@ -1,6 +1,6 @@
 
 
-export const domain = 'https://fantasy-island.flatknitsintl.com'
+export const domain = 'https://fantasy-island.flatknitsintl.com/'
 
 export const prizePool = [
     {
@@ -15,7 +15,7 @@ export const prizePool = [
     },
     {
         prizeIndex:'3rd',
-    prizeAmount : 100000,
+        prizeAmount : 100000,
         type:'Education Insurance'
     },
     {

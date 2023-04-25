@@ -131,24 +131,14 @@ function PurchaseManual({ data }) {
             <div className="mt-3">
                 {selectedPaymentSystem && (
                     <Select
-                        label="Please Select A Mercent Account Number"
+                        label="Please Select A Send Account Number"
                         placeholder="Pick one"
                         onChange={(value) => setSelectedMerchantAccountPhone(value)}
                         data={selectedPaymentSystem?.mercent_accounts_phone}
                     />
                 )}
             </div>
-            <div className="mt-3 mb-3">
-                <h2 className="text-lg  font-bold">How you will proceed:</h2>
-                <o>
-                    <li>Select your payment system.</li>
-                    <li>Select merchant number.</li>
-                    <li>Pay the specified amount to this number.</li>
-                    <li>Enter the transaction id.</li>
-                    <li>Enter your number.</li>
-                    <li>Submit information.</li>
-                </o>
-            </div>
+
             <div className="mb-4">
                 <label
                     htmlFor="text"
@@ -191,6 +181,18 @@ function PurchaseManual({ data }) {
             >
                 Submit
             </button>
+            <div className="mt-3 mb-3">
+                <h2 className="text-lg  font-bold">How you will proceed:</h2>
+                <o>
+                    <li>Select your payment system.</li>
+                    <li>Select <span className="text-gray-800 font-bold">'Send Money'</span>   number.</li>
+                    <li>Send the specified amount to this number.</li>
+                    <li>Enter your number.</li>
+                    <li>Enter the transaction id.</li>
+
+                    <li>Submit information.</li>
+                </o>
+            </div>
         </div>
     );
 }
