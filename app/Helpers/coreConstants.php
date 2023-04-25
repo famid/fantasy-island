@@ -26,3 +26,9 @@ const SMS_SENDER_ID = "BulkSms";
 
 const TICKET_UNUSED_STATUS = False;
 const TICKET_USED_STATUS = True;
+
+// This variable is defined for ssl ecommerze payment gateway
+const DEFAULT_TRANSACTION_NUMBER = "default_tnx_number";
+const DEFAULT_PRODUCT_NAME = "fantasy_island_ticket";
+const DEFAULT_CUSTOMER_NAME = "fantasy_island_default_name";
+const DEFAULT_CUSTOMER_EMAIL = "defaultcustomer@gmail.com";

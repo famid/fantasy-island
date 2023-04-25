@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\PaymentService;
+use App\Http\Services\UserService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -35,8 +38,26 @@ class PaymentController extends Controller
      * @param Request $request
      * @return Application|Factory|View
      */
-    public function makeManualPayment(Request $request) {
+    public function makeManualPayment(Request $request): View|Factory|Application {
         $orderPaymentSuccessResponse = $this->paymentService->manualPaymentOperation($request);
+
+        if($orderPaymentSuccessResponse['success']) {
+            return view('purchase-success');
+        }
+
+        return view('purchase-failed');
+    }
+
+
+    /**
+     * @param Request $request
+     * @return Application|Factory|View|RedirectResponse
+     */
+    public function success(Request $request): View|Factory|RedirectResponse|Application {
+        $orderPaymentSuccessResponse = $this->paymentService->paymentSuccess($request);
+
+        $updateUserAuthResponse = $this->paymentService->updateAuthUser($request->value_a);
+        if(!$updateUserAuthResponse['success']) return redirect()->route('user.sign_in');
 
         if($orderPaymentSuccessResponse['success']) {
             return view('purchase-success');
@@ -47,25 +68,23 @@ class PaymentController extends Controller
 
     /**
      * @param Request $request
-     * @return Application|View|Factory
+     * @return Application|Factory|View|RedirectResponse
      */
-    public function success(Request $request): Application|View|Factory {
-        $orderPaymentSuccessResponse = $this->paymentService->paymentSuccess($request);
-
-        if($orderPaymentSuccessResponse['success']) {
-            return view('purchase-success');
-        }
+    public function failure(Request $request) {
+        $updateUserAuthResponse = $this->paymentService->updateAuthUser($request->value_a);
+        if(!$updateUserAuthResponse['success']) return redirect()->route('user.sign_in');
 
         return view('purchase-failed');
     }
 
-    public function failure(Request $request)
-    {
+    /**
+     * @param Request $request
+     * @return Application|Factory|View|RedirectResponse
+     */
+    public function cancel(Request $request) {
+        $updateUserAuthResponse = $this->paymentService->updateAuthUser($request->value_a);
+        if(!$updateUserAuthResponse['success']) return redirect()->route('user.sign_in');
 
-        //  do the database works
-        //  also same goes for cancel()
-        //  for IPN() you can leave it untouched or can follow
-        //  official documentation about IPN from SSLCommerz Panel
-
+        return view('purchase-failed');
     }
 }

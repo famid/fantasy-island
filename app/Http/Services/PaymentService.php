@@ -8,7 +8,9 @@ use App\Http\Services\Boilerplate\BaseService;
 use App\Http\Services\Order\OrderService;
 use DGvai\SSLCommerz\SSLCommerz;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PaymentService extends BaseService {
 
@@ -37,6 +39,9 @@ class PaymentService extends BaseService {
     }
 
     /**
+     *
+     * This payment method is used for ssl ecommerze payment gateway.
+     *
      * @param $orderId
      * @return array
      */
@@ -45,12 +50,16 @@ class PaymentService extends BaseService {
             $order = $this->orderRepository->firstWhere(['id' => $orderId]);
             if($this->isOrderAlreadyPaid($order)) return $this->response()->error("This order payment is already done");
 
+            $transactionId = generateTransactionIdForSslEcomerze();
+            $order->transaction_id = $transactionId;
+
             $getPaymentUrlResponse = $this->getPaymentUrl($order);
 
             if(!$getPaymentUrlResponse['success']) return $getPaymentUrlResponse;
 
             return $getPaymentUrlResponse;
         } catch (Exception $e){
+
             return $this->response()->error($e->getMessage());
         }
     }
@@ -63,10 +72,12 @@ class PaymentService extends BaseService {
         try {
             $sslc = new SSLCommerz();
             $sslc->amount($order->amount)
-                ->trxid('DEMOTRX123')
-                ->product('Demo Product Name')
-                ->customer('Customer Name','custemail@email.com')
-                ->setExtras($order->id);
+                ->trxid($order->transaction_id ?? DEFAULT_TRANSACTION_NUMBER)
+                ->product(DEFAULT_PRODUCT_NAME)
+                ->customer(
+                    $order->user()->name ?? DEFAULT_CUSTOMER_NAME,
+                        $order->user()->email ?? DEFAULT_CUSTOMER_EMAIL
+                )->setExtras($order->id);
             $sslPaymentResponse = $sslc->make_payment(true);
             $sslPaymentDecodeResponse = json_decode($sslPaymentResponse, true);
 
@@ -94,9 +105,39 @@ class PaymentService extends BaseService {
             $validate = SSLCommerz::validate_payment($request);
             if(!$validate) return $this->response()->error("Orders payment is failed");
 
-            return $this->updateOrderAndGenerateTicketAndGame($request->value_a);
+            $order = $this->orderRepository->firstWhere([
+                'id' => $request->value_a,
+                'payment_status' => PENDING_STATUS
+            ]);
+            if(!$order) return $this->response()->error("No order is founded.");
+
+            DB::beginTransaction();
+            $saveSslPaymentInfo = $this->orderRepository->updateWhere(['id' => $order->id],
+                [
+                    'payment_system' => $request->card_type,
+                    'client_phone' => $request->client_phone,
+                    'transaction_id' => $request->tran_id,
+                ]
+            );
+            if(!$saveSslPaymentInfo) throw new Exception("Order payment info does not save!");
+
+            $processOrderResponse = $this->updateOrderAndGenerateTicketAndGame($order->id);
+            if(!$processOrderResponse['success']) throw new Exception($processOrderResponse['message']);
+
+            DB::commit();
+
+            Log::info(
+                "User Phone: " . ($order->user() ? $order->user->phone : 'null') .
+                " Order Info: " . ($order ? $order : 'null') .
+                " Payment Details: " . json_encode($request->all() ?? 'null')
+            );
+            return $processOrderResponse;
         } catch (Exception $e) {
 
+            Log::error(
+                "Error occurred while logging. Error: {$e->getMessage()}
+                Payment Details: " . json_encode($request->all() ?? 'null')
+            );
             return $this->response()->error($e->getMessage());
         }
     }
@@ -127,14 +168,15 @@ class PaymentService extends BaseService {
      * @param $request
      * @return array
      */
-    public function manualPaymentOperation($request) {
+    public function manualPaymentOperation($request)
+    {
         try {
             $order = $this->orderRepository->firstWhere([
                 'id' => $request->order_id,
                 'user_id' => $request->user_id,
                 'payment_status' => PENDING_STATUS
             ]);
-            if(!$order) return $this->response()->error("No order is founded.");
+            if (!$order) return $this->response()->error("No order is founded.");
 
             DB::beginTransaction();
             $saveManualPaymentInfo = $this->orderRepository->updateWhere(['id' => $order->id],
@@ -145,16 +187,33 @@ class PaymentService extends BaseService {
                     'merchant_account_phone' => $request->merchant_account_phone,
                 ]
             );
-            if(!$saveManualPaymentInfo) throw new Exception("Order payment info does not save!");
+            if (!$saveManualPaymentInfo) throw new Exception("Order payment info does not save!");
 
             $processOrderResponse = $this->updateOrderAndGenerateTicketAndGame($request->order_id);
-            if(!$processOrderResponse['success']) throw new Exception($processOrderResponse['message']);
+            if (!$processOrderResponse['success']) throw new Exception($processOrderResponse['message']);
 
             DB::commit();
             return $processOrderResponse;
         } catch (Exception $e) {
 
             DB::rollBack();
+            return $this->response()->error($e->getMessage());
+        }
+    }
+
+    /**
+     * @param $orderId
+     * @return array
+     */
+    public function updateAuthUser($orderId): array {
+        try {
+            $order = $this->orderRepository->firstWhere(['id' => $orderId,]);
+            if(!$order) return $this->response()->error("No order is founded.");
+
+            Auth::login($order->user);
+            return $this->response()->success("User auth is updated is successfully");
+        } catch (Exception $e) {
+
             return $this->response()->error($e->getMessage());
         }
     }
