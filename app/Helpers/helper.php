@@ -56,3 +56,30 @@ function sendSms(string $numbers, string $messageBody, string $senderId): array 
         return ['success' => False, 'data' => null, 'message' => $e->getMessage()];
     }
 }
+
+if (! function_exists('generateTransactionIdForSslEcomerze')) {
+    /**
+     * @throws Exception
+     */
+    function generateTransactionIdForSslEcomerze(): string {
+        // Get the current timestamp
+        $timestamp = time();
+
+        if ($timestamp === false) {
+            // Throw an exception with a descriptive error message
+            throw new Exception('Error generating transaction ID: Could not retrieve current timestamp');
+        }
+
+        // Generate a random 4-digit number
+        $randomNumber = rand(1000, 9999);
+
+        if ($randomNumber === false) {
+            // Throw an exception with a descriptive error message
+            throw new Exception('Error generating transaction ID: Could not generate random number');
+        }
+
+        // Combine the timestamp and random number to create the transaction ID
+        return $timestamp . $randomNumber;
+    }
+
+}
