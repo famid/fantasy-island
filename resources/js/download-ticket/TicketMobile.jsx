@@ -1,4 +1,5 @@
 import React, { useState ,useEffect} from "react";
+import { monthNames } from "../uitls";
 
 const TicketMobile = ({ ticket }) => {
 
@@ -6,23 +7,6 @@ const TicketMobile = ({ ticket }) => {
 
     useEffect(() => {
         const dateObj = new Date(ticket?.purchase_date);
-
-        // Define an array of month names
-        const monthNames = [
-            "JANUARY",
-            "FEBRUARY",
-            "MARCH",
-            "APRIL",
-            "MAY",
-            "JUNE",
-            "JULY",
-            "AUGUST",
-            "SEPTEMBER",
-            "OCTOBER",
-            "NOVEMBER",
-            "DECEMBER",
-        ];
-
         // Get the day of the month and hour in 12-hour format
         const day = dateObj.getDate();
         const hour =

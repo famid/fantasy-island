@@ -1,7 +1,6 @@
 import React from "react";
 import notify from "../order/components/notify";
 
-
 function Ticket({ ticket, csrfToken }) {
     const markUserHandler = async () => {
         try {
@@ -18,9 +17,9 @@ function Ticket({ ticket, csrfToken }) {
                 notify(
                     `${ticket.id} number ticket has been marked as used successfully`
                 );
-                setTimeout(()=>{
-                  location.reload()
-              },1300)
+                setTimeout(() => {
+                    location.reload();
+                }, 1300);
             }
         } catch (error) {
             console.log(error);
@@ -28,8 +27,8 @@ function Ticket({ ticket, csrfToken }) {
     };
     return (
         <div className="flex gap-1 mb-1 p-1 bg-slate-200">
-            {(ticket.ticket_used_status == 1) && (
-                <span className="bg-red-100">{ "Used"}</span>
+            {ticket.ticket_used_status == 1 && (
+                <span className="bg-red-100">{"Used"}</span>
             )}
 
             <span>{ticket.unique_code}</span>

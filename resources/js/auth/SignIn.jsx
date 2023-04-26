@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import notify from "./components/notify";
-import { redirect } from "react-router-dom";
 import { domain } from "../uitls";
 
 function SignIn({ csrf }) {
@@ -43,7 +42,7 @@ function SignIn({ csrf }) {
 
     return (
         <div className="max-w-md mx-auto h-full flex justify-center items-center flex-col  rounded-lg overflow-hidden">
-            <header className="mb-8 text-2xl md:text-3xl font-semibold text-center">
+            <header className="mb-8 text-2xl md:text-3xl font-semibold text-center text-white">
                 <h1>Login To Buy Tickets And Have A Chance To Win Prizes!</h1>
             </header>
             <div className="py-4 px-6 bg-[#A5D7E8] rounded-lg md:w-[400px] w-[300px]">
@@ -100,7 +99,7 @@ function SignIn({ csrf }) {
                         </p>
                         <a
                             className="block text-blue-700 font-semibold "
-                            href="/signup"
+                            href="/order"
                         >
                             Sign Up
                         </a>

@@ -10,7 +10,7 @@ function Download({ tickets }) {
     const ticket = 'url("/assets/ticket.png")';
     const [widtht, setWidtht] = useState("399px");
     const { height, width } = useViewportSize();
-    const [prepareTicket, setPrepareTicket] = useState(true)
+    const [prepareTicket, setPrepareTicket] = useState(true);
 
     useEffect(() => {
         if (width > 1000) setWidtht("795px");
@@ -24,20 +24,19 @@ function Download({ tickets }) {
     };
 
     const generateTicket = async () => {
-        setPrepareTicket(false)
+        setPrepareTicket(false);
         const ticketsPerPage = 4;
         const pages = Math.ceil(tickets.length / ticketsPerPage);
         const pdf = new jsPDF();
         let pageIndex = 0;
 
         const ticketWidth = 735;
-       // const ticketHeight = ticketWidth * 1.4142;
+        // const ticketHeight = ticketWidth * 1.4142;
         const promises = [];
 
         for (let i = 0; i < pages; i++) {
             const div = document.createElement("div");
-            div.style =
-                `margin-top:40px; top:72px;height:auto; width:${widtht};object-fit:cover; `;
+            div.style = `margin-top:40px; top:72px;height:auto; width:${widtht};object-fit:cover; `;
             div.id = `page-${i}`;
 
             const pageTickets = tickets.slice(
@@ -46,9 +45,12 @@ function Download({ tickets }) {
             );
             pageIndex += ticketsPerPage;
 
-
             const ticketElements = pageTickets.map((ticket, i) => {
-                return width < 1000 ? <TicketMobile  key={i} ticket={ticket} /> :  <Ticket key={i} ticket={ticket} />;
+                return width < 1000 ? (
+                    <TicketMobile key={i} ticket={ticket} />
+                ) : (
+                    <Ticket key={i} ticket={ticket} />
+                );
             });
 
             document.getElementById("pdf-content").appendChild(div);
@@ -57,11 +59,9 @@ function Download({ tickets }) {
 
             promises.push(
                 new Promise((resolve) => {
-
                     html2canvas(document.getElementById(`page-${i}`)).then(
-                          async (canvas) => {
-
-                            const imgData =  canvas.toDataURL("image/png");
+                        async (canvas) => {
+                            const imgData = canvas.toDataURL("image/png");
                             pdf.addImage(imgData, "PNG", 0, 0);
                             if (i < pages - 1) {
                                 pdf.addPage();
@@ -73,10 +73,8 @@ function Download({ tickets }) {
             );
         }
 
-
         await Promise.all(promises);
-        !prepareTicket && pdf.save("tickets.pdf")
-
+        !prepareTicket && pdf.save("tickets.pdf");
     };
 
     return (
@@ -85,10 +83,7 @@ function Download({ tickets }) {
                 onClick={generateTicket}
                 className="rounded-full border border-white px-5 py-2.5  text-center font-medium bg-[#E94E77] hover:bg-[#C15B8A] text-white "
             >
-                {
-                    prepareTicket ?  'Prepare Ticket' : 'Download Ticket'
-                }
-
+                {prepareTicket ? "Prepare Ticket" : "Download Ticket"}
             </button>
 
             <div
