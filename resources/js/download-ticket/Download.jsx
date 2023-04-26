@@ -4,6 +4,7 @@ import html2canvas from "html2canvas";
 import Ticket from "./Ticket";
 import { useViewportSize } from "@mantine/hooks";
 import * as ReactDOM from "react-dom/client";
+import TicketMobile from "./TicketMobile";
 
 function Download({ tickets }) {
     const ticket = 'url("/assets/ticket.png")';
@@ -14,7 +15,7 @@ function Download({ tickets }) {
     useEffect(() => {
         if (width > 1000) setWidtht("795px");
         else if (width > 500) setWidtht("399px");
-        else setWidtht("270px");
+        else setWidtht("399px");
     }, [width]);
 
     const styles = {
@@ -36,7 +37,7 @@ function Download({ tickets }) {
         for (let i = 0; i < pages; i++) {
             const div = document.createElement("div");
             div.style =
-                `margin-top:40px; top:72px;height:1093px; width:${widtht};object-fit:cover; `;
+                `margin-top:40px; top:72px;height:auto; width:${widtht};object-fit:cover; `;
             div.id = `page-${i}`;
 
             const pageTickets = tickets.slice(
@@ -47,7 +48,7 @@ function Download({ tickets }) {
 
 
             const ticketElements = pageTickets.map((ticket, i) => {
-                return <Ticket key={i} ticket={ticket} />;
+                return width < 1000 ? <TicketMobile  key={i} ticket={ticket} /> :  <Ticket key={i} ticket={ticket} />;
             });
 
             document.getElementById("pdf-content").appendChild(div);
