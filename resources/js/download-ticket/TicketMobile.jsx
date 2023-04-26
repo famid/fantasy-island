@@ -32,7 +32,7 @@ const TicketMobile = ({ ticket }) => {
             <div className="absolute top-[123px] left-[238px] h-[7px] bg-white font-semibold text-[4px] leading-[0px] px-1">
                 TICKET NO: {ticket.unique_code}
             </div>
-            <div className="absolute top-[88px] left-[21px] h-3 bg-transparent text-yellow-200 text-sm font-semibold text-[7px] leading-[0px] ">
+            <div style={{fontSize:'8px'}} className="absolute top-[88px] left-[21px] h-2 bg-transparent text-yellow-200 text-sm font-semibold text-[7px] leading-[0px] ">
                 {date}
             </div>
             <img src="/assets/ticket.png" alt="" />

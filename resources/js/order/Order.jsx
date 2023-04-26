@@ -2,10 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Group } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
-import { useClickOutside, useDisclosure } from "@mantine/hooks";
+import { useClickOutside } from "@mantine/hooks";
 import { BsCalendarDate } from "react-icons/bs";
 import notify from "./components/notify";
-import PurchaseManual from "./PurchaseManual";
 import { domain, months } from "../uitls";
 
 function Order({ data }) {

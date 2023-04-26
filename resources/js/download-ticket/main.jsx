@@ -5,7 +5,8 @@ import { createRoot } from "react-dom/client";
 window.React = React;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ConferenceTicket from "./TicketPdf";
+import { domain } from "../uitls";
+
 function Main({ csrf, authUser }) {
     const [tickets, setTickets] = useState([]);
 
@@ -16,14 +17,17 @@ function Main({ csrf, authUser }) {
         // make a get request to get ticket data
 
         const request = async () => {
+            console.log(domain)
             try {
                 const response = await fetch(
-                    `tickets/${ticket_purchase_order_id}/info`
+                    `${domain}/tickets/${ticket_purchase_order_id}/info`
                 );
                 if (response.ok) {
+
                     const result = await response.json();
 
                     setTickets([...result.data]);
+
                 }
             } catch (e) {
                 console.log(e);
