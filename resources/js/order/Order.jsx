@@ -6,6 +6,7 @@ import { useClickOutside } from "@mantine/hooks";
 import { BsCalendarDate } from "react-icons/bs";
 import notify from "./components/notify";
 import { domain, months } from "../uitls";
+import PurchaseManual from './PurchaseManual'
 
 function Order({ data }) {
     const [datePickerToggle, setDatePickerToggle] = useState(false);
@@ -507,15 +508,15 @@ function Order({ data }) {
                                     the price of {totalPrice}
                                 </h2>
 
-                                {/* <PurchaseManual data={data} /> */}
+                                <PurchaseManual data={data} />
                             </div>
-                            <button
+                            {/* <button
                                 type="submit"
                                 onClick={purchaseHandler}
                                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded focus:outline-none "
                             >
                                 Purchase
-                            </button>
+                            </button> */}
                         </div>
                     )}
                 </div>
