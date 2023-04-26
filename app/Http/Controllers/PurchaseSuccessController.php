@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class PurchaseSuccessController extends Controller {
@@ -21,5 +24,12 @@ class PurchaseSuccessController extends Controller {
      */
     public function index() {
         return view('purchase-success');
+    }
+
+    /**
+     * @return Factory|View|Application
+     */
+    public function failed(): Factory|View|Application {
+        return view('purchase-failed');
     }
 }
