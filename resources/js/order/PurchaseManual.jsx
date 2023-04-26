@@ -1,6 +1,7 @@
 import { Select } from "@mantine/core";
 import React, { useState, useEffect } from "react";
 import notify from "./components/notify";
+import { domain } from "../uitls";
 
 const paymentSystems = [
     {
@@ -86,7 +87,7 @@ function PurchaseManual({ data }) {
 
             if (response.ok) {
                 // notify('You are being redirected to purchase page!')
-                // window.location.href = `${domain}/purchase-success`
+                 window.location.href = `${domain}/purchase-success`
                 // const result = await response.json();
                 // notify('Payment successfully done')
             }

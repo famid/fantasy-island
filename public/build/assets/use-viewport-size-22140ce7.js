@@ -1,1 +1,0 @@
-import{r as t}from"./clsx.m-340daf83.js";import{u as i}from"./use-window-event-0ced1140.js";const n={passive:!0};function a(){const[o,s]=t.useState({width:0,height:0}),e=t.useCallback(()=>{s({width:window.innerWidth||0,height:window.innerHeight||0})},[]);return i("resize",e,n),i("orientationchange",e,n),t.useEffect(e,[]),o}export{a as u};
