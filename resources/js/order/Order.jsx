@@ -497,6 +497,7 @@ function Order({ data }) {
                         </>
                     )}
 
+
                     {purchasePage && (
                         <div className="max-w-[400px] mx-auto">
                             <div className="flex flex-col mt-4 mb-8">
