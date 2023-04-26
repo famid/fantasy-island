@@ -3,6 +3,8 @@
 @section('content')
 
 <div>
-failed</div>
+failed
+
+</div>
 
 @endsection

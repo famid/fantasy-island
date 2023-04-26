@@ -1,32 +1,40 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import GameClock from "../controls/GameClock";
 
-function GameRules({data}) {
-    const [totalGames, setTotalGames] = useState(0)
-    const [remainingGames, setRemainingGames] = useState(0)
+function GameRules({ data }) {
+    const [totalGames, setTotalGames] = useState(0);
+    const [remainingGames, setRemainingGames] = useState(0);
 
-    const fetchUserGameInfo  = async () =>{
+    const fetchUserGameInfo = async () => {
         try {
             const response = await fetch(`/gameplays/${data.authUser.id}/info`);
-            const result  = await response.json();
+            const result = await response.json();
 
             if (result.data) {
-                setTotalGames(data.authUser.total_playable_game)
-                setRemainingGames(data.authUser.remaining_game)
+                setTotalGames(data.authUser.total_playable_game);
+                setRemainingGames(data.authUser.remaining_game);
             } else {
             }
         } catch (e) {}
-    }
+    };
 
-
-    useEffect(()=>{
-        fetchUserGameInfo()
-    },[])
+    useEffect(() => {
+        fetchUserGameInfo();
+    }, []);
     return (
         <article className="max-w-[280px] rules flex items-center justify-center">
-
             <div>
-            <h2 className="text-left text-2xl  text-gray-100 leading-8 font-semibold">You bought <span className="text-green-500">{totalGames} </span> tickets and already attended  <span className="text-green-500">{totalGames - remainingGames} </span> games, you have  <span className="text-green-500">{remainingGames} </span> chances left! </h2>
+                <h2 className="text-left text-2xl  text-gray-100 leading-8 font-semibold">
+                    You bought{" "}
+                    <span className="text-green-500">{totalGames} </span>{" "}
+                    tickets and already attended{" "}
+                    <span className="text-green-500">
+                        {totalGames - remainingGames}{" "}
+                    </span>{" "}
+                    games, you have{" "}
+                    <span className="text-green-500">{remainingGames} </span>{" "}
+                    chances left!{" "}
+                </h2>
                 <h1 className="text-2xl font-bold tracking-wide leading-[60px] text-gray-100 ">
                     Rules Of The Game!
                 </h1>
@@ -45,7 +53,8 @@ function GameRules({data}) {
                             ></path>
                         </svg>
                         <span className="text-gray-100 text-lg leading-7">
-                            You can play the puzzle one time for each ticket purchase
+                            You can play the puzzle one time for each ticket
+                            purchase
                         </span>
                     </li>
                     <li className="flex items-center space-x-3">
@@ -117,8 +126,6 @@ function GameRules({data}) {
                             Fastest ten puzzle solver win the prize.
                         </span>
                     </li>
-
-
                 </ul>
             </div>
         </article>

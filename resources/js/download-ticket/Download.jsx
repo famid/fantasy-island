@@ -36,7 +36,7 @@ function Download({ tickets }) {
         for (let i = 0; i < pages; i++) {
             const div = document.createElement("div");
             div.style =
-                "margin-top:40px; top:72px;height:1093px; width:795px;object-fit:cover; ";
+                `margin-top:40px; top:72px;height:1093px; width:${widtht};object-fit:cover; `;
             div.id = `page-${i}`;
 
             const pageTickets = tickets.slice(
