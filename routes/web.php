@@ -45,6 +45,7 @@ Route::get('/testing', function () {
     return view('testing');
 });
 Route::get('/purchase-success', [App\Http\Controllers\PurchaseSuccessController::class, 'index'])->name('purchase-success');
+Route::get('/purchase-failed', [App\Http\Controllers\PurchaseSuccessController::class, 'failed'])->name('purchase-failed');
 
 
 //====================Start Fantasy Island ========================//

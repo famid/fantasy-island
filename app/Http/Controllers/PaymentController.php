@@ -42,49 +42,49 @@ class PaymentController extends Controller
         $orderPaymentSuccessResponse = $this->paymentService->manualPaymentOperation($request);
 
         if($orderPaymentSuccessResponse['success']) {
-            return view('purchase-success');
+            return redirect()->route('purchase-success');
         }
 
-        return view('purchase-failed');
+        return redirect()->route('purchase-failed');
     }
 
 
     /**
      * @param Request $request
-     * @return Application|Factory|View|RedirectResponse
+     * @return View|Factory|RedirectResponse|Application
      */
-    public function success(Request $request): View|Factory|RedirectResponse|Application {
+    public function success(Request $request): Factory|View|Application|RedirectResponse {
         $orderPaymentSuccessResponse = $this->paymentService->paymentSuccess($request);
 
         $updateUserAuthResponse = $this->paymentService->updateAuthUser($request->value_a);
         if(!$updateUserAuthResponse['success']) return redirect()->route('user.sign_in');
 
         if($orderPaymentSuccessResponse['success']) {
-            return view('purchase-success');
+            return redirect()->route('purchase-success');
         }
 
-        return view('purchase-failed');
+        return redirect()->route('purchase-failed');
     }
 
     /**
      * @param Request $request
-     * @return Application|Factory|View|RedirectResponse
+     * @return RedirectResponse
      */
     public function failure(Request $request) {
         $updateUserAuthResponse = $this->paymentService->updateAuthUser($request->value_a);
         if(!$updateUserAuthResponse['success']) return redirect()->route('user.sign_in');
 
-        return view('purchase-failed');
+        return redirect()->route('purchase-failed');
     }
 
     /**
      * @param Request $request
-     * @return Application|Factory|View|RedirectResponse
+     * @return RedirectResponse
      */
     public function cancel(Request $request) {
         $updateUserAuthResponse = $this->paymentService->updateAuthUser($request->value_a);
         if(!$updateUserAuthResponse['success']) return redirect()->route('user.sign_in');
 
-        return view('purchase-failed');
+        return redirect()->route('purchase-failed');
     }
 }
