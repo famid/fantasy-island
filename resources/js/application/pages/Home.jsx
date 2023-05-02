@@ -7,7 +7,7 @@ import { prizePool } from "../../uitls";
 const landingPage = {
     heroHeadline: "Fantasy Island",
     heroIntroText:
-        "Eid Offer - Buy tickets to Fantasy Island for you and your family and Solve puzzle and win Prizes ",
+        "Eid Offer - Buy tickets to Fantasy Island for you and your family and Solve puzzle and win Gifts ",
     footerHeadline: "Get started with Game site, today.",
     footerText:
         " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s",
@@ -24,7 +24,7 @@ function Home() {
                 <div className="w-full h-auto bg-gray-200 py-8">
                     <div className="mx-auto max-w-5xl px-6 lg:px-8 ">
                         <h2 className="mt-24 max-w-4xl text-3xl font-bold sm:text-5xl md:mt-40">
-                            Play Game And Win Prizes
+                            Solve Puzzle And Win Gifts
                         </h2>
                         <section className="text-gray-600 body-font  flex justify-center items-center">
                             <div className="container px-5 py-24 mx-auto">

@@ -94,7 +94,7 @@ function SignUp({csrf}) {
         <div className="max-w-md mx-auto h-full flex justify-center items-center flex-col  rounded-lg overflow-hidden">
             <header className="mb-8 text-2xl md:text-3xl font-semibold text-center">
                 <h1 className="text-white">
-                   Buy Tickets And Have A Chance To Win Prizes!
+                   Buy Tickets And Have A Chance To Win Gifts!
                 </h1>
             </header>
             <div className="py-4 px-6 bg-[#A5D7E8] rounded-lg md:w-[400px] w-[300px]">

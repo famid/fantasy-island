@@ -16,7 +16,7 @@
                     <div class='flex gap-3 justify-center w-full px-3 items-center md:px-14 mt-3 md:flex-row flex-col'>
                         <a href="/game"
                             class="rounded-full  border border-white text-white px-5 py-2.5  text-center font-medium bg-[#E94E77] hover:bg-[#C15B8A]">
-                            Play Game
+                            Solve Puzzle
                         </a>
                         <div id='download-ticket' data-authUser="{{ Auth::user() }}" data-csrf_token="{{ csrf_token() }}">
                         </div>

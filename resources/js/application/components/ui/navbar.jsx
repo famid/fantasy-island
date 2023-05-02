@@ -36,7 +36,7 @@ export default function Navbar() {
                                 href="/game"
                                 className="rounded-full bg-black px-5 py-2.5 font-medium text-white hover:bg-gray-900"
                             >
-                                Play Game
+                                Solve Puzzle
                             </a>
                         </div>
                     </nav>
@@ -51,7 +51,7 @@ function KeystaticBanner() {
         <div className="absolute wrapper inset-x-0 top-[50px] z-20 bg-black fill-white px-4 py-3 text-center font-bold leading-5 text-sm text-green-100 sm:top-24">
             <span className="target">
                 Eid Mubarak from Fantasy Island, Buy tickets and Join the
-                Celebration and win fantastic prizes.
+                Celebration and win fantastic Gifts.
             </span>
         </div>
     );

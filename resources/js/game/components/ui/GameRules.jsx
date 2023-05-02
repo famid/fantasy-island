@@ -123,7 +123,7 @@ function GameRules({ data }) {
                         </svg>
                         <span className="text-gray-100 text-lg leading-7">
                             {" "}
-                            Fastest ten puzzle solver win the prize.
+                            Fastest ten puzzle solver win the Gifts.
                         </span>
                     </li>
                 </ul>

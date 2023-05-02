@@ -43,7 +43,7 @@ function SignIn({ csrf }) {
     return (
         <div className="max-w-md mx-auto h-full flex justify-center items-center flex-col  rounded-lg overflow-hidden">
             <header className="mb-8 text-2xl md:text-3xl font-semibold text-center text-white">
-                <h1>Login To Buy Tickets And Have A Chance To Win Prizes!</h1>
+                <h1>Login To Buy Tickets And Have A Chance To Win Gifts!</h1>
             </header>
             <div className="py-4 px-6 bg-[#A5D7E8] rounded-lg md:w-[400px] w-[300px]">
                 <h2 className="text-2xl font-bold mb-2">Login</h2>

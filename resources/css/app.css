@@ -94,6 +94,10 @@ th {
 .dashboard-table > td {
 	color:black !important;
 }
+
+.participants-dashboard > .mantine-mmcoum tbody tr td{
+	color: black !important;
+}
 .wrapper {
 	width: 100%;
 	margin: auto;
