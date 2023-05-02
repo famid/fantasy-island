@@ -22,6 +22,13 @@
       "_Box-b9249870.js"
     ]
   },
+  "_LeaderboardTable-dd6bf25b.js": {
+    "file": "assets/LeaderboardTable-dd6bf25b.js",
+    "imports": [
+      "_clsx.m-340daf83.js",
+      "_Table-ca06eba1.js"
+    ]
+  },
   "_Modal-a0754083.js": {
     "file": "assets/Modal-a0754083.js",
     "imports": [
@@ -65,8 +72,8 @@
       "_clsx.m-340daf83.js"
     ]
   },
-  "_navbar-379c5302.js": {
-    "file": "assets/navbar-379c5302.js",
+  "_navbar-372723e1.js": {
+    "file": "assets/navbar-372723e1.js",
     "imports": [
       "_clsx.m-340daf83.js",
       "_logo-link-7aec32af.js"
@@ -113,15 +120,15 @@
     "src": "node_modules/dompurify/dist/purify.es.js"
   },
   "resources/css/app.css": {
-    "file": "assets/app-97a85d8b.css",
+    "file": "assets/app-ebe2875a.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/js/application/App.jsx": {
-    "file": "assets/App-4bb582b5.js",
+    "file": "assets/App-66814b4c.js",
     "imports": [
       "_clsx.m-340daf83.js",
-      "_navbar-379c5302.js",
+      "_navbar-372723e1.js",
       "_use-viewport-size-22140ce7.js",
       "_FocusTrap-e9c018ce.js",
       "_Box-b9249870.js",
@@ -136,7 +143,7 @@
     "src": "resources/js/application/App.jsx"
   },
   "resources/js/auth/App.jsx": {
-    "file": "assets/App-3916c85b.js",
+    "file": "assets/App-954f2459.js",
     "imports": [
       "_clsx.m-340daf83.js",
       "_ReactToastify-2767fbe6.js",
@@ -146,11 +153,12 @@
     "src": "resources/js/auth/App.jsx"
   },
   "resources/js/dashboard/main.jsx": {
-    "file": "assets/main-b2c0f3f2.js",
+    "file": "assets/main-798ebc84.js",
     "imports": [
       "_clsx.m-340daf83.js",
       "_ReactToastify-2767fbe6.js",
       "_notify-4fa6a864.js",
+      "_LeaderboardTable-dd6bf25b.js",
       "_Modal-a0754083.js",
       "_Table-ca06eba1.js",
       "_uitls-6342bc87.js",
@@ -178,7 +186,7 @@
     "src": "resources/js/download-ticket/main.jsx"
   },
   "resources/js/game/main.jsx": {
-    "file": "assets/main-7e2d75f8.js",
+    "file": "assets/main-564d9a0d.js",
     "imports": [
       "_clsx.m-340daf83.js",
       "_index.esm-ee9d2602.js",
@@ -210,13 +218,14 @@
     "src": "resources/js/order/App.jsx"
   },
   "resources/js/participants/main.jsx": {
-    "file": "assets/main-87ec80b1.js",
+    "file": "assets/main-3fe8eb91.js",
     "imports": [
       "_clsx.m-340daf83.js",
       "_ReactToastify-2767fbe6.js",
-      "_navbar-379c5302.js",
-      "_Table-ca06eba1.js",
+      "_navbar-372723e1.js",
+      "_LeaderboardTable-dd6bf25b.js",
       "_logo-link-7aec32af.js",
+      "_Table-ca06eba1.js",
       "_Box-b9249870.js"
     ],
     "isEntry": true,
