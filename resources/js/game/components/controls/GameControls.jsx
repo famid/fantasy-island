@@ -8,6 +8,7 @@ import * as React from 'react'
 import { ClockContext } from "../../store/clockContext";
 import notify from './../../../order/components/notify';
 import PrizePool from "../ui/prizePool";
+import {useState} from 'react'
 /**
  * Renders the game controls, either on the right or on the bottom of the puzzle board
  * this includes the game information (moves/clock) and the action buttons
@@ -22,7 +23,7 @@ const GameControls = ({data}) => {
     // const {game, start, togglePause, pickNewImage,puzzleImage} = useContext(GameContext);
 
     const { won, moves,finishingTime, timeDifference} = useContext(ClockContext);
-
+    const [submitted, setSubmitted] = useState(false)
 
 
     /**
@@ -31,7 +32,7 @@ const GameControls = ({data}) => {
     // const navigate = useNavigate();> {
 
     const resultSubmitHandler = async () => {
-
+        setSubmitted(true)
         const date1 = new Date(timeDifference[0]);
         const date2 = new Date(timeDifference[1]);
         const diffInMs = date2 - date1;
@@ -66,6 +67,7 @@ const GameControls = ({data}) => {
                 }},1000)
             }
         } catch (error) {
+            setSubmitted(false)
             console.log(error)
         }
     }
@@ -86,11 +88,14 @@ const GameControls = ({data}) => {
                     <>
                      <GameInfo icon={<FaFlagCheckered />}>
                             <div>
-                                <h3> Congratulations You have finished the puzzle in {finishingTime} !</h3>
+                                <h3> Congratulations You have finished the puzzle {finishingTime} !</h3>
 
                             </div>
                        </GameInfo>
-                     <button className="bg-[#576CBC] hover:bg-[#0B2447] text-white font-bold py-2 px-4  focus:outline-none rounded-xl" onClick={resultSubmitHandler}>Submit Result</button>
+                       {
+                         <button disabled={submitted} className="bg-[#576CBC] hover:bg-[#0B2447] text-white font-bold py-2 px-4  focus:outline-none rounded-xl" onClick={resultSubmitHandler}>Submit Result</button>
+
+                       }
                     </>
 
                 )}

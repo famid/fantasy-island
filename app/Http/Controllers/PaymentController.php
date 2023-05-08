@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class PaymentController extends Controller
 {
@@ -38,8 +39,7 @@ class PaymentController extends Controller
      * @param Request $request
      * @return RedirectResponse
      */
-    public function makeManualPayment(Request $request): RedirectResponse
-    {
+    public function makeManualPayment(Request $request):RedirectResponse {
         $orderPaymentSuccessResponse = $this->paymentService->manualPaymentOperation($request);
 
         if($orderPaymentSuccessResponse['success']) {

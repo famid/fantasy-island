@@ -13,7 +13,7 @@ const FoundationLayout = ({ children }) => {
         <div
             className="bg-cover  relative overflow-auto bg-center object-cover"
             style={{
-                background: 'url("/assets/game.jpg")',
+                // background: 'url("/assets/game.webp")',
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
             }}

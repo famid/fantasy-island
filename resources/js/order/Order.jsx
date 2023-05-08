@@ -2,11 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Group } from "@mantine/core";
 import { DatePicker } from "@mantine/dates";
-import { useClickOutside, useDisclosure } from "@mantine/hooks";
+import { useClickOutside } from "@mantine/hooks";
 import { BsCalendarDate } from "react-icons/bs";
 import notify from "./components/notify";
-import PurchaseManual from "./PurchaseManual";
 import { domain, months } from "../uitls";
+import PurchaseManual from './PurchaseManual'
 
 function Order({ data }) {
     const [datePickerToggle, setDatePickerToggle] = useState(false);
@@ -32,15 +32,27 @@ function Order({ data }) {
     const [buttonValue, setButtonValue] = useState("SEND OTP");
     const [isOtpSent, setIsOtpSentState] = useState(false);
 
+    const [sendOtpBool, setSendOtpBool] = useState(false);
+
     useEffect(() => {
         if (isOtpSent) setButtonValue("RESEND OTP");
     }, [isOtpSent]);
 
     const handleSignUpSubmit = async (event) => {
         event.preventDefault();
+
         setLoading(true);
         setError("");
-
+        if (
+            name.length < 2 ||
+            phone.length < 10 ||
+            email.length < 4 ||
+            password.length < 2
+        ) {
+            notify("Please enter all the credentials properly!");
+            return;
+        }
+        setSendOtpBool(true);
         try {
             const response = await fetch("/register", {
                 method: "POST",
@@ -61,12 +73,12 @@ function Order({ data }) {
                 return;
             }
 
-            if (response.ok) {
+            if (result.success) {
                 setIsOtpSentState(true);
 
                 // setButtonValue('OTP SENT')
                 // Handle successful SignUp
-                notify("OTP sent to your phone");
+                notify(result.message);
             } else {
                 setIsOtpSentState(false);
                 // setButtonValue('OTP WASN"T SENT')
@@ -84,6 +96,11 @@ function Order({ data }) {
         event.preventDefault();
         setLoading(true);
 
+        if (otp.length < 4) {
+            notify("Please enter OTP");
+            return;
+        }
+
         try {
             const response = await fetch("/verify-otp", {
                 method: "POST",
@@ -94,16 +111,16 @@ function Order({ data }) {
                 body: JSON.stringify({ phone_verification_code: otp, phone }),
             });
 
-            if (response.ok) {
+            const result = await response.json();
+
+            if (result.success) {
                 notify("Phone verification successful");
                 setTimeout(() => {
-                    location.reload();
+                    window.location.href = `${domain}/order`;
                 }, 1500);
-
-                // setButtonValue('OTP SENT')
-                // Handle successful SignUp
             } else {
-                // setButtonValue('OTP WASN"T SENT')
+
+                notify(result.message);
                 const data = await response.json();
                 setError(data.message);
             }
@@ -221,7 +238,7 @@ function Order({ data }) {
         <div className="container mx-auto py-8 px-6  ">
             <div className="max-w-md mx-auto h-full flex justify-center items-center flex-col  rounded-lg ">
                 <header className="mb-8 text-2xl md:text-3xl font-semibold text-center">
-                    <h1 className="">Buy Tickets</h1>
+                    <h1 className="text-white">Buy Tickets</h1>
                 </header>
                 <div></div>
 
@@ -301,8 +318,14 @@ function Order({ data }) {
                                             />
                                         </div>
                                         <div className="mb-4">
+                                            {sendOtpBool && (
+                                                <p className="text-[12px] font-bold mb-1 text-blue-700">
+                                                    Resend otp in 2.5 mins!
+                                                </p>
+                                            )}
                                             <button
                                                 onClick={handleSignUpSubmit}
+                                                disabled={sendOtpBool}
                                                 // #E94E77
                                                 // #C15B8A
                                                 type="button"
@@ -345,9 +368,8 @@ function Order({ data }) {
                                     </>
                                 )}
                             </form>
-                            {
-                                authUser && (
-                                    <form>
+                            {authUser && (
+                                <form>
                                     <div className="mb-8 flex justify-center flex-col items-center">
                                         <label
                                             htmlFor="name"
@@ -356,8 +378,8 @@ function Order({ data }) {
                                             Place
                                         </label>
                                         <span className="block mb-2 underline    text-sm font-medium text-gray-900">
-                                            House 10 Rd. 03 Sector 01 Uttara Dhaka,
-                                            Dhaka 1230 BD
+                                            House 10 Rd. 03 Sector 01 Uttara
+                                            Dhaka, Dhaka 1230 BD
                                         </span>
                                     </div>
                                     <div className="w-full mb-8 flex md:flex-row flex-col justify-between">
@@ -384,7 +406,9 @@ function Order({ data }) {
                                                     >
                                                         <Group position="center shadow-lg">
                                                             <DatePicker
-                                                                value={selectedDate}
+                                                                value={
+                                                                    selectedDate
+                                                                }
                                                                 onClick={() =>
                                                                     setDatePickerToggle(
                                                                         false
@@ -408,10 +432,12 @@ function Order({ data }) {
                                                 <div className="flex gap-3 max-w-[150px]">
                                                     <span
                                                         onClick={() =>
-                                                            setNoOfTickets((old) =>
-                                                                old > 1
-                                                                    ? old - 1
-                                                                    : old
+                                                            setNoOfTickets(
+                                                                (old) =>
+                                                                    old > 1
+                                                                        ? old -
+                                                                          1
+                                                                        : old
                                                             )
                                                         }
                                                         className="text-3xl cursor-pointer"
@@ -468,11 +494,10 @@ function Order({ data }) {
                                         </button>
                                     </div>
                                 </form>
-                                )
-                            }
-
+                            )}
                         </>
                     )}
+
 
                     {purchasePage && (
                         <div className="max-w-[400px] mx-auto">

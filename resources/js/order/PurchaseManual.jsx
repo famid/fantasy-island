@@ -13,7 +13,6 @@ const paymentSystems = [
                 value: "01716128008",
                 label: "01716128008",
             },
-
         ],
     },
     {
@@ -24,7 +23,7 @@ const paymentSystems = [
             {
                 value: "01716128008",
                 label: "01716128008",
-            }
+            },
         ],
     },
     {
@@ -35,7 +34,7 @@ const paymentSystems = [
             {
                 value: "01716128008",
                 label: "01716128008",
-            }
+            },
         ],
     },
 ];
@@ -51,8 +50,6 @@ function PurchaseManual({ data }) {
     const purchase = async (event) => {
         event.preventDefault();
 
-        setLoading(true);
-
         const ticket_purchase_order_id = localStorage.getItem(
             "ticket_purchase_order_id"
         );
@@ -65,9 +62,10 @@ function PurchaseManual({ data }) {
             !selectedMercentAccountPhone
         ) {
             notify("Please select all the credentials properly!");
-            return
+            return;
         }
-        const user = JSON.parse(data.authUser)
+        setLoading(true);
+        const user = JSON.parse(data.authUser);
         let tempData = {
             payment_system: selectedPaymentSystem?.value,
             client_phone: clientPhone,
@@ -75,11 +73,9 @@ function PurchaseManual({ data }) {
             order_id: ticket_purchase_order_id,
             merchant_account_phone: selectedMercentAccountPhone,
             user_id: user.id,
-        }
-
+        };
 
         try {
-
             const response = await fetch("/orders/make-manual-payment", {
                 method: "POST",
                 headers: {
@@ -89,16 +85,11 @@ function PurchaseManual({ data }) {
                 body: JSON.stringify(tempData),
             });
 
-
-
             if (response.ok) {
                 // notify('You are being redirected to purchase page!')
-                window.location.href = `${domain}/purchase-success`
+                 window.location.href = `${domain}/purchase-success`
                 // const result = await response.json();
-
                 // notify('Payment successfully done')
-
-
             }
         } catch (error) {}
 
@@ -106,7 +97,6 @@ function PurchaseManual({ data }) {
     };
 
     const selectPaymentSystem = (system) => {
-
         let obj;
         paymentSystems.forEach((sys, i) => {
             if (system === sys.value) {
@@ -114,7 +104,7 @@ function PurchaseManual({ data }) {
             }
         });
 
-       if(obj) setSelectedPaymentSystem(obj);
+        if (obj) setSelectedPaymentSystem(obj);
     };
 
     return (
@@ -131,24 +121,16 @@ function PurchaseManual({ data }) {
             <div className="mt-3">
                 {selectedPaymentSystem && (
                     <Select
-                        label="Please Select A Mercent Account Number"
+                        label="Please Select A Send Account Number"
                         placeholder="Pick one"
-                        onChange={(value) => setSelectedMerchantAccountPhone(value)}
+                        onChange={(value) =>
+                            setSelectedMerchantAccountPhone(value)
+                        }
                         data={selectedPaymentSystem?.mercent_accounts_phone}
                     />
                 )}
             </div>
-            <div className="mt-3 mb-3">
-                <h2 className="text-lg  font-bold">How you will proceed:</h2>
-                <o>
-                    <li>Select your payment system.</li>
-                    <li>Select merchant number.</li>
-                    <li>Pay the specified amount to this number.</li>
-                    <li>Enter the transaction id.</li>
-                    <li>Enter your number.</li>
-                    <li>Submit information.</li>
-                </o>
-            </div>
+
             <div className="mb-4">
                 <label
                     htmlFor="text"
@@ -187,10 +169,91 @@ function PurchaseManual({ data }) {
             <button
                 type="submit"
                 onClick={purchase}
+                disabled={loading}
                 className="bg-[#E94E77] hover:bg-[#C15B8A] text-white font-bold py-2 px-4 w-full rounded focus:outline-none "
             >
-                Submit
+                {!loading ? (
+                    "Submit"
+                ) : (
+                    <div className="w-full h-full flex justify-center items-center">
+                        <svg
+                            width="26"
+                            height="26"
+                            viewBox="0 0 38 38"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <defs>
+                                <linearGradient
+                                    x1="8.042%"
+                                    y1="0%"
+                                    x2="65.682%"
+                                    y2="23.865%"
+                                    id="a"
+                                >
+                                    <stop
+                                        stop-color="#fff"
+                                        stop-opacity="0"
+                                        offset="0%"
+                                    />
+                                    <stop
+                                        stop-color="#fff"
+                                        stop-opacity=".631"
+                                        offset="63.146%"
+                                    />
+                                    <stop stop-color="#fff" offset="100%" />
+                                </linearGradient>
+                            </defs>
+                            <g fill="none" fill-rule="evenodd">
+                                <g transform="translate(1 1)">
+                                    <path
+                                        d="M36 18c0-9.94-8.06-18-18-18"
+                                        id="Oval-2"
+                                        stroke="url(#a)"
+                                        stroke-width="2"
+                                    >
+                                        <animateTransform
+                                            attributeName="transform"
+                                            type="rotate"
+                                            from="0 18 18"
+                                            to="360 18 18"
+                                            dur="0.9s"
+                                            repeatCount="indefinite"
+                                        />
+                                    </path>
+                                    <circle fill="#fff" cx="36" cy="18" r="1">
+                                        <animateTransform
+                                            attributeName="transform"
+                                            type="rotate"
+                                            from="0 18 18"
+                                            to="360 18 18"
+                                            dur="0.9s"
+                                            repeatCount="indefinite"
+                                        />
+                                    </circle>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                )}
             </button>
+            <div className="mt-3 mb-3">
+                <h2 className="text-lg  font-bold">How you will proceed:</h2>
+                <o>
+                    <li>Select your payment system.</li>
+                    <li>
+                        Select{" "}
+                        <span className="text-gray-800 font-bold">
+                            'Send Money'
+                        </span>{" "}
+                        number.
+                    </li>
+                    <li>Send the specified amount to this number.</li>
+                    <li>Enter your number.</li>
+                    <li>Enter the transaction id.</li>
+
+                    <li>Submit information.</li>
+                </o>
+            </div>
         </div>
     );
 }

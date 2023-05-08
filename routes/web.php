@@ -41,6 +41,9 @@ Route::get('/participants', function () {
     return view('participants');
 });
 
+Route::get('/testing', function () {
+    return view('testing');
+});
 Route::get('/purchase-success', [App\Http\Controllers\PurchaseSuccessController::class, 'index'])->name('purchase-success');
 Route::get('/purchase-failed', [App\Http\Controllers\PurchaseSuccessController::class, 'failed'])->name('purchase-failed');
 
@@ -88,19 +91,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     });
 });
 
-Route::get('test', function (
-    \App\Http\Controllers\PaymentController $payment,
-    OrderController $orderController,
-    GamePlayController $gamePlayController
-) {
-    $numbers = "01618019049";
-    $response  = sendOTP($numbers, 1555, SMS_SENDER_ID);
-    dd($response);
-    dd($gamePlayController->userGameInfo(5));
-    dd($orderController->unpaidOrders(2));
-    $data = $payment->order();
-    dd((json_decode($data, True)));
-});
 
 //========================End Fantasy Island==========================//
 

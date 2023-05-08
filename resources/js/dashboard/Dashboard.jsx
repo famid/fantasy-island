@@ -4,12 +4,13 @@ import Ticket from "./Ticket";
 import notify from "../order/components/notify";
 import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import FilterInput from "./filterInput";
+import ParticipantsSection from './ParticipantSection';
 
 function Dashboard({ orders, csrfToken }) {
     const [opened, { open, close }] = useDisclosure(false);
     const [activeOrder, setActiveOrder] = useState(null);
     const [sideBar, setSidebar] = useState(true);
+    const [page, setPage] = useState('orderList')
 
     const openModalForAllTicketsUsed = (order) => {
         open();
@@ -47,7 +48,7 @@ function Dashboard({ orders, csrfToken }) {
     const checkAllTicketsStatus = (order) => {
         let status = true;
         order.tickets.forEach((order) => {
-            if (order.ticket_used_status === 0) {
+            if (order.ticket_used_status == 0) {
                 status = false;
             }
         });
@@ -63,7 +64,7 @@ function Dashboard({ orders, csrfToken }) {
         <tr className="dashboard-table" key={order.unique_code}>
             <td>{order.name}</td>
             <td>
-                {order.payment_status === 1 ? (
+                {order.payment_status == 1 ? (
                     <span className="bg-green-400 p-1">Paid</span>
                 ) : (
                     <span className="bg-red-400 p-1">Unpaid</span>
@@ -108,9 +109,17 @@ function Dashboard({ orders, csrfToken }) {
                         </a> */}
                         <a
                             href="#"
-                            className="px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800"
+                            onClick={()=>setPage('orderList')}
+                            className={`px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 ${page === 'orderList' && 'bg-slate-200'}`}
                         >
                             Order List
+                        </a>
+                        <a
+                            href="#"
+                            onClick={()=>setPage('participants')}
+                            className={`px-4 py-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 ${page === 'participants' && 'bg-slate-200'}`}
+                        >
+                            Participants
                         </a>
                         {/* <a
                             href="#"
@@ -125,7 +134,7 @@ function Dashboard({ orders, csrfToken }) {
             {/* Main Content */}
             <div className="flex flex-col flex-1 overflow-y-auto">
                 <div className="flex items-center justify-between px-6 py-4 bg-white border-b">
-                    <span className="text-lg font-bold">Order List</span>
+                    <span className="text-lg font-bold">{page}</span>
                     {/* <div className="flex justify-between gap-4 items-center">
                         {" "}
                         <FilterInput />
@@ -155,23 +164,34 @@ function Dashboard({ orders, csrfToken }) {
                     </form> */}
                 </div>
                 <div className="px-6 py-4">
-                    <Table withColumnBorders highlightOnHover>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Payment Status</th>
-                                {/* <th>Phone</th> */}
-                                <th>Merchant Phone</th>
-                                <th>Client Phone</th>
-                                <th>Purchase Date</th>
-                                <th>Transaction Id</th>
-                                <th>Tickets Counts</th>
-                                <th>Tickets</th>
-                            </tr>
-                        </thead>
-                        <tbody>{rows}</tbody>
-                    </Table>{" "}
+                    {
+                        page === 'participants' && (
+                            <ParticipantsSection/>
+                        )
+                    }
+                    {
+                        page === 'orderList' && (
+                            <Table withColumnBorders highlightOnHover>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Payment Status</th>
+
+                                    <th>Merchant Phone</th>
+                                    <th>Client Phone</th>
+                                    <th>Purchase Date</th>
+                                    <th>Transaction Id</th>
+                                    <th>Tickets Counts</th>
+                                    <th>Tickets</th>
+                                </tr>
+                            </thead>
+                            <tbody>{rows}</tbody>
+                        </Table>
+                        )
+                    }
+
                 </div>
+
             </div>
             <Modal opened={opened} onClose={close}>
                 <div>

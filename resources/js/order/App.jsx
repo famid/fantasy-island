@@ -7,16 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { domain } from "../uitls";
 
 function Main({authUser, csrfToken}) {
-
-    // if(!authUser){
-    //   window.location.href=`${domain}/signin`
-    //   return
-    // }
     return <> <Order data={{authUser, csrfToken}}/><ToastContainer /></>
 }
 
-// #E94E77
-// #C15B8A
 export default Main;
 
 if (document.getElementById("order")) {
