@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckoutURLController;
 use App\Http\Controllers\GamePlayController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\NagadPaymentController;
@@ -101,3 +102,9 @@ Route::post('sslcommerz/ipn', [PaymentController::class, 'ipn'])->name('payment.
 
 Route::get('/nagad/pay', [NagadPaymentController::class, 'pay'])->name('nagad.pay');
 Route::get('nagad/callback', [NagadPaymentController::class, 'callback'])->name('nagad.callback');
+
+Route::get('/bkash/callback', [PaymentController::class, 'bkashCallback'])->name('bkash-callback');
+
+// Checkout (URL) Admin Part
+Route::get('/bkash/refund', [CheckoutURLController::class, 'getRefund'])->name('url-get-refund');
+Route::post('/bkash/refund', [CheckoutURLController::class, 'refundPayment'])->name('url-post-refund');

@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 
+use App\Http\Controllers\CheckoutURLController;
 use App\Http\Repositories\OrderRepository;
 use App\Http\Services\Boilerplate\BaseService;
 use App\Http\Services\Order\OrderService;
@@ -21,6 +22,7 @@ class PaymentService extends BaseService {
     private OrderService $orderService;
     private TicketService $ticketService;
     private $userService;
+    private CheckoutURLController $checkoutURLController;
 
     /**
      * PaymentService constructor.
@@ -30,12 +32,14 @@ class PaymentService extends BaseService {
         OrderRepository $orderRepository,
         OrderService $orderService,
         TicketService $ticketService,
-        UserService $userService
+        UserService $userService,
+        CheckoutURLController $checkoutURLController
     ) {
         $this->orderRepository = $orderRepository;
         $this->orderService = $orderService;
         $this->ticketService = $ticketService;
         $this->userService = $userService;
+        $this->checkoutURLController = $checkoutURLController;
     }
 
     /**
@@ -156,7 +160,7 @@ class PaymentService extends BaseService {
             if(!$createTicketResponse['success']) throw new Exception($createTicketResponse['message']);
 
             DB::commit();
-            return $this->response()->success("Tickets are saved successfully");
+            return $this->response($order)->success("Tickets are saved successfully");
         } catch (Exception $e) {
 
             DB::rollBack();
@@ -217,4 +221,83 @@ class PaymentService extends BaseService {
             return $this->response()->error($e->getMessage());
         }
     }
+
+    /**
+     *
+     * This payment method is used for ssl ecommerze payment gateway.
+     *
+     * @param $orderId
+     * @return array
+     */
+    public function makeBkashPayment($orderId): array {
+        try {
+            $order = $this->orderRepository->firstWhere(['id' => $orderId]);
+            if($this->isOrderAlreadyPaid($order)) return $this->response()->error("This order payment is already done");
+
+            $getPaymentUrlResponse = $this->checkoutURLController->createPayment($order->amount ?? TICKET_AMOUNT, $orderId);
+
+            if(!$getPaymentUrlResponse['success']) return $getPaymentUrlResponse;
+
+            return $getPaymentUrlResponse;
+        } catch (Exception $e){
+
+            return $this->response()->error($e->getMessage());
+        }
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    public function bkashCallback($request): array
+    {
+        try {
+            $bkashValidatePayment = $this->checkoutURLController->callback($request);
+            if(!$bkashValidatePayment['success']) return $bkashValidatePayment;
+
+            $bkashSuccessRespone = json_decode($bkashValidatePayment['data'], true);
+            $orderId = $bkashSuccessRespone['merchantInvoiceNumber'];
+
+            $order = $this->orderRepository->firstWhere([
+                'id' => $orderId,
+                'payment_status' => PENDING_STATUS
+            ]);
+            if(!$order) return $this->response()->error("No order is founded.");
+
+            DB::beginTransaction();
+
+            $saveBkashPaymentInfo = $this->orderRepository->updateWhere(['id' => $order->id],
+                [
+                    'payment_system' => 'Bkash',
+                    'client_phone' => $bkashSuccessRespone['customerMsisdn'],
+                    'transaction_id' => $bkashSuccessRespone['trxID'],
+                ]
+            );
+            if(!$saveBkashPaymentInfo) throw new Exception("Order payment info does not save!");
+
+            $processOrderResponse = $this->updateOrderAndGenerateTicketAndGame($order->id);
+            if(!$processOrderResponse['success']) throw new Exception($processOrderResponse['message']);
+
+            DB::commit();
+
+            Log::info(
+                "User Phone: " . ($order->user() ? $order->user->phone : 'null') .
+                " Order Info: " . ($order ? $order : 'null') .
+                " Payment Details: " . json_encode($request->all() ?? 'null') .
+                " Bkash Response " . json_encode($bkashSuccessRespone ?? 'null')
+            );
+
+            return $processOrderResponse;
+        } catch (Exception $e) {
+            Log::error(
+                "Error occurred while logging. Error: {$e->getMessage()}
+                Payment Details: " . json_encode($request->all() ?? 'null') .
+                " Bkash Response " . json_encode($bkashSuccessRespone ?? 'null')
+            );
+
+            return $this->response()->error($e->getMessage());
+        }
+
+    }
+
 }

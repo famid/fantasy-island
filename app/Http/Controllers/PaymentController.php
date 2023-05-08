@@ -32,7 +32,8 @@ class PaymentController extends Controller
      * @return JsonResponse
      */
     public function makePayment($order_id): JsonResponse {
-        return response()->json($this->paymentService->makePayment($order_id));
+//        return response()->json($this->paymentService->makePayment($order_id));
+        return response()->json($this->paymentService->makeBkashPayment($order_id));
     }
 
     /**
@@ -58,6 +59,26 @@ class PaymentController extends Controller
         $orderPaymentSuccessResponse = $this->paymentService->paymentSuccess($request);
 
         $updateUserAuthResponse = $this->paymentService->updateAuthUser($request->value_a);
+        if(!$updateUserAuthResponse['success']) return redirect()->route('user.sign_in');
+
+        if($orderPaymentSuccessResponse['success']) {
+            return redirect()->route('purchase-success');
+        }
+
+        return redirect()->route('purchase-failed');
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function bkashCallback(Request $request): RedirectResponse
+    {
+        dd($request->all());
+        $orderPaymentSuccessResponse = $this->paymentService->bkashCallback($request);
+        $userId = $orderPaymentSuccessResponse['data']->user_id ?? False;
+
+        $updateUserAuthResponse = $this->paymentService->updateAuthUser($userId);
         if(!$updateUserAuthResponse['success']) return redirect()->route('user.sign_in');
 
         if($orderPaymentSuccessResponse['success']) {
