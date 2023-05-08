@@ -32,3 +32,6 @@ const DEFAULT_TRANSACTION_NUMBER = "default_tnx_number";
 const DEFAULT_PRODUCT_NAME = "fantasy_island_ticket";
 const DEFAULT_CUSTOMER_NAME = "fantasy_island_default_name";
 const DEFAULT_CUSTOMER_EMAIL = "defaultcustomer@gmail.com";
+
+const BKASH_CALLBACK_LOCAL_URL = "http://127.0.0.1:8000/bkash/callback";
+const TICKET_AMOUNT = 200;
