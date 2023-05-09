@@ -74,7 +74,6 @@ class PaymentController extends Controller
      */
     public function bkashCallback(Request $request): RedirectResponse
     {
-        dd($request->all());
         $orderPaymentSuccessResponse = $this->paymentService->bkashCallback($request);
         $userId = $orderPaymentSuccessResponse['data']->user_id ?? False;
 
