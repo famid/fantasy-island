@@ -1,0 +1,1 @@
+import{Q as o}from"./ReactToastify-a2a4b38b.js";const t=e=>o(e,{position:"top-center",autoClose:2e3,hideProgressBar:!1,closeOnClick:!0,pauseOnHover:!0,draggable:!0,progress:void 0,theme:"light"});export{t as n};

@@ -1,0 +1,1 @@
+import{j as e}from"./clsx.m-ad2bbb9b.js";function a(){return e("a",{href:"/",className:" whitespace-nowrap text-3xl w-4xl font-semibold",children:e("h1",{className:"leading-4 text-xl md:text-3xl md:tracking-wider text-[#0B2447] font-bold",children:"FANTASY ISLAND"})})}export{a as L};
